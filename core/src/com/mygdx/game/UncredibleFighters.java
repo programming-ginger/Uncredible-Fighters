@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,8 +22,17 @@ public class UncredibleFighters extends Game {
 	public static UncredibleFighters getInstance() {
 		return instance;
 	}
-	
-	@Override
+
+    public static void showSettings() {
+    }
+
+    public static void closeGame() {
+	    instance.dispose();
+        Gdx.app.exit();
+        System.exit(0);
+    }
+
+    @Override
     public void create() {
 		showMenuScreen();
     }
@@ -42,13 +52,17 @@ public class UncredibleFighters extends Game {
     	this.screen.resize(width, height);
     }
     
-    public void showMenuScreen() {
+    public static void showMenuScreen() {
     	Screen menu = new MenuScreen();
-        setScreen(menu);
+        instance.setScreen(menu);
     }
     
-    public void showFightingScreen() {
-    	this.screen.dispose();
-    	setScreen(new FightingScreen());
+    public static void showFightingScreen() {
+    	instance.screen.dispose();
+        instance.setScreen(new FightingScreen());
+    }
+
+    public static void showCharacterChoice() {
+        instance.setScreen(new CharacterChoiceScreen());
     }
 }

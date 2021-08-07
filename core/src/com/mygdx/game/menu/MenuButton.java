@@ -1,11 +1,13 @@
 package com.mygdx.game.menu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Options;
 
-public class MenuButton {
+public class MenuButton implements MenuItem{
 
 	private final static float ARROW_OFFSET = 0.05f;
 
@@ -48,5 +50,13 @@ public class MenuButton {
 
 	public void dispose() {
 		texture.dispose();
+		selectionArrow.dispose();
+	}
+
+	@Override
+	public void update(SpriteBatch batch) {
+		if((Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
+			performAction();
+		}		
 	}
 }

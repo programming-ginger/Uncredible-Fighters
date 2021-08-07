@@ -12,8 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.menu.ButtonAction;
-import com.mygdx.game.menu.MenuButton;
+import com.mygdx.game.menu.*;
 
 public class MenuScreen implements Screen {
 	
@@ -23,22 +22,16 @@ public class MenuScreen implements Screen {
 	private Viewport viewport;
 	private SpriteBatch batch;
 	
-	private Texture backround;
-	private MenuButton logo;
+	private Texture background;
+	private MenuLogo logo;
 	
-	Array<MenuButton> buttons;
+	Array<MenuItem> items;
 	
 	private int currentSelection;
 
 	private final static float LOGO_SIZE = 0.2f;
 	private final static float LOGO_Y = 0.95f;
 	
-	private final static float BUTTON_SIZE = 0.07f;
-	private final static float SPIELEN_Y = 0.55f;
-	private final static float EINSTELLUNGEN_Y = 0.40f;
-	private final static float BEENDEN_Y = 0.25f;
-
-	private Texture selectionArrow;
 
 	public MenuScreen() {
 		this.camera = new OrthographicCamera();
@@ -46,12 +39,29 @@ public class MenuScreen implements Screen {
 		this.viewport = new StretchViewport(Options.getWindowWidth(), Options.getWindowHeight(), camera);
 		this.batch = new SpriteBatch();
 		
-		buttons = new Array<>();
+		items = new Array<>();
 		
-		this.backround = new Texture("Background Menu.png");
-		makeMenuButtons(buttons);
+		// Logo
+		Texture texture = new Texture("Logo.PNG");
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		float boxHeight = Options.getWindowWidth() * LOGO_SIZE;
+		float boxWidth = Options.getWindowWidth() * LOGO_SIZE * ratio;
+		float x = Options.getWindowWidth()/2f - boxWidth/2f;
+		float y = Options.getWindowHeight()*LOGO_Y - boxHeight;
+		
+		Rectangle rectangle = new Rectangle(x, y, boxWidth, boxHeight);
+		MenuLogo button = new MenuLogo(texture, rectangle);
+		this.logo = (button);
 		
 		this.currentSelection = 0;
+	}
+	
+	public void setBackground(String filename) {
+		this.background = new Texture(filename);
+	}
+	
+	public void addMenuItem(MenuItem item) {
+		this.items.add(item);
 	}
 
 	@Override
@@ -67,12 +77,18 @@ public class MenuScreen implements Screen {
 		
 		batch.begin();
 
-		batch.draw(backround, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
-		for (MenuButton button : this.buttons){
+		if (background != null) {
+			batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
+		}
+		
+		for (MenuItem button : this.items){
 			button.draw(batch);
 		}
 		logo.draw(batch);
-		this.buttons.get(currentSelection).select(batch);
+		
+		if (this.items.size > currentSelection) {
+			this.items.get(currentSelection).select(batch);
+		}
 		
 		batch.end();
 		
@@ -86,106 +102,31 @@ public class MenuScreen implements Screen {
 		
 		Vector2 touchPos = new Vector2(touchPos3.x, touchPos3.y);
 
-		for (int i=0; i< this.buttons.size; i++){
-			if (this.buttons.get(i).contains(touchPos.x, touchPos.y)) {
+		for (int i=0; i< this.items.size; i++){
+			if (this.items.get(i).contains(touchPos.x, touchPos.y)) {
 				currentSelection = i;
-				i = this.buttons.size;
+				i = this.items.size;
 			}
 		}
 
-		if((Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
-			this.buttons.get(currentSelection).performAction();
+		if (this.items.size > currentSelection) {
+			this.items.get(currentSelection).update(batch);
 		}
-		
+
 		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 			currentSelection++;
-			currentSelection = currentSelection % this.buttons.size;
+			currentSelection = currentSelection % this.items.size;
 		}
 		
 		else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 			currentSelection--;
-			currentSelection = (currentSelection + this.buttons.size) % this.buttons.size;
+			currentSelection = (currentSelection + this.items.size) % this.items.size;
 		}
 	}
 	
-	private void makeMenuButtons(Array<MenuButton> buttons) {
+	private void makeMenuButtons() {
 
-		Texture texture;
-		Rectangle rectangle;
-		ButtonAction action;
-		this.selectionArrow = new  Texture("Menu Selection Arrow.png");
-
-		MenuButton button;
 		
-		// Logo
-		texture = new Texture("Logo.PNG");
-		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
-		float boxHeight = Options.getWindowWidth() * LOGO_SIZE;
-		float boxWidth = Options.getWindowWidth() * LOGO_SIZE * ratio;
-		float x = Options.getWindowWidth()/2f - boxWidth/2f;
-		float y = Options.getWindowHeight()*LOGO_Y - boxHeight;
-		
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
-		button = new MenuButton(texture, rectangle, selectionArrow);
-		this.logo = (button);
-		
-		// "Spielen" Knopf
-		texture = new Texture("Spielen-Button.PNG");
-		ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
-		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		boxWidth = Options.getWindowWidth() * BUTTON_SIZE * ratio;
-		x = Options.getWindowWidth()/2f - boxWidth/2f;
-		y = Options.getWindowHeight()*SPIELEN_Y - boxHeight;
-
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
-
-		action = new ButtonAction() {
-			@Override
-			public void action() {
-				UncredibleFighters.showCharacterChoice();
-			}
-		};
-		button = new MenuButton(texture, rectangle, action, selectionArrow);
-		this.buttons.add(button);
-
-		// "Einstellungen" Knopf
-		texture = new Texture("Einstellungen-Button.PNG");
-		ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
-		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		boxWidth = Options.getWindowWidth() * BUTTON_SIZE * ratio;
-		x = Options.getWindowWidth()/2f - boxWidth/2f;
-		y = Options.getWindowHeight()*EINSTELLUNGEN_Y - boxHeight;
-		
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
-
-		action = new ButtonAction() {
-			@Override
-			public void action() {
-				UncredibleFighters.showSettings();
-			}
-		};
-		button = new MenuButton(texture, rectangle, action, selectionArrow);
-		this.buttons.add(button);
-		
-		// "Beenden" Knopf
-		texture = new Texture("Beenden-Button.PNG");
-
-		ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
-		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		boxWidth = Options.getWindowWidth() * BUTTON_SIZE * ratio;
-		x = Options.getWindowWidth()/2f - boxWidth/2f;
-		y = Options.getWindowHeight()*BEENDEN_Y - boxHeight;
-		
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
-
-		action = new ButtonAction() {
-			@Override
-			public void action() {
-				UncredibleFighters.closeGame();
-			}
-		};
-		button = new MenuButton(texture, rectangle, action, selectionArrow);
-		this.buttons.add(button);
 	}
 
 	@Override
@@ -216,9 +157,8 @@ public class MenuScreen implements Screen {
 	public void dispose() {
 		batch.dispose();
 		
-		backround.dispose();
-		selectionArrow.dispose();
-		for (MenuButton button:this.buttons){
+		background.dispose();
+		for (MenuItem button:this.items){
 			button.dispose();
 		}
 	}

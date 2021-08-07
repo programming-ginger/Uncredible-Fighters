@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.menu.MenuFactory;
 
 public class UncredibleFighters extends Game {
 	
@@ -34,7 +35,7 @@ public class UncredibleFighters extends Game {
 
     @Override
     public void create() {
-		showMenuScreen();
+		showMainMenuScreen();
     }
 
     @Override
@@ -52,8 +53,8 @@ public class UncredibleFighters extends Game {
     	this.screen.resize(width, height);
     }
     
-    public static void showMenuScreen() {
-    	Screen menu = new MenuScreen();
+    public static void showMainMenuScreen() {
+    	Screen menu = MenuFactory.createMainMenu();
         instance.setScreen(menu);
     }
     

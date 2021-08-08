@@ -1,0 +1,35 @@
+public class Putzfrau {
+    private String name;
+    private int maxHP;
+    private int currentHP;
+    private object pfuetze
+}
+
+
+public class Kind {
+    private String name;
+    private int maxHP;
+    private int currentHP;
+    private object steinschleuder
+}
+
+public class Lehrer {
+    private String name;
+    private int maxHP;
+    private int currentHP;
+    private object lineal
+}
+
+public class Politiker {
+    private String name;
+    private int maxHP;
+    private int currentHP;
+    private object kugelschreiber
+}
+
+public class  Opa {
+    private String name;
+    private int maxHP;
+    private int currentHP;
+    private object rollator
+}

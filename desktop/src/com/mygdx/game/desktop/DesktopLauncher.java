@@ -19,7 +19,7 @@ public class DesktopLauncher {
 		config.width = SCREEN_WIDTH;
 		Options.setWindowWidth(SCREEN_WIDTH);
 
-		new LwjglApplication(new UncredibleFighters(), config);
-		//new LwjglApplication(new PrototypeCharMove(), config);
+		//new LwjglApplication(new UncredibleFighters(), config);
+		new LwjglApplication(new PrototypeCharMove(), config);
 	}
 }

@@ -11,6 +11,7 @@ public class PrototypeCharMove extends ApplicationAdapter {
     ShapeRenderer rectB;
 
     private final float defSpeed = 2;
+    private final float jumpStartSpeed = 5;
 
     private final float vpPaddingTop = 10;
     private final float vpPaddingBottom = 30;
@@ -30,6 +31,9 @@ public class PrototypeCharMove extends ApplicationAdapter {
     float speedXB = 0;
     float speedYB = 0;
 
+    boolean jumpingA = false;
+    boolean fallingA = false;
+
     @Override
     public void create ()
     {
@@ -40,10 +44,18 @@ public class PrototypeCharMove extends ApplicationAdapter {
     @Override
     public void render () {
         speedXA = 0;
-        speedYA = 0;
+        //speedYA = 0;
         speedXB = 0;
         speedYB = 0;
 
+        if (Gdx.input.isKeyPressed(Input.Keys.W))
+        {
+            if (speedYA == 0 && !jumpingA && !fallingA)
+            {
+                jumpingA = true;
+                speedYA = jumpStartSpeed;
+            }
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.A))
         {
             if ((rectXA - speedXA) >= vpPaddingLeft + (rectWidth/2))
@@ -74,8 +86,31 @@ public class PrototypeCharMove extends ApplicationAdapter {
             }
         }
 
+        if (jumpingA)
+        {
+            speedYA -= 0.1;
+            if (speedYA <= 0)
+            {
+                speedYA = 0;
+                fallingA = true;
+                jumpingA = false;
+            }
+        }
+        else if (fallingA)
+        {
+            speedYA -= 0.1;
+            if (speedYA <= -1 * jumpStartSpeed)
+            {
+                fallingA = false;
+            }
+        }
+        else if (!jumpingA && !fallingA)
+        {
+            speedYA = 0;
+        }
+
         rectXA += speedXA;
-        rectYA += speedYA;
+        rectYA = Math.max(rectYA + speedYA, vpPaddingBottom + (rectHeight/2));
         rectXB += speedXB;
         rectYB += speedYB;
 

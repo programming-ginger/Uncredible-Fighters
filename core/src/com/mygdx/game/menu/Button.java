@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.Options;
 
-public class Button implements MenuItem{
+public class Button implements MenuItem {
 
 	private final static float ARROW_OFFSET = 0.05f;
 
@@ -17,17 +17,17 @@ public class Button implements MenuItem{
 	private Texture texture;
 
 	private Texture selectionArrow;
-	
+
 	ButtonAction action;
-	
-	public Button (Texture texture, Rectangle position, ButtonAction action) {
-		this.position = position;		
+
+	public Button(Texture texture, Rectangle position, ButtonAction action) {
+		this.position = position;
 		this.texture = texture;
 		this.action = action;
 		this.selectionArrow = TextureLibrary.getSelectionArrow();
 	}
 
-	public Button (Texture texture, Rectangle position) {
+	public Button(Texture texture, Rectangle position) {
 		this(texture, position, null);
 	}
 
@@ -41,13 +41,14 @@ public class Button implements MenuItem{
 		}
 	}
 
-	public void draw(SpriteBatch batch){
+	public void draw(SpriteBatch batch) {
 		batch.draw(texture, position.x, position.y, position.width, position.height);
 	}
 
 	public void select(SpriteBatch batch) {
 		float width = selectionArrow.getWidth() / (selectionArrow.getHeight() + 0f) * position.getHeight();
-		batch.draw(selectionArrow, position.x - width - ARROW_OFFSET * Options.getWindowHeight(), position.y, width, position.height);
+		batch.draw(selectionArrow, position.x - width - ARROW_OFFSET * Options.getWindowHeight(), position.y, width,
+				position.height);
 	}
 
 	public void dispose() {
@@ -57,8 +58,9 @@ public class Button implements MenuItem{
 
 	@Override
 	public void update(SpriteBatch batch, Vector2 mousePosition) {
-		if((Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
+		if ((Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
+				|| Gdx.input.isKeyJustPressed(Input.Keys.E))) {
 			performAction();
-		}		
+		}
 	}
 }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class FightingScreen implements Screen {
-	
+
 	private Camera camera;
 	private Viewport viewport;
 	private SpriteBatch batch = new SpriteBatch();

@@ -5,9 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Options;
 
 public interface MenuItem {
-	
+
 	public void update(SpriteBatch batch, Vector2 mousePosition);
-	
+
 	public void draw(SpriteBatch batch);
 
 	public void select(SpriteBatch batch);

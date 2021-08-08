@@ -1,3 +1,4 @@
+package com.mygdx.game.characters;
 public class Lehrer {
 	private String name;
 	private int maxHP;

@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.menu.ButtonAction;
+
 public class Options {
 
 	private static int musicVolume = 50;
@@ -9,6 +12,7 @@ public class Options {
 	private static int windowWidth = 800;
 
 	public final static int MAX_VOLUME = 100;
+	
 
 	public static int getMusicVolume() {
 		return musicVolume;
@@ -51,5 +55,5 @@ public class Options {
 	private static boolean isValidVolume(int volume) {
 		return volume <= MAX_VOLUME && volume >= 0;
 	}
-
+	
 }

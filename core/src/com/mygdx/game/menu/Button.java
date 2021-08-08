@@ -5,9 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.Options;
 
-public class MenuButton implements MenuItem{
+public class Button implements MenuItem{
 
 	private final static float ARROW_OFFSET = 0.05f;
 
@@ -18,15 +20,15 @@ public class MenuButton implements MenuItem{
 	
 	ButtonAction action;
 	
-	public MenuButton (Texture texture, Rectangle position, ButtonAction action, Texture selectionArrow) {
-		this.position = position;
+	public Button (Texture texture, Rectangle position, ButtonAction action) {
+		this.position = position;		
 		this.texture = texture;
 		this.action = action;
-		this.selectionArrow = selectionArrow;
+		this.selectionArrow = TextureLibrary.getSelectionArrow();
 	}
 
-	public MenuButton (Texture texture, Rectangle position, Texture selectionArrow) {
-		this(texture, position, null, selectionArrow);
+	public Button (Texture texture, Rectangle position) {
+		this(texture, position, null);
 	}
 
 	public boolean contains(float x, float y) {
@@ -54,7 +56,7 @@ public class MenuButton implements MenuItem{
 	}
 
 	@Override
-	public void update(SpriteBatch batch) {
+	public void update(SpriteBatch batch, Vector2 mousePosition) {
 		if((Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
 			performAction();
 		}		

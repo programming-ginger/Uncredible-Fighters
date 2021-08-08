@@ -1,46 +1,82 @@
 package com.mygdx.game.menu;
 
+import java.util.function.IntConsumer;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.MenuScreen;
 import com.mygdx.game.Options;
 import com.mygdx.game.UncredibleFighters;
 
 public class MenuFactory {
+	
+	public static Button makeButton(Texture texture, float xCenter, float yCenter, float height, ButtonAction action) {		
+		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
+		return new Button(texture, rectangle, action);
+	}
+	
+	public static PassiveTexture makePassiveTexture(Texture texture, float xCenter, float yCenter, float height) {
+		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
+		return new PassiveTexture(texture, rectangle);
+	}
+	
+	public static PassiveTexture makePassiveTextureToLeft(Texture texture, float xRight, float yCenter, float height) {
+		Rectangle rectangle = makeScaledRectangleForTextureToLeft(texture, xRight, yCenter, height);
+		return new PassiveTexture(texture, rectangle);
+	}
+	
+	public static Rectangle makeScaledRectangleForTexture(Texture texture, float xCenter, float yCenter, float height) {
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		float boxWidth = height * ratio;
+		float x = xCenter - boxWidth/2f;
+		float y = yCenter - height/2f;
+
+		return new Rectangle(x, y, boxWidth, height);
+	}
+	
+	public static Rectangle makeScaledRectangleForTextureToRight(Texture texture, float xLeft, float yCenter,
+			float height) {
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		float boxWidth = height * ratio;
+		float y = yCenter - height/2f;
+
+		return new Rectangle(xLeft, y, boxWidth, height);
+	}
+	
+	public static Rectangle makeScaledRectangleForTextureToLeft(Texture texture, float xRight, float yCenter,
+			float height) {
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		float boxWidth = height * ratio;
+		float x = xRight - boxWidth;
+		float y = yCenter - height/2f;
+
+		return new Rectangle(x, y, boxWidth, height);
+	}
 
     public static MenuScreen createMainMenu(){
     	
     	 final float BUTTON_SIZE = 0.07f;
-    	 final float SPIELEN_Y = 0.55f;
-    	 final float EINSTELLUNGEN_Y = 0.40f;
-    	 final float BEENDEN_Y = 0.25f;
+    	 final float SPIELEN_Y = 0.5f;
+    	 final float EINSTELLUNGEN_Y = 0.35f;
+    	 final float BEENDEN_Y = 0.2f;
     	
         MenuScreen mainMenu = new MenuScreen();
-        mainMenu.setBackground("Background Menu.png");
-        
-        
+        mainMenu.setBackground(TextureLibrary.getMainMenuBackground());
+                
         Texture texture;
-		Rectangle rectangle;
 		ButtonAction action;
-		Texture selectionArrow = new Texture("Menu Selection Arrow.png");
 		
 		float boxHeight;
-		float boxWidth;
-		float ratio;
-		float x;
-		float y;
+		float xCenter = Options.getWindowWidth()/2f;
+		float yCenter;
 
-		MenuButton button;
+		Button button;
 		
 		// "Spielen" Knopf
 		texture = new Texture("Spielen-Button.PNG");
-		ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
 		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		boxWidth = Options.getWindowWidth() * BUTTON_SIZE * ratio;
-		x = Options.getWindowWidth()/2f - boxWidth/2f;
-		y = Options.getWindowHeight()*SPIELEN_Y - boxHeight;
-
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
+		yCenter = Options.getWindowHeight()*SPIELEN_Y;
 
 		action = new ButtonAction() {
 			@Override
@@ -48,18 +84,13 @@ public class MenuFactory {
 				UncredibleFighters.showCharacterChoice();
 			}
 		};
-		button = new MenuButton(texture, rectangle, action, selectionArrow);
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
 		mainMenu.addMenuItem(button);
 
 		// "Einstellungen" Knopf
 		texture = new Texture("Einstellungen-Button.PNG");
-		ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
 		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		boxWidth = Options.getWindowWidth() * BUTTON_SIZE * ratio;
-		x = Options.getWindowWidth()/2f - boxWidth/2f;
-		y = Options.getWindowHeight()*EINSTELLUNGEN_Y - boxHeight;
-		
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
+		yCenter = Options.getWindowHeight()*EINSTELLUNGEN_Y;
 
 		action = new ButtonAction() {
 			@Override
@@ -67,19 +98,14 @@ public class MenuFactory {
 				UncredibleFighters.showSettings();
 			}
 		};
-		button = new MenuButton(texture, rectangle, action, selectionArrow);
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
 		mainMenu.addMenuItem(button);
 		
 		// "Beenden" Knopf
 		texture = new Texture("Beenden-Button.PNG");
 
-		ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
 		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		boxWidth = Options.getWindowWidth() * BUTTON_SIZE * ratio;
-		x = Options.getWindowWidth()/2f - boxWidth/2f;
-		y = Options.getWindowHeight()*BEENDEN_Y - boxHeight;
-		
-		rectangle = new Rectangle(x, y, boxWidth, boxHeight);
+		yCenter = Options.getWindowHeight()*BEENDEN_Y;
 
 		action = new ButtonAction() {
 			@Override
@@ -87,10 +113,51 @@ public class MenuFactory {
 				UncredibleFighters.closeGame();
 			}
 		};
-		button = new MenuButton(texture, rectangle, action, selectionArrow);
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
 		mainMenu.addMenuItem(button);
         
         
         return mainMenu;
     }
+    
+    public static MenuScreen createOptionsMenu() {
+    	 MenuScreen menu = new MenuScreen();
+    	 menu.setBackground(TextureLibrary.getMainMenuBackground());
+    	     	 
+    	 Texture texture;
+    	 float x = Options.getWindowWidth() * 0.3f;
+    	 float y;
+    	 float height;
+    	 VolumeBar bar;
+    	 IntConsumer action;
+    	 
+    	 //Sounds-Regler    	 
+    	 texture = new Texture("Sound-Lautstärke.png");
+    	 y = Options.getWindowHeight() * 0.45f;
+    	 height = Options.getWindowHeight() * 0.1f;
+    	 action = new IntConsumer() {
+			@Override
+			public void accept(int value) {
+				Options.setSoundVolume(value);				
+			}    		 
+    	 };
+    	 bar = new VolumeBar(texture, x, y, height, Options.getSoundVolume(), action);
+    	 menu.addMenuItem(bar);
+    	 
+    	//Musik-Regler    	 
+    	 texture = new Texture("Musik-Lautstärke.png");
+    	 y = Options.getWindowHeight() * 0.2f;
+    	 height = Options.getWindowHeight() * 0.1f;
+    	 action = new IntConsumer() {
+			@Override
+			public void accept(int value) {
+				Options.setMusicVolume(value);				
+			}    		 
+    	 };
+    	 bar = new VolumeBar(texture, x, y, height, Options.getSoundVolume(), action);
+    	 menu.addMenuItem(bar);
+    	 
+    	 return menu;
+    }
+
 }

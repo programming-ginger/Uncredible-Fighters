@@ -3,13 +3,14 @@ package com.mygdx.game.menu;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
-public class MenuLogo{
+public class PassiveTexture{
 	
 	private Texture logo;
 	private Rectangle position;
 	
-	public MenuLogo(Texture texture, Rectangle rectangle) {
+	public PassiveTexture(Texture texture, Rectangle rectangle) {
 		this.logo = texture;
 		this.position = rectangle;
 	}
@@ -20,6 +21,10 @@ public class MenuLogo{
 	
 	public void dispose() {
 		logo.dispose();		
+	}
+
+	public boolean contains(float x, float y) {
+		return position.contains(x, y);
 	}
 
 }

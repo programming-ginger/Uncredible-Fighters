@@ -17,7 +17,7 @@ public class UncredibleFighters extends Game {
 		if (instance == null) {
 			instance = this;
 		}
-		else throw new IllegalArgumentException("Game Objekt wird mehrfach erstellt");
+		else throw new IllegalArgumentException("Game Object is created multiple times");
 	}
 	
 	public static UncredibleFighters getInstance() {
@@ -25,6 +25,7 @@ public class UncredibleFighters extends Game {
 	}
 
     public static void showSettings() {
+    	instance.setScreen(MenuFactory.createOptionsMenu());
     }
 
     public static void closeGame() {

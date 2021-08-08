@@ -8,7 +8,7 @@ public class Options {
 	private static int WindowHeight = 480;
 	private static int windowWidth = 800;
 	
-	private final static int MAX_VOLUME = 100;
+	public final static int MAX_VOLUME = 100;
 	
 	public static int getMusicVolume() {
 		return musicVolume;
@@ -43,7 +43,7 @@ public class Options {
 	}
 	
 	private static boolean isValidVolume(int volume) {
-		return volume <= MAX_VOLUME && volume <= 0;
+		return volume <= MAX_VOLUME && volume >= 0;
 	}
 	
 }

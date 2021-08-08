@@ -3,6 +3,7 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.*;
+import com.mygdx.game.prototype.PrototypeCharMove;
 
 public class DesktopLauncher {
 
@@ -19,5 +20,6 @@ public class DesktopLauncher {
 		Options.setWindowWidth(SCREEN_WIDTH);
 
 		new LwjglApplication(new UncredibleFighters(), config);
+		//new LwjglApplication(new PrototypeCharMove(), config);
 	}
 }

@@ -11,7 +11,7 @@ public class PrototypeCharMove extends ApplicationAdapter {
     ShapeRenderer rectB;
 
     private final float defSpeed = 2;
-    private final float jumpStartSpeed = 5;
+    private final float jumpStartSpeed = 8;
 
     private final float vpPaddingTop = 10;
     private final float vpPaddingBottom = 30;
@@ -33,6 +33,8 @@ public class PrototypeCharMove extends ApplicationAdapter {
 
     boolean jumpingA = false;
     boolean fallingA = false;
+    boolean jumpingB = false;
+    boolean fallingB = false;
 
     @Override
     public void create ()
@@ -46,7 +48,7 @@ public class PrototypeCharMove extends ApplicationAdapter {
         speedXA = 0;
         //speedYA = 0;
         speedXB = 0;
-        speedYB = 0;
+        //speedYB = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.W))
         {
@@ -63,6 +65,16 @@ public class PrototypeCharMove extends ApplicationAdapter {
                 speedXA = -1 * defSpeed;
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.S))
+        {
+            if (jumpingA)
+            {
+                jumpingA = false;
+                fallingA = true;
+            }
+            if (fallingA)
+                speedYA -= 0.5;
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.D))
         {
             if ((rectXA + speedXA) < Gdx.graphics.getWidth() - vpPaddingRight - rectWidth*1.5)
@@ -71,12 +83,30 @@ public class PrototypeCharMove extends ApplicationAdapter {
             }
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
+        {
+            if (speedYB == 0 && !jumpingB && !fallingB)
+            {
+                jumpingB = true;
+                speedYB = jumpStartSpeed;
+            }
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
         {
             if ((rectXB - speedXB) >= vpPaddingLeft + (rectWidth/2))
             {
                 speedXB = -1 * defSpeed;
             }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
+        {
+            if (jumpingB)
+            {
+                jumpingB = false;
+                fallingB = true;
+            }
+            if (fallingB)
+                speedYB -= 0.5;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
         {
@@ -88,7 +118,7 @@ public class PrototypeCharMove extends ApplicationAdapter {
 
         if (jumpingA)
         {
-            speedYA -= 0.1;
+            speedYA -= 0.2;
             if (speedYA <= 0)
             {
                 speedYA = 0;
@@ -98,21 +128,44 @@ public class PrototypeCharMove extends ApplicationAdapter {
         }
         else if (fallingA)
         {
-            speedYA -= 0.1;
-            if (speedYA <= -1 * jumpStartSpeed)
+            speedYA -= 0.2;
+            if (rectYA + speedYA < vpPaddingBottom + (rectHeight/2))
             {
                 fallingA = false;
             }
         }
-        else if (!jumpingA && !fallingA)
+        else
         {
             speedYA = 0;
+        }
+
+        if (jumpingB)
+        {
+            speedYB -= 0.2;
+            if (speedYB <= 0)
+            {
+                speedYB = 0;
+                fallingB = true;
+                jumpingB = false;
+            }
+        }
+        else if (fallingB)
+        {
+            speedYB -= 0.2;
+            if (rectYB + speedYB < vpPaddingBottom + (rectHeight/2))
+            {
+                fallingB = false;
+            }
+        }
+        else
+        {
+            speedYB = 0;
         }
 
         rectXA += speedXA;
         rectYA = Math.max(rectYA + speedYA, vpPaddingBottom + (rectHeight/2));
         rectXB += speedXB;
-        rectYB += speedYB;
+        rectYB = Math.max(rectYB + speedYB, vpPaddingBottom + (rectHeight/2));
 
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -3,7 +3,7 @@ package com.my.gdx.game.textures;
 import com.badlogic.gdx.graphics.Texture;
 
 /*
- * Über diese Klasse können wir im restlichen Programm unabhängig vom Dateinamen auf die gewünschte Textur zugreifen.
+ * Ueber diese Klasse koennen wir im restlichen Programm unabhaengig vom Dateinamen auf die gewuenschte Textur zugreifen.
  * So kann man die Dateien auch leichter umbenennen und erstellt nicht mehrere gleiche Texturobjekte.
  */
 public class TextureLibrary {
@@ -15,28 +15,28 @@ public class TextureLibrary {
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
-			volumeController = new Texture("Lautstärkeregler.png");
+			volumeController = new Texture("MusicNVolumeController.png");
 		}
 		return volumeController;
 	}
 
 	public static Texture getVolumeBar() {
 		if (volumeBar == null) {
-			volumeBar = new Texture("Lautstärke-Leiste.png");
+			volumeBar = new Texture("MusicNVolumeBar.png");
 		}
 		return volumeBar;
 	}
 
 	public static Texture getSelectionArrow() {
 		if (selectionArrow == null) {
-			selectionArrow = new Texture("Menu Selection Arrow.png");
+			selectionArrow = new Texture("MenuSelectionArrow.png");
 		}
 		return selectionArrow;
 	}
 
 	public static Texture getMainMenuBackground() {
 		if (mainMenuBackground == null) {
-			mainMenuBackground = new Texture("Background Menu.png");
+			mainMenuBackground = new Texture("MenuBackground.png");
 		}
 		return mainMenuBackground;
 	}

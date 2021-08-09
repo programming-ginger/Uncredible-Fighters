@@ -2,6 +2,7 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.UncredibleFighters;
+import com.mygdx.game.prototype.FightingGame;
 
 public class CharacterChoiceScreen implements Screen {
 
@@ -13,7 +14,7 @@ public class CharacterChoiceScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		UncredibleFighters.getInstance().setScreen(new FightingScreen());
+		//UncredibleFighters.getInstance().setScreen(new FightingScreen(new FightingGame()));
 
 	}
 

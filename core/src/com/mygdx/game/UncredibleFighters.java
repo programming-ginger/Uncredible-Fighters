@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.prototype.PrototypeCharMove;
 import com.mygdx.game.screen.CharacterChoiceScreen;
 import com.mygdx.game.screen.FightingScreen;
 
@@ -59,10 +60,10 @@ public class UncredibleFighters extends Game {
 
 	public static void showFightingScreen() {
 		instance.screen.dispose();
-		instance.setScreen(new FightingScreen());
+		instance.setScreen(new PrototypeCharMove());
 	}
 
 	public static void showCharacterChoice() {
-		instance.setScreen(new CharacterChoiceScreen());
+		instance.setScreen(MenuFactory.createCharacterChoiceScreen());
 	}
 }

@@ -158,5 +158,101 @@ public class MenuFactory {
 
 		return menu;
 	}
+	
+	public static MenuScreen createCharacterChoiceScreen() {
+
+		final float PORTRAIT_SIZE = 0.2f;
+		final float FIRST_ROW_Y = 0.6f;
+		final float SECOND_ROW_Y = 0.3f;
+		
+		MenuScreen menu = new MenuScreen();
+		menu.setBackground(TextureLibrary.getMainMenuBackground());
+
+		Texture texture;
+		ButtonAction action;
+
+		float boxHeight;
+		float xCenter;
+		float yCenter;
+
+		Button button;
+		
+		// Child-Portrait
+		texture = new Texture("child-portrait.jpg");
+		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
+		xCenter = Options.getWindowWidth() * 0.2f;
+		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showFightingScreen();
+			}
+		};
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(button);
+		
+		// Teacher-Portrait
+		texture = new Texture("teacher-portrait.jpg");
+		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
+		xCenter = Options.getWindowWidth() * 0.5f;
+		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showFightingScreen();
+			}
+		};
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(button);
+		
+		// Maid-Portrait
+		texture = new Texture("maid-portrait.jpg");
+		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
+		xCenter = Options.getWindowWidth() * 0.8f;
+		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showFightingScreen();
+			}
+		};
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(button);
+		
+		// Politician-Portrait
+		texture = new Texture("politician-portrait.jpg");
+		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
+		xCenter = Options.getWindowWidth() * 0.33f;
+		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showFightingScreen();
+			}
+		};
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(button);
+		
+		// Grandpa-Portrait
+		texture = new Texture("grandpa-portrait.jpg");
+		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
+		xCenter = Options.getWindowWidth() * 0.66f;
+		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showFightingScreen();
+			}
+		};
+		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(button);
+				
+		return menu;
+	}
 
 }

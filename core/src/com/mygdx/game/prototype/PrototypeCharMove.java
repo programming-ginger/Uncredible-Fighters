@@ -3,10 +3,11 @@ package com.mygdx.game.prototype;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PrototypeCharMove extends ApplicationAdapter {
+public class PrototypeCharMove implements Screen {
     ShapeRenderer rectA;
     ShapeRenderer rectB;
 
@@ -36,15 +37,14 @@ public class PrototypeCharMove extends ApplicationAdapter {
     boolean jumpingB = false;
     boolean fallingB = false;
 
-    @Override
-    public void create ()
+    public PrototypeCharMove ()
     {
         rectA = new ShapeRenderer();
         rectB = new ShapeRenderer();
     }
 
     @Override
-    public void render () {
+    public void render (float delta) {
         speedXA = 0;
         //speedYA = 0;
         speedXB = 0;
@@ -185,4 +185,34 @@ public class PrototypeCharMove extends ApplicationAdapter {
     public void dispose () {
         rectA.dispose();
     }
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
 }

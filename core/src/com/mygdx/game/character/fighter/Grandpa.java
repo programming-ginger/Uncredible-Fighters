@@ -9,14 +9,14 @@ public class Grandpa extends Character {
 
 	private Rectangle rollator;
 
-	public Grandpa(String name, int maxHP, float speed, Texture texture, Rectangle rectangle)
+	public Grandpa(String name, int maxHP, float speed, Texture texture)
 	{
 		setName(name);
 		setMaxHP(maxHP);
 		setCurrentHP(maxHP);
 		setSpeed(speed);
 		setTexture(texture);
-		setRectangle(rectangle);
+		//setRectangle(rectangle);
 	}
 
 	public Rectangle getRollator()

@@ -14,12 +14,12 @@ public class Politician extends Character {
 	private Queue<Rectangle> penList;
 	private int maxStoneCount;
 
-	public Politician(String name, int maxHP, float speed, Texture texture, Rectangle rectangle)
+	public Politician(String name, int maxHP, float speed, Texture texture)
 	{
-		this(name, maxHP, speed, DEF_MAX_PEN_COUNT, texture, rectangle);
+		this(name, maxHP, speed, DEF_MAX_PEN_COUNT, texture);
 	}
 
-	public Politician(String name, int maxHP, float speed, int maxStoneCount, Texture texture, Rectangle rectangle)
+	public Politician(String name, int maxHP, float speed, int maxStoneCount, Texture texture)
 	{
 		setName(name);
 		setMaxHP(maxHP);
@@ -27,7 +27,7 @@ public class Politician extends Character {
 		setSpeed(speed);
 		setMaxStoneCount(maxStoneCount);
 		setTexture(texture);
-		setRectangle(rectangle);
+		//setRectangle(rectangle);
 	}
 
 	public void addPen()

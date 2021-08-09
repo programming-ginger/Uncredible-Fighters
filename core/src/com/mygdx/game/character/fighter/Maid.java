@@ -10,14 +10,14 @@ public class Maid extends Character
 {
 	private Rectangle puddle;
 
-	public Maid(String name, int maxHP, float speed, Texture texture, Rectangle rectangle)
+	public Maid(String name, int maxHP, float speed, Texture texture)
 	{
 		setName(name);
 		setMaxHP(maxHP);
 		setCurrentHP(maxHP);
 		setSpeed(speed);
 		setTexture(texture);
-		setRectangle(rectangle);
+		//setRectangle(rectangle);
 		//add puddle size (?)
 	}
 

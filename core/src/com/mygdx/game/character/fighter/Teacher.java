@@ -9,14 +9,14 @@ public class Teacher extends Character {
 
 	private Rectangle ruler;
 
-	public Teacher(String name, int maxHP, float speed, Texture texture, Rectangle rectangle)
+	public Teacher(String name, int maxHP, float speed, Texture texture)
 	{
 		setName(name);
 		setMaxHP(maxHP);
 		setCurrentHP(maxHP);
 		setSpeed(speed);
 		setTexture(texture);
-		setRectangle(rectangle);
+		//setRectangle(rectangle);
 	}
 
 	public Rectangle getRuler()

@@ -13,12 +13,12 @@ public class Child extends Character
 	private Queue<Rectangle> stoneList;
 	private int maxStoneCount;
 
-	public Child(String name, int maxHP, float speed, Texture texture, Rectangle rectangle)
+	public Child(String name, int maxHP, float speed, Texture texture)
 	{
-		this(name, maxHP, speed, DEF_MAX_STONE_COUNT, texture, rectangle);
+		this(name, maxHP, speed, DEF_MAX_STONE_COUNT, texture);
 	}
 
-	public Child(String name, int maxHP, float speed, int maxStoneCount, Texture texture, Rectangle rectangle)
+	public Child(String name, int maxHP, float speed, int maxStoneCount, Texture texture)
 	{
 		setName(name);
 		setMaxHP(maxHP);
@@ -26,7 +26,7 @@ public class Child extends Character
 		setSpeed(speed);
 		setMaxStoneCount(maxStoneCount);
 		setTexture(texture);
-		setRectangle(rectangle);
+		//setRectangle(rectangle);
 	}
 
 	public void addStone()

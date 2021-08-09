@@ -17,7 +17,7 @@ public class Maid extends Character
 		setCurrentHP(maxHP);
 		setSpeed(speed);
 		setTexture(texture);
-		//setRectangle(rectangle);
+		setRectangle(new Rectangle(0,0,50,50));
 		//add puddle size (?)
 	}
 

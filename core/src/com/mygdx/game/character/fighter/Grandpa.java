@@ -16,6 +16,7 @@ public class Grandpa extends Character {
 		setCurrentHP(maxHP);
 		setSpeed(speed);
 		setTexture(texture);
+		setRectangle(new Rectangle(0,0,50,50));
 		//setRectangle(rectangle);
 	}
 

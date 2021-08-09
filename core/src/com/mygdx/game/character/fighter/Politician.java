@@ -27,6 +27,7 @@ public class Politician extends Character {
 		setSpeed(speed);
 		setMaxStoneCount(maxStoneCount);
 		setTexture(texture);
+		setRectangle(new Rectangle(0,0,50,50));
 		//setRectangle(rectangle);
 	}
 

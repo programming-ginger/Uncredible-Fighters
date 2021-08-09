@@ -1,10 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.data.Options;
 import com.mygdx.game.prototype.PrototypeCharMove;
 
 public class FightingScreen implements Screen {

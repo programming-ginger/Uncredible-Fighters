@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
-import com.mygdx.game.Options;
+import com.mygdx.game.data.Options;
 
 public class VolumeBar implements MenuItem {
 
@@ -61,7 +61,7 @@ public class VolumeBar implements MenuItem {
 					&& mousePosition.x <= barPosition.getX() + barPosition.getWidth()) {
 
 				float portion = (mousePosition.x - barPosition.getX()) / barPosition.getWidth();
-				;
+				
 				this.value = Math.round(Options.MAX_VOLUME * portion);
 			}
 

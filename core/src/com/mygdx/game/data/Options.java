@@ -1,7 +1,4 @@
-package com.mygdx.game;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.menu.ButtonAction;
+package com.mygdx.game.data;
 
 public class Options {
 

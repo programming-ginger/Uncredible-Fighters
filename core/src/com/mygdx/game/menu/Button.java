@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
-import com.mygdx.game.Options;
+import com.mygdx.game.data.Options;
 
 public class Button implements MenuItem {
 

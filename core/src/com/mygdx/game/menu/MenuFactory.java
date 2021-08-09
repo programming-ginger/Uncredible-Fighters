@@ -5,8 +5,8 @@ import java.util.function.IntConsumer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.my.gdx.game.textures.TextureLibrary;
-import com.mygdx.game.MenuScreen;
-import com.mygdx.game.Options;
+import com.mygdx.game.screen.MenuScreen;
+import com.mygdx.game.data.Options;
 import com.mygdx.game.UncredibleFighters;
 
 public class MenuFactory {
@@ -74,7 +74,7 @@ public class MenuFactory {
 		Button button;
 
 		// "Spielen" Knopf
-		texture = new Texture("Spielen-Button.PNG");
+		texture = new Texture("PlayButton.PNG");
 		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * SPIELEN_Y;
 
@@ -88,7 +88,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(button);
 
 		// "Einstellungen" Knopf
-		texture = new Texture("Einstellungen-Button.PNG");
+		texture = new Texture("SettingButton.PNG");
 		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * EINSTELLUNGEN_Y;
 
@@ -102,7 +102,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(button);
 
 		// "Beenden" Knopf
-		texture = new Texture("Beenden-Button.PNG");
+		texture = new Texture("EndButton.PNG");
 
 		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * BEENDEN_Y;
@@ -131,7 +131,7 @@ public class MenuFactory {
 		IntConsumer action;
 
 		// Sounds-Regler
-		texture = new Texture("Sound-Lautstärke.png");
+		texture = new Texture("VolumeLabel.png");
 		y = Options.getWindowHeight() * 0.45f;
 		height = Options.getWindowHeight() * 0.1f;
 		action = new IntConsumer() {
@@ -144,7 +144,7 @@ public class MenuFactory {
 		menu.addMenuItem(bar);
 
 		// Musik-Regler
-		texture = new Texture("Musik-Lautstärke.png");
+		texture = new Texture("MusicLabel.png");
 		y = Options.getWindowHeight() * 0.2f;
 		height = Options.getWindowHeight() * 0.1f;
 		action = new IntConsumer() {

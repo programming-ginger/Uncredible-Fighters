@@ -11,6 +11,11 @@ public abstract class Character
     private float speed;
     private Texture texture;
     private Rectangle rectangle;
+    public boolean jumping = false;
+    public boolean falling = false;
+    public float moveX = 0;
+    public float moveY = 0;
+    public final float jumpSpeed = 8;
 
     public String getName()
     {

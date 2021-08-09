@@ -66,8 +66,8 @@ public class UncredibleFighters extends Game {
 	}
 
 	public static void showFightingScreen() {
-		Character characterA = new Child("Kind", 100, 2, 3, new Texture("badlogic.jpg"));
-		Character characterB = new Maid("Putzfrau", 100, 2.5f, new Texture("badlogic.jpg"));
+		Character characterA = new Child("Kind", 150, 8, 3, new Texture("badlogic.jpg"));
+		Character characterB = new Maid("Putzfrau", 200, 8, new Texture("badlogic.jpg"));
 		FightingGame game = new FightingGame(characterA, characterB);
 
 		FightingScreen screen = new FightingScreen(game);

@@ -66,7 +66,7 @@ public class FightingGame extends Game {
     @Override
     public void render ()
     {
-        super.render();
+
     }
 
     @Override
@@ -75,24 +75,14 @@ public class FightingGame extends Game {
 
     }
 
-    public int getCharAHp()
+    public Character getCharacterA()
     {
-        return characterA.getCurrentHP();
+        return characterA;
     }
 
-    public int getCharBHp()
+    public Character getCharacterB()
     {
-        return characterB.getCurrentHP();
-    }
-
-    public String getCharAName()
-    {
-        return characterA.getName();
-    }
-
-    public String getCharBName()
-    {
-        return characterB.getName();
+        return characterB;
     }
 
     public int getFightTime()

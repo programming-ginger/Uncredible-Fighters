@@ -3,6 +3,7 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,8 @@ public class MenuScreen implements Screen {
 
 	private Texture background;
 	private PassiveTexture logo;
+	
+	private Sound selectSound;
 
 	Array<MenuItem> items;
 
@@ -55,6 +58,8 @@ public class MenuScreen implements Screen {
 		this.logo = (button);
 
 		this.currentSelection = 0;
+		
+		this.selectSound = Gdx.audio.newSound(Gdx.files.internal("MenuSelectSound.mp3"));
 	}
 
 	public void setBackground(Texture background) {
@@ -109,6 +114,10 @@ public class MenuScreen implements Screen {
 
 		for (int i = 0; i < this.items.size; i++) {
 			if (this.items.get(i).contains(touchPos.x, touchPos.y)) {
+				
+				if (i != currentSelection) {
+					this.selectSound.play(Options.getSoundVolume());
+				}
 				currentSelection = i;
 				i = this.items.size;
 			}
@@ -121,11 +130,13 @@ public class MenuScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
 			currentSelection++;
 			currentSelection = currentSelection % this.items.size;
+			this.selectSound.play(Options.getSoundVolume());
 		}
 
 		else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 			currentSelection--;
 			currentSelection = (currentSelection + this.items.size) % this.items.size;
+			this.selectSound.play(Options.getSoundVolume());
 		}
 	}
 

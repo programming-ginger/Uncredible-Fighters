@@ -10,6 +10,9 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.UncredibleFighters;
 
 public class MenuFactory {
+	
+	private final static float LOGO_SIZE = 0.35f;
+	private final static float LOGO_Y = 0.8f;
 
 	public static Button makeButton(Texture texture, float xCenter, float yCenter, float height, ButtonAction action) {
 		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
@@ -70,8 +73,16 @@ public class MenuFactory {
 		float boxHeight;
 		float xCenter = Options.getWindowWidth() / 2f;
 		float yCenter;
+		
+		// Logo
+		texture = TextureLibrary.getLogo();
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		boxHeight = Options.getWindowHeight() * LOGO_SIZE;
+		xCenter = Options.getWindowWidth() / 2f;
+		yCenter = Options.getWindowHeight() * LOGO_Y;
 
-		Button button;
+		PassiveTexture logo = makePassiveTexture(texture, xCenter, yCenter, boxHeight);
+		mainMenu.addPassiveTexture(logo);
 
 		// "Spielen" Knopf
 		texture = new Texture("PlayButton.PNG");
@@ -84,8 +95,8 @@ public class MenuFactory {
 				UncredibleFighters.showCharacterChoice();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		mainMenu.addMenuItem(button);
+		Button playButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		mainMenu.addMenuItem(playButton);
 
 		// "Einstellungen" Knopf
 		texture = new Texture("SettingButton.PNG");
@@ -98,8 +109,8 @@ public class MenuFactory {
 				UncredibleFighters.showSettings();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		mainMenu.addMenuItem(button);
+		Button optionsButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		mainMenu.addMenuItem(optionsButton);
 
 		// "Beenden" Knopf
 		texture = new Texture("EndButton.PNG");
@@ -113,55 +124,105 @@ public class MenuFactory {
 				UncredibleFighters.closeGame();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		mainMenu.addMenuItem(button);
+		Button endButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		mainMenu.addMenuItem(endButton);
+		
+		// Linking for comfortable selection with arrow keys
+		
+		playButton.setItemAbove(endButton);
+		playButton.setItemBelow(optionsButton);
+		
+		optionsButton.setItemAbove(playButton);
+		optionsButton.setItemBelow(endButton);
+		
+		endButton.setItemAbove(optionsButton);
+		endButton.setItemBelow(playButton);
 
 		return mainMenu;
 	}
 
 	public static MenuScreen createOptionsMenu() {
+		final float itemHeight = 0.1f;
+		
 		MenuScreen menu = new MenuScreen();
 		menu.setBackground(TextureLibrary.getMainMenuBackground());
 
 		Texture texture;
-		float x = Options.getWindowWidth() * 0.3f;
+		float x;
 		float y;
-		float height;
-		VolumeBar bar;
+		float height;;
 		IntConsumer action;
+		
+		// Logo
+		texture = TextureLibrary.getLogo();
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		height = Options.getWindowHeight() * LOGO_SIZE;
+		x = Options.getWindowWidth() / 2f;
+		y = Options.getWindowHeight() * LOGO_Y;
+
+		PassiveTexture logo = makePassiveTexture(texture, x, y, height);
+		menu.addPassiveTexture(logo);
 
 		// Sounds-Regler
 		texture = new Texture("VolumeLabel.png");
+		x = Options.getWindowWidth() * 0.3f;
 		y = Options.getWindowHeight() * 0.45f;
-		height = Options.getWindowHeight() * 0.1f;
+		height = Options.getWindowHeight() * itemHeight;
 		action = new IntConsumer() {
 			@Override
 			public void accept(int value) {
 				Options.setSoundVolume(value);
 			}
 		};
-		bar = new VolumeBar(texture, x, y, height, Options.getSoundVolume(), action);
-		menu.addMenuItem(bar);
+		VolumeBar soundBar = new VolumeBar(texture, x, y, height, Options.getSoundVolume(), action);
+		menu.addMenuItem(soundBar);
 
 		// Musik-Regler
 		texture = new Texture("MusicLabel.png");
 		y = Options.getWindowHeight() * 0.2f;
-		height = Options.getWindowHeight() * 0.1f;
+		height = Options.getWindowHeight() * itemHeight;
 		action = new IntConsumer() {
 			@Override
 			public void accept(int value) {
 				Options.setMusicVolume(value);
 			}
 		};
-		bar = new VolumeBar(texture, x, y, height, Options.getSoundVolume(), action);
-		menu.addMenuItem(bar);
+		VolumeBar musicBar = new VolumeBar(texture, x, y, height, Options.getMusicVolume(), action);
+		menu.addMenuItem(musicBar);
+		
+		// Zurück-Button
+		texture = new Texture("BackButton.PNG");
+
+		height = Options.getWindowWidth() * itemHeight;
+		x = Options.getWindowWidth() * 0.7f;
+		y = Options.getWindowHeight() * 0.1f;
+
+		ButtonAction buttonAction = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showMainMenuScreen();
+			}
+		};
+		Button button = makeButton(texture, x, y, height, buttonAction);
+		menu.addMenuItem(button);
+		
+		// linking
+		
+		soundBar.setItemAbove(button);
+		soundBar.setItemBelow(musicBar);
+		
+		musicBar.setItemAbove(soundBar);
+		musicBar.setItemBelow(button);
+		
+		button.setItemAbove(musicBar);
+		button.setItemBelow(soundBar);
 
 		return menu;
 	}
 	
 	public static MenuScreen createCharacterChoiceScreen() {
 
-		final float PORTRAIT_SIZE = 0.2f;
+		final float PORTRAIT_SIZE = 0.15f;
 		final float FIRST_ROW_Y = 0.6f;
 		final float SECOND_ROW_Y = 0.3f;
 		
@@ -174,8 +235,6 @@ public class MenuFactory {
 		float boxHeight;
 		float xCenter;
 		float yCenter;
-
-		Button button;
 		
 		// Child-Portrait
 		texture = new Texture("child-portrait.jpg");
@@ -189,8 +248,8 @@ public class MenuFactory {
 				UncredibleFighters.showFightingScreen();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		menu.addMenuItem(button);
+		Button childPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(childPortrait);
 		
 		// Teacher-Portrait
 		texture = new Texture("teacher-portrait.jpg");
@@ -204,8 +263,8 @@ public class MenuFactory {
 				UncredibleFighters.showFightingScreen();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		menu.addMenuItem(button);
+		Button teacherPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(teacherPortrait);
 		
 		// Maid-Portrait
 		texture = new Texture("maid-portrait.jpg");
@@ -219,8 +278,8 @@ public class MenuFactory {
 				UncredibleFighters.showFightingScreen();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		menu.addMenuItem(button);
+		Button maidPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(maidPortrait);
 		
 		// Politician-Portrait
 		texture = new Texture("politician-portrait.jpg");
@@ -234,8 +293,8 @@ public class MenuFactory {
 				UncredibleFighters.showFightingScreen();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		menu.addMenuItem(button);
+		Button politicianPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(politicianPortrait);
 		
 		// Grandpa-Portrait
 		texture = new Texture("grandpa-portrait.jpg");
@@ -249,9 +308,57 @@ public class MenuFactory {
 				UncredibleFighters.showFightingScreen();
 			}
 		};
-		button = makeButton(texture, xCenter, yCenter, boxHeight, action);
-		menu.addMenuItem(button);
+		
+		Button grandpaPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		menu.addMenuItem(grandpaPortrait);
+		
+		// Zurück-Button
+		texture = new Texture("BackButton.png");
+
+		boxHeight = Options.getWindowWidth() * 0.1f;
+		xCenter = Options.getWindowWidth() * 0.7f;
+		yCenter = Options.getWindowHeight() * 0.15f;
+
+		ButtonAction buttonAction = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showMainMenuScreen();
+			}
+		};
+		Button backButton = makeButton(texture, xCenter, yCenter, boxHeight, buttonAction);
+		menu.addMenuItem(backButton);
+		
+		// linking
+		
+		childPortrait.setItemAbove(backButton);
+		childPortrait.setItemBelow(politicianPortrait);
+		childPortrait.setItemRight(teacherPortrait);
+		childPortrait.setItemLeft(maidPortrait);
+		
+		teacherPortrait.setItemAbove(backButton);
+		teacherPortrait.setItemBelow(grandpaPortrait);
+		teacherPortrait.setItemRight(maidPortrait);
+		teacherPortrait.setItemLeft(childPortrait);
+		
+		maidPortrait.setItemAbove(backButton);
+		maidPortrait.setItemBelow(grandpaPortrait);
+		maidPortrait.setItemRight(childPortrait);
+		maidPortrait.setItemLeft(teacherPortrait);
 				
+		politicianPortrait.setItemAbove(childPortrait);
+		politicianPortrait.setItemBelow(backButton);
+		politicianPortrait.setItemRight(grandpaPortrait);
+		politicianPortrait.setItemLeft(grandpaPortrait);
+		
+		grandpaPortrait.setItemAbove(teacherPortrait);
+		grandpaPortrait.setItemBelow(backButton);
+		grandpaPortrait.setItemRight(politicianPortrait);
+		grandpaPortrait.setItemLeft(politicianPortrait);
+		
+		backButton.setItemAbove(grandpaPortrait);
+		backButton.setItemBelow(maidPortrait);
+
+		
 		return menu;
 	}
 

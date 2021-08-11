@@ -12,6 +12,8 @@ public class TextureLibrary {
 	private static Texture volumeBar;
 	private static Texture selectionArrow;
 	private static Texture mainMenuBackground;
+	private static Texture selectedVolumeBar;
+	private static Texture logo;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -39,5 +41,19 @@ public class TextureLibrary {
 			mainMenuBackground = new Texture("MenuBackground.png");
 		}
 		return mainMenuBackground;
+	}
+
+	public static Texture getSelectedVolumeBar() {
+		if (selectedVolumeBar == null) {
+			selectedVolumeBar = new Texture("MusicNVolumeBar Selected.png");
+		}
+		return selectedVolumeBar;
+	}
+
+	public static Texture getLogo() {
+		if (logo == null) {
+			logo = new Texture("Logo.png");
+		}
+		return logo;		
 	}
 }

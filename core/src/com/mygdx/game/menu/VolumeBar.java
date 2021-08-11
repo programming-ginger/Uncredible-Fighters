@@ -11,12 +11,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.data.Options;
 
-public class VolumeBar implements MenuItem {
+public class VolumeBar extends MenuItem {
 
 	private static final float LABEL_BAR_GAP = 0.025f;
 
 	private Texture controller;
 	private Texture bar;
+	private Texture barSelected;
 
 	private PassiveTexture label;
 
@@ -30,6 +31,7 @@ public class VolumeBar implements MenuItem {
 	public VolumeBar(Texture label, float xCenter, float yCenter, float height, int value, IntConsumer action) {
 		this.controller = TextureLibrary.getVolumeController();
 		this.bar = TextureLibrary.getVolumeBar();
+		this.barSelected = TextureLibrary.getSelectedVolumeBar();
 		this.label = MenuFactory.makePassiveTextureToLeft(label, xCenter - Options.getWindowWidth() * LABEL_BAR_GAP,
 				yCenter, height);
 		this.action = action;
@@ -43,6 +45,8 @@ public class VolumeBar implements MenuItem {
 				+ this.barPosition.getWidth() * this.value / (Options.MAX_VOLUME + 0f);
 		this.controllerPosition = MenuFactory.makeScaledRectangleForTexture(controller, xCenter, yCenter, 2 * height);
 		adjustControllerPosition();
+		
+		
 	}
 
 	@Override
@@ -73,17 +77,20 @@ public class VolumeBar implements MenuItem {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch) {
-		label.draw(batch);
-		batch.draw(bar, barPosition.getX(), barPosition.getY(), barPosition.getWidth(), barPosition.getHeight());
+	public void draw(SpriteBatch batch, boolean isSelected) {
+		
+		Texture barTexture;
+		if (!isSelected) {
+			barTexture = bar;
+		}
+		else {
+			barTexture = barSelected;
+		}
+		
+		label.draw(batch);		
+		batch.draw(barTexture, barPosition.getX(), barPosition.getY(), barPosition.getWidth(), barPosition.getHeight());		
 		batch.draw(controller, controllerPosition.getX(), controllerPosition.getY(), controllerPosition.getWidth(),
 				controllerPosition.getHeight());
-
-	}
-
-	@Override
-	public void select(SpriteBatch batch) {
-		// TODO Auto-generated method stub
 
 	}
 

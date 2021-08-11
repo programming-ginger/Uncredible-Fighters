@@ -26,16 +26,13 @@ public class MenuScreen implements Screen {
 	private SpriteBatch batch;
 
 	private Texture background;
-	private PassiveTexture logo;
 	
 	private Sound selectSound;
 
 	Array<MenuItem> items;
+	Array<PassiveTexture> passiveTextures;
 
-	private int currentSelection;
-
-	private final static float LOGO_SIZE = 0.2f;
-	private final static float LOGO_Y = 0.95f;
+	private MenuItem currentSelection;
 
 	public MenuScreen() {
 		this.camera = new OrthographicCamera();
@@ -44,20 +41,7 @@ public class MenuScreen implements Screen {
 		this.batch = new SpriteBatch();
 
 		items = new Array<>();
-
-		// Logo
-		Texture texture = new Texture("Logo.PNG");
-		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
-		float boxHeight = Options.getWindowWidth() * LOGO_SIZE;
-		float boxWidth = Options.getWindowWidth() * LOGO_SIZE * ratio;
-		float x = Options.getWindowWidth() / 2f - boxWidth / 2f;
-		float y = Options.getWindowHeight() * LOGO_Y - boxHeight;
-
-		Rectangle rectangle = new Rectangle(x, y, boxWidth, boxHeight);
-		PassiveTexture button = new PassiveTexture(texture, rectangle);
-		this.logo = (button);
-
-		this.currentSelection = 0;
+		passiveTextures = new Array<>();
 		
 		this.selectSound = Gdx.audio.newSound(Gdx.files.internal("MenuSelectSound.mp3"));
 	}
@@ -68,6 +52,14 @@ public class MenuScreen implements Screen {
 
 	public void addMenuItem(MenuItem item) {
 		this.items.add(item);
+		
+		if (this.items.size == 1) {
+			this.currentSelection = this.items.get(0);
+		}
+	}
+	
+	public void addPassiveTexture(PassiveTexture item) {
+		this.passiveTextures.add(item);
 	}
 
 	@Override
@@ -88,12 +80,11 @@ public class MenuScreen implements Screen {
 		}
 
 		for (MenuItem button : this.items) {
-			button.draw(batch);
+			button.draw(batch, button == currentSelection);
 		}
-		logo.draw(batch);
 
-		if (this.items.size > currentSelection) {
-			this.items.get(currentSelection).select(batch);
+		for (PassiveTexture textures: this.passiveTextures) {
+			textures.draw(batch);
 		}
 
 		batch.end();
@@ -112,32 +103,38 @@ public class MenuScreen implements Screen {
 
 		Vector2 touchPos = getMousePosition();
 
-		for (int i = 0; i < this.items.size; i++) {
-			if (this.items.get(i).contains(touchPos.x, touchPos.y)) {
+		for (MenuItem item : this.items) {
+			if (item.contains(touchPos.x, touchPos.y)) {
 				
-				if (i != currentSelection) {
-					this.selectSound.play(Options.getSoundVolume());
+				if (item != currentSelection) {
+					this.selectSound.play(Options.getSoundVolumeFloat());
 				}
-				currentSelection = i;
-				i = this.items.size;
+				currentSelection = item;
+				break;
 			}
 		}
 
-		if (this.items.size > currentSelection) {
-			this.items.get(currentSelection).update(batch, touchPos);
-		}
-
+		MenuItem newSelection = null;
 		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-			currentSelection++;
-			currentSelection = currentSelection % this.items.size;
-			this.selectSound.play(Options.getSoundVolume());
+			newSelection = currentSelection.getItemBelow();			
 		}
 
 		else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-			currentSelection--;
-			currentSelection = (currentSelection + this.items.size) % this.items.size;
-			this.selectSound.play(Options.getSoundVolume());
+			newSelection = currentSelection.getItemAbove();
 		}
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+			newSelection = currentSelection.getItemLeft();
+		}
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+			newSelection = currentSelection.getItemRight();
+		}
+		
+		if (newSelection != null && newSelection != currentSelection) {
+			this.selectSound.play(Options.getSoundVolumeFloat());
+			currentSelection = newSelection;
+		}
+		
+		currentSelection.update(batch, touchPos);
 	}
 
 	@Override

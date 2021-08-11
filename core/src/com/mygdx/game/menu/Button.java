@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.data.Options;
 
-public class Button implements MenuItem {
+public class Button extends MenuItem {
 
 	private final static float ARROW_OFFSET = 0.05f;
 
@@ -46,14 +46,13 @@ public class Button implements MenuItem {
 		}
 	}
 
-	public void draw(SpriteBatch batch) {
+	public void draw(SpriteBatch batch, boolean isSelected) {
 		batch.draw(texture, position.x, position.y, position.width, position.height);
-	}
-
-	public void select(SpriteBatch batch) {
-		float width = selectionArrow.getWidth() / (selectionArrow.getHeight() + 0f) * position.getHeight();
-		batch.draw(selectionArrow, position.x - width - ARROW_OFFSET * Options.getWindowHeight(), position.y, width,
-				position.height);
+		if (isSelected) {
+			float width = selectionArrow.getWidth() / (selectionArrow.getHeight() + 0f) * position.getHeight();
+			batch.draw(selectionArrow, position.x - width - ARROW_OFFSET * Options.getWindowHeight(), position.y, width,
+					position.height);
+		}
 	}
 
 	public void dispose() {

@@ -16,6 +16,10 @@ public class Options {
 	public static int getMusicVolume() {
 		return musicVolume;
 	}
+	
+	public static float getMusicVolumeFloat() {
+		return musicVolume/100f;
+	}
 
 	public static void setMusicVolume(int musicVolume) {
 		if (isValidVolume(musicVolume)) {
@@ -26,6 +30,10 @@ public class Options {
 
 	public static int getSoundVolume() {
 		return soundVolume;
+	}
+	
+	public static float getSoundVolumeFloat() {
+		return soundVolume/100f;
 	}
 
 	public static void setSoundVolume(int soundVolume) {

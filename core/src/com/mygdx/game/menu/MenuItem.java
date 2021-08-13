@@ -1,7 +1,10 @@
 package com.mygdx.game.menu;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.my.gdx.game.textures.TextureLibrary;
 
 public class MenuItem {
 	
@@ -9,6 +12,17 @@ public class MenuItem {
 	private MenuItem itemBelow;
 	private MenuItem itemLeft;
 	private MenuItem itemRight;
+	
+	protected Rectangle position;
+	private Texture player1SelectionFrame;
+	private Texture player2SelectionFrame;
+	
+	private final static float OFFSET = 0.05f;
+	
+	public MenuItem() {
+		player1SelectionFrame = TextureLibrary.getPlayer1SelectionFrame();
+		player2SelectionFrame = TextureLibrary.getPlayer2SelectionFrame();
+	}
 
 	public void update(SpriteBatch batch, Vector2 mousePosition) {}
 
@@ -50,6 +64,17 @@ public class MenuItem {
 
 	public void setItemRight(MenuItem itemRight) {
 		this.itemRight = itemRight;
+	}
+
+	public void draw(SpriteBatch batch, boolean selectedByPlayer1, boolean selectedByPlayer2) {
+				
+		if (selectedByPlayer1) {
+			batch.draw(player1SelectionFrame, position.getX() - position.getWidth() * OFFSET, position.getY() - position.getHeight() * OFFSET, position.getWidth(), position.getHeight());	
+		}
+		if (selectedByPlayer2) {
+			batch.draw(player2SelectionFrame, position.getX() + position.getWidth() * OFFSET, position.getY() + position.getHeight() * OFFSET, position.getWidth(), position.getHeight());	
+		}
+		draw(batch, false);
 	}
 	
 	

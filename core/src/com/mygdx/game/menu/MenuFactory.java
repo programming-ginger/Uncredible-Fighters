@@ -5,6 +5,7 @@ import java.util.function.IntConsumer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.my.gdx.game.textures.TextureLibrary;
+import com.mygdx.game.screen.CharacterChoiceScreen;
 import com.mygdx.game.screen.MenuScreen;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.UncredibleFighters;
@@ -222,11 +223,11 @@ public class MenuFactory {
 	
 	public static MenuScreen createCharacterChoiceScreen() {
 
-		final float PORTRAIT_SIZE = 0.15f;
-		final float FIRST_ROW_Y = 0.6f;
-		final float SECOND_ROW_Y = 0.3f;
+		final float PORTRAIT_SIZE = 0.2f;
+		final float FIRST_ROW_Y = 0.75f;
+		final float SECOND_ROW_Y = 0.4f;
 		
-		MenuScreen menu = new MenuScreen();
+		MenuScreen menu = new CharacterChoiceScreen();
 		menu.setBackground(TextureLibrary.getMainMenuBackground());
 
 		Texture texture;
@@ -315,9 +316,9 @@ public class MenuFactory {
 		// Zurück-Button
 		texture = new Texture("BackButton.png");
 
-		boxHeight = Options.getWindowWidth() * 0.1f;
+		boxHeight = Options.getWindowWidth() * 0.08f;
 		xCenter = Options.getWindowWidth() * 0.7f;
-		yCenter = Options.getWindowHeight() * 0.15f;
+		yCenter = Options.getWindowHeight() * 0.1f;
 
 		ButtonAction buttonAction = new ButtonAction() {
 			@Override

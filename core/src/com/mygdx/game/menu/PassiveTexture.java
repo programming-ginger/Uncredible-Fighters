@@ -26,5 +26,9 @@ public class PassiveTexture {
 	public boolean contains(float x, float y) {
 		return position.contains(x, y);
 	}
+	
+	public float getX() {
+		return position.getX();
+	}
 
 }

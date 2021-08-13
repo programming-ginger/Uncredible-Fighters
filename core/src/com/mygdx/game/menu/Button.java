@@ -9,26 +9,23 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.data.Options;
+import com.mygdx.game.sound.SoundPlayer;
 
 public class Button extends MenuItem {
 
 	private final static float ARROW_OFFSET = 0.05f;
 
-	private Rectangle position;
 	private Texture texture;
 
 	private Texture selectionArrow;
 
 	ButtonAction action;
-	
-	private Sound actionSound;
 
 	public Button(Texture texture, Rectangle position, ButtonAction action) {
 		this.position = position;
 		this.texture = texture;
 		this.action = action;
 		this.selectionArrow = TextureLibrary.getSelectionArrow();
-		this.actionSound = Gdx.audio.newSound(Gdx.files.internal("MenuActionSound.mp3"));
 	}
 
 	public Button(Texture texture, Rectangle position) {
@@ -41,7 +38,7 @@ public class Button extends MenuItem {
 
 	public void performAction() {
 		if (action != null) {
-			actionSound.play(Options.getSoundVolume());
+			SoundPlayer.playActionSound();
 			action.action();
 		}
 	}

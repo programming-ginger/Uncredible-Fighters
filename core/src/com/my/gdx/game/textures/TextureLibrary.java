@@ -14,6 +14,8 @@ public class TextureLibrary {
 	private static Texture mainMenuBackground;
 	private static Texture selectedVolumeBar;
 	private static Texture logo;
+	private static Texture player1SelectionFrame;
+	private static Texture player2SelectionFrame;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -55,5 +57,19 @@ public class TextureLibrary {
 			logo = new Texture("Logo.png");
 		}
 		return logo;		
+	}
+	
+	public static Texture getPlayer1SelectionFrame() {
+		if (player1SelectionFrame == null) {
+			player1SelectionFrame = new Texture("Player1SelectionFrame.png");
+		}
+		return player1SelectionFrame;
+	}
+
+	public static Texture getPlayer2SelectionFrame() {
+		if (player2SelectionFrame == null) {
+			player2SelectionFrame = new Texture("Player2SelectionFrame.png");
+		}
+		return player2SelectionFrame;		
 	}
 }

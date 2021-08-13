@@ -46,7 +46,7 @@ public class VolumeBar extends MenuItem {
 		this.controllerPosition = MenuFactory.makeScaledRectangleForTexture(controller, xCenter, yCenter, 2 * height);
 		adjustControllerPosition();
 		
-		
+		this.position = new Rectangle(this.label.getX(),barPosition.getY(),label.getWidth() + LABEL_BAR_GAP*Options.getWindowWidth() + barPosition.getWidth(), barPosition.getHeight());
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class VolumeBar extends MenuItem {
 
 	@Override
 	public boolean contains(float x, float y) {
-		return label.contains(x, y) || barPosition.contains(x, y) || controllerPosition.contains(x, y);
+		return this.position.contains(x, y) || controllerPosition.contains(x, y);
 	}
 
 	private void adjustControllerPosition() {

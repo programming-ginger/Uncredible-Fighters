@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.*;
+import com.mygdx.game.sound.SoundPlayer;
 
 public class MenuScreen implements Screen {
 
@@ -23,16 +24,14 @@ public class MenuScreen implements Screen {
 
 	private OrthographicCamera camera;
 	private Viewport viewport;
-	private SpriteBatch batch;
+	protected SpriteBatch batch;
 
-	private Texture background;
-	
-	private Sound selectSound;
+	protected Texture background;
 
-	Array<MenuItem> items;
-	Array<PassiveTexture> passiveTextures;
+	protected Array<MenuItem> items;
+	protected Array<PassiveTexture> passiveTextures;
 
-	private MenuItem currentSelection;
+	protected MenuItem currentSelection;
 
 	public MenuScreen() {
 		this.camera = new OrthographicCamera();
@@ -42,8 +41,6 @@ public class MenuScreen implements Screen {
 
 		items = new Array<>();
 		passiveTextures = new Array<>();
-		
-		this.selectSound = Gdx.audio.newSound(Gdx.files.internal("MenuSelectSound.mp3"));
 	}
 
 	public void setBackground(Texture background) {
@@ -91,7 +88,7 @@ public class MenuScreen implements Screen {
 
 	}
 
-	private Vector2 getMousePosition() {
+	protected Vector2 getMousePosition() {
 		Vector3 touchPos3 = new Vector3();
 		touchPos3.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 		camera.unproject(touchPos3);
@@ -99,7 +96,7 @@ public class MenuScreen implements Screen {
 		return new Vector2(touchPos3.x, touchPos3.y);
 	}
 
-	private void updateSelection() {
+	protected void updateSelection() {
 
 		Vector2 touchPos = getMousePosition();
 
@@ -107,7 +104,7 @@ public class MenuScreen implements Screen {
 			if (item.contains(touchPos.x, touchPos.y)) {
 				
 				if (item != currentSelection) {
-					this.selectSound.play(Options.getSoundVolumeFloat());
+					SoundPlayer.playSelectionSound();
 				}
 				currentSelection = item;
 				break;
@@ -130,7 +127,7 @@ public class MenuScreen implements Screen {
 		}
 		
 		if (newSelection != null && newSelection != currentSelection) {
-			this.selectSound.play(Options.getSoundVolumeFloat());
+			SoundPlayer.playSelectionSound();
 			currentSelection = newSelection;
 		}
 		

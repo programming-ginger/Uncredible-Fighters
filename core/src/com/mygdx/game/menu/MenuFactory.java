@@ -1,6 +1,7 @@
 package com.mygdx.game.menu;
 
 import java.util.function.IntConsumer;
+import java.util.function.Supplier;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,6 +10,12 @@ import com.mygdx.game.screen.CharacterChoiceScreen;
 import com.mygdx.game.screen.MenuScreen;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.UncredibleFighters;
+import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.character.Child;
+import com.mygdx.game.character.Grandpa;
+import com.mygdx.game.character.Maid;
+import com.mygdx.game.character.Politician;
+import com.mygdx.game.character.Teacher;
 
 public class MenuFactory {
 	
@@ -18,6 +25,11 @@ public class MenuFactory {
 	public static Button makeButton(Texture texture, float xCenter, float yCenter, float height, ButtonAction action) {
 		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
 		return new Button(texture, rectangle, action);
+	}
+	
+	public static CharacterPortrait makeCharacterPortrait(Texture texture, float xCenter, float yCenter, float height, Supplier<UncredibleFighter> supplier) {
+		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
+		return new CharacterPortrait(texture, rectangle, supplier);
 	}
 
 	public static PassiveTexture makePassiveTexture(Texture texture, float xCenter, float yCenter, float height) {
@@ -231,6 +243,7 @@ public class MenuFactory {
 		menu.setBackground(TextureLibrary.getMainMenuBackground());
 
 		Texture texture;
+		Supplier<UncredibleFighter> supplier;
 		ButtonAction action;
 
 		float boxHeight;
@@ -243,13 +256,13 @@ public class MenuFactory {
 		xCenter = Options.getWindowWidth() * 0.2f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
 
-		action = new ButtonAction() {
+		supplier = new Supplier<UncredibleFighter>() {
 			@Override
-			public void action() {
-				UncredibleFighters.showFightingScreen();
+			public UncredibleFighter get() {
+				return new Child();
 			}
 		};
-		Button childPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		CharacterPortrait childPortrait = makeCharacterPortrait(texture, xCenter, yCenter, boxHeight, supplier);
 		menu.addMenuItem(childPortrait);
 		
 		// Teacher-Portrait
@@ -258,13 +271,13 @@ public class MenuFactory {
 		xCenter = Options.getWindowWidth() * 0.5f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
 
-		action = new ButtonAction() {
+		supplier = new Supplier<UncredibleFighter>() {
 			@Override
-			public void action() {
-				UncredibleFighters.showFightingScreen();
+			public UncredibleFighter get() {
+				return new Teacher();
 			}
 		};
-		Button teacherPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		Button teacherPortrait = makeCharacterPortrait(texture, xCenter, yCenter, boxHeight, supplier);
 		menu.addMenuItem(teacherPortrait);
 		
 		// Maid-Portrait
@@ -273,13 +286,13 @@ public class MenuFactory {
 		xCenter = Options.getWindowWidth() * 0.8f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
 
-		action = new ButtonAction() {
+		supplier = new Supplier<UncredibleFighter>() {
 			@Override
-			public void action() {
-				UncredibleFighters.showFightingScreen();
+			public UncredibleFighter get() {
+				return new Maid();
 			}
 		};
-		Button maidPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		CharacterPortrait maidPortrait = makeCharacterPortrait(texture, xCenter, yCenter, boxHeight, supplier);
 		menu.addMenuItem(maidPortrait);
 		
 		// Politician-Portrait
@@ -288,13 +301,13 @@ public class MenuFactory {
 		xCenter = Options.getWindowWidth() * 0.33f;
 		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
 
-		action = new ButtonAction() {
+		supplier = new Supplier<UncredibleFighter>() {
 			@Override
-			public void action() {
-				UncredibleFighters.showFightingScreen();
+			public UncredibleFighter get() {
+				return new Politician();
 			}
 		};
-		Button politicianPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		CharacterPortrait politicianPortrait = makeCharacterPortrait(texture, xCenter, yCenter, boxHeight, supplier);
 		menu.addMenuItem(politicianPortrait);
 		
 		// Grandpa-Portrait
@@ -303,14 +316,14 @@ public class MenuFactory {
 		xCenter = Options.getWindowWidth() * 0.66f;
 		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
 
-		action = new ButtonAction() {
+		supplier = new Supplier<UncredibleFighter>() {
 			@Override
-			public void action() {
-				UncredibleFighters.showFightingScreen();
+			public UncredibleFighter get() {
+				return new Grandpa();
 			}
 		};
 		
-		Button grandpaPortrait = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		CharacterPortrait grandpaPortrait = makeCharacterPortrait(texture, xCenter, yCenter, boxHeight, supplier);
 		menu.addMenuItem(grandpaPortrait);
 		
 		// Zurück-Button

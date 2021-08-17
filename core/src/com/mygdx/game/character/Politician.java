@@ -1,18 +1,20 @@
-package com.mygdx.game.character.fighter;
+package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.character.Character;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Queue;
 
-public class Politician extends Character {
+public class Politician extends UncredibleFighter {
 
 	private static final int DEF_MAX_PEN_COUNT = 3;
 
 	private Queue<Rectangle> penList;
 	private int maxStoneCount;
+	
+	public Politician() {
+		this("politician", 100, 5, new Texture("Badlogic.jpg"));
+	}
 
 	public Politician(String name, int maxHP, float speed, Texture texture)
 	{

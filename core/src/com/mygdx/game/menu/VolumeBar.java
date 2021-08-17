@@ -28,11 +28,11 @@ public class VolumeBar extends MenuItem {
 
 	private IntConsumer action;
 
-	public VolumeBar(Texture label, float xCenter, float yCenter, float height, int value, IntConsumer action) {
+	public VolumeBar(Texture labelTexture, float xCenter, float yCenter, float height, int value, IntConsumer action) {
 		this.controller = TextureLibrary.getVolumeController();
 		this.bar = TextureLibrary.getVolumeBar();
 		this.barSelected = TextureLibrary.getSelectedVolumeBar();
-		this.label = MenuFactory.makePassiveTextureToLeft(label, xCenter - Options.getWindowWidth() * LABEL_BAR_GAP,
+		this.label = MenuFactory.makePassiveTextureToLeft(labelTexture, xCenter - Options.getWindowWidth() * LABEL_BAR_GAP,
 				yCenter, height);
 		this.action = action;
 
@@ -110,5 +110,11 @@ public class VolumeBar extends MenuItem {
 	private void adjustControllerPosition() {
 		this.controllerPosition.x = barPosition.getX()
 				+ barPosition.getWidth() * (this.value / (Options.MAX_VOLUME + 0f)) - controllerPosition.getWidth() / 2;
+	}
+
+	@Override
+	public void performAction() {
+		// TODO Auto-generated method stub
+		
 	}
 }

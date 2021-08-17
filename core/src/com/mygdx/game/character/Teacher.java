@@ -1,14 +1,16 @@
-package com.mygdx.game.character.fighter;
+package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.character.Character;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class Teacher extends Character {
+public class Teacher extends UncredibleFighter {
 
 	private Rectangle ruler;
 
+	public Teacher() {
+		this("teacher", 100, 5, new Texture("Badlogic.jpg"));
+	}
+	
 	public Teacher(String name, int maxHP, float speed, Texture texture)
 	{
 		setName(name);
@@ -22,12 +24,13 @@ public class Teacher extends Character {
 
 	public Rectangle getRuler()
 	{
-		throw new NotImplementedException();
+		return null;
+		//throw new NotImplementedException();
 	}
 
 	public void setRuler(Rectangle ruler)
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 }

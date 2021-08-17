@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.character.Character;
-import com.mygdx.game.character.fighter.Child;
-import com.mygdx.game.character.fighter.Maid;
+import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.character.Child;
+import com.mygdx.game.character.Maid;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.screen.FightingScreen;
 
@@ -44,12 +44,12 @@ public class FightingGame extends Game {
     boolean fallingB = false;
 
     public SpriteBatch batch = new SpriteBatch();
-    private Character characterA;
-    private Character characterB;
+    private UncredibleFighter characterA;
+    private UncredibleFighter characterB;
 
     private int fightTime;
 
-    public FightingGame(Character characterA, Character characterB)
+    public FightingGame(UncredibleFighter characterA, UncredibleFighter characterB)
     {
         this.characterA = characterA;
         this.characterB = characterB;
@@ -75,12 +75,12 @@ public class FightingGame extends Game {
 
     }
 
-    public Character getCharacterA()
+    public UncredibleFighter getCharacterA()
     {
         return characterA;
     }
 
-    public Character getCharacterB()
+    public UncredibleFighter getCharacterB()
     {
         return characterB;
     }

@@ -3,7 +3,7 @@ package com.mygdx.game.character;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public abstract class Character
+public abstract class UncredibleFighter
 {
     private String name;
     private int maxHP;

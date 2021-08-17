@@ -1,17 +1,20 @@
-package com.mygdx.game.character.fighter;
+package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.character.Character;
 
 import java.util.Queue;
 
-public class Child extends Character
-{
+public class Child extends UncredibleFighter{
+	
 	private static final int DEF_MAX_STONE_COUNT = 3;
 
 	private Queue<Rectangle> stoneList;
 	private int maxStoneCount;
+	
+	public Child() {
+		this("child", 100, 5, DEF_MAX_STONE_COUNT, new Texture("Badlogic.jpg"));
+	}
 
 	public Child(String name, int maxHP, float speed, Texture texture)
 	{

@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.character.Character;
+import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.prototype.FightingGame;
 import com.mygdx.game.prototype.PrototypeCharMove;
@@ -31,8 +31,8 @@ public class FightingScreen implements Screen {
 	private final float paddingLeft = 50;
 	private final float paddingRight = 50;
 
-	private Character charA;
-	private Character charB;
+	private UncredibleFighter charA;
+	private UncredibleFighter charB;
 	private ShapeRenderer srA;
 	private ShapeRenderer srB;
 	private Rectangle rectA;

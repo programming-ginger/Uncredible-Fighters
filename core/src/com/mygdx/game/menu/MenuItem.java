@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.my.gdx.game.textures.TextureLibrary;
 
-public class MenuItem {
+public abstract class MenuItem {
 	
 	private MenuItem itemAbove;
 	private MenuItem itemBelow;
@@ -24,11 +24,13 @@ public class MenuItem {
 		player2SelectionFrame = TextureLibrary.getPlayer2SelectionFrame();
 	}
 
-	public void update(SpriteBatch batch, Vector2 mousePosition) {}
+	public abstract void update(SpriteBatch batch, Vector2 mousePosition);
 
-	public void draw(SpriteBatch batch, boolean isSelected) {}
+	public abstract void draw(SpriteBatch batch, boolean isSelected);
 
-	public void dispose() {}
+	public abstract void dispose();
+	
+	public abstract void performAction();
 
 	public boolean contains(float x, float y) {
 		return false;

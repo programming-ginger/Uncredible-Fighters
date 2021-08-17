@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.UncredibleFighters;
+import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.CharacterPortrait;
 import com.mygdx.game.menu.MenuItem;
@@ -115,29 +116,30 @@ public class CharacterChoiceScreen extends MenuScreen {
 		Vector2 touchPos = getMousePosition();
 		
 		// Check if someone picked their character
-		if (!(currentSelection instanceof CharacterPortrait)) {
-			currentSelection.update(batch, touchPos);
-		}
-		else {
-			if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
+		if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
+			if (!(currentSelection instanceof CharacterPortrait)) {
+				currentSelection.performAction();
+			}
+			else {			
 				SoundPlayer.playActionSound();
 				player1Confirmed = !player1Confirmed;
 			}
 		}
 		
-		if (!(player2Selection instanceof CharacterPortrait)) {
-			player2Selection.update(batch, touchPos);
-		}
-		else {
-			if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+			if (!(player2Selection instanceof CharacterPortrait)) {
+				player2Selection.performAction();
+			}
+			else {			
 				SoundPlayer.playActionSound();
 				player2Confirmed = !player2Confirmed;
 			}
 		}
 		
 		if (player1Confirmed && player2Confirmed) {
-			// Charaktere an Kampf übergeben
-			UncredibleFighters.showFightingScreen();
+			UncredibleFighter player1 = ((CharacterPortrait) currentSelection).getFighter();
+			UncredibleFighter player2 = ((CharacterPortrait) player2Selection).getFighter();
+			UncredibleFighters.startFight(player1, player2);
 		}
 	}
 

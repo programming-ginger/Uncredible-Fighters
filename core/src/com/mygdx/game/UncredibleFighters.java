@@ -5,9 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.character.Character;
-import com.mygdx.game.character.fighter.Child;
-import com.mygdx.game.character.fighter.Maid;
+import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.character.Child;
+import com.mygdx.game.character.Maid;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.prototype.FightingGame;
@@ -65,19 +65,22 @@ public class UncredibleFighters extends Game {
 		instance.setScreen(menu);
 	}
 
-	public static void showFightingScreen() {
-		Character characterA = new Child("Kind", 150, 8, 3, new Texture("badlogic.jpg"));
-		Character characterB = new Maid("Putzfrau", 200, 8, new Texture("badlogic.jpg"));
-		FightingGame game = new FightingGame(characterA, characterB);
-
-		FightingScreen screen = new FightingScreen(game);
-		instance.setScreen(screen);
-		game.setScreen(screen);
-		//instance.setScreen(new PrototypeCharMove());
-	}
+//	public static void showFightingScreen() {
+//		
+//		//instance.setScreen(new PrototypeCharMove());
+//	}
 
 	public static void showCharacterChoice() {
 		//showFightingScreen();
 		instance.setScreen(MenuFactory.createCharacterChoiceScreen());
+	}
+
+	public static void startFight(UncredibleFighter player1, UncredibleFighter player2) {
+		FightingGame game = new FightingGame(player1, player2);
+
+		FightingScreen screen = new FightingScreen(game);
+		instance.setScreen(screen);
+		game.setScreen(screen);
+		
 	}
 }

@@ -1,13 +1,15 @@
-package com.mygdx.game.character.fighter;
+package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.character.Character;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class Grandpa extends Character {
+public class Grandpa extends UncredibleFighter {
 
 	private Rectangle rollator;
+	
+	public Grandpa() {
+		this("grandpa", 100, 5, new Texture("Badlogic.jpg"));
+	}
 
 	public Grandpa(String name, int maxHP, float speed, Texture texture)
 	{
@@ -22,12 +24,13 @@ public class Grandpa extends Character {
 
 	public Rectangle getRollator()
 	{
-		throw new NotImplementedException();
+		return null;
+		//throw new NotImplementedException();
 	}
 
 	public void setRollator(Rectangle rollator)
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 }

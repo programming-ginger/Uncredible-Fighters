@@ -31,4 +31,8 @@ public class PassiveTexture {
 		return position.getX();
 	}
 
+	public float getWidth() {
+		return position.getWidth();
+	}
+
 }

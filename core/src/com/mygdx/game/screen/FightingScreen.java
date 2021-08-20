@@ -13,8 +13,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
+import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.prototype.FightingGame;
 import com.mygdx.game.prototype.PrototypeCharMove;
 import com.mygdx.game.scene.Hud;
@@ -39,6 +41,9 @@ public class FightingScreen implements Screen {
 	private Rectangle rectB;
 
 	private float timeSeconds = 0f;
+	
+	private boolean menuIsActive;
+	private MenuScreen menuOverlay;
 	
 	PrototypeCharMove fights;
 
@@ -66,15 +71,33 @@ public class FightingScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			menuIsActive = !menuIsActive;
+			
+			if (menuIsActive) {
+				menuOverlay = MenuFactory.createFightingPauseMenu();
+			}
+			else {
+				menuOverlay = null;
+			}
+		}
 
+		if (!menuIsActive) {
 		updateHud();
 		resetMoves();
 		listenUserAInput();
 		listenUserBInput();
 		moveUserA();
 		moveUserB();
+		}
+		
 		renderUserA();
 		renderUserB();
+		
+		if(menuIsActive) {
+			menuOverlay.render(delta);
+		}
 
 		game.batch.begin();
 		game.batch.end();
@@ -279,5 +302,10 @@ public class FightingScreen implements Screen {
 		srB.setColor(0, 1, 0 , 1);
 		srB.rect(rectB.x, rectB.y, rectB.width, rectB.height);
 		srB.end();
+	}
+
+	public void closeMenu() {
+		menuOverlay = null;
+		menuIsActive = false;
 	}
 }

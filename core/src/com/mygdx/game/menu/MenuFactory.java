@@ -25,6 +25,11 @@ public class MenuFactory {
 	private final static float BACKBUTTON_SIZE = 0.07f;
 	private final static float BACKBUTTON_X = 0.8f;
 	private final static float BACKBUTTON_Y = 0.1f;
+	
+	final static float MAIN_MENU_BUTTON_SIZE = 0.07f;
+	final static float MAIN_MENU_SPIELEN_Y = 0.5f;
+	final static float MAIN_MENU_EINSTELLUNGEN_Y = 0.35f;
+	final static float MAIN_MENU_BEENDEN_Y = 0.2f;
 
 	public static Button makeButton(Texture texture, float xCenter, float yCenter, float height, ButtonAction action) {
 		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
@@ -76,11 +81,6 @@ public class MenuFactory {
 
 	public static MenuScreen createMainMenu() {
 
-		final float BUTTON_SIZE = 0.07f;
-		final float SPIELEN_Y = 0.5f;
-		final float EINSTELLUNGEN_Y = 0.35f;
-		final float BEENDEN_Y = 0.2f;
-
 		MenuScreen mainMenu = new MenuScreen();
 		mainMenu.setBackground(TextureLibrary.getMainMenuBackground());
 
@@ -103,8 +103,8 @@ public class MenuFactory {
 
 		// "Spielen" Knopf
 		texture = new Texture("PlayButton.PNG");
-		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		yCenter = Options.getWindowHeight() * SPIELEN_Y;
+		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
+		yCenter = Options.getWindowHeight() * MAIN_MENU_SPIELEN_Y;
 
 		action = new ButtonAction() {
 			@Override
@@ -117,8 +117,8 @@ public class MenuFactory {
 
 		// "Einstellungen" Knopf
 		texture = new Texture("SettingButton.PNG");
-		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		yCenter = Options.getWindowHeight() * EINSTELLUNGEN_Y;
+		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
+		yCenter = Options.getWindowHeight() * MAIN_MENU_EINSTELLUNGEN_Y;
 
 		action = new ButtonAction() {
 			@Override
@@ -132,13 +132,91 @@ public class MenuFactory {
 		// "Beenden" Knopf
 		texture = new Texture("EndButton.PNG");
 
-		boxHeight = Options.getWindowWidth() * BUTTON_SIZE;
-		yCenter = Options.getWindowHeight() * BEENDEN_Y;
+		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
+		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
 
 		action = new ButtonAction() {
 			@Override
 			public void action() {
 				UncredibleFighters.closeGame();
+			}
+		};
+		Button endButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		mainMenu.addMenuItem(endButton);
+		
+		// Linking for comfortable selection with arrow keys
+		
+		playButton.setItemAbove(endButton);
+		playButton.setItemBelow(optionsButton);
+		
+		optionsButton.setItemAbove(playButton);
+		optionsButton.setItemBelow(endButton);
+		
+		endButton.setItemAbove(optionsButton);
+		endButton.setItemBelow(playButton);
+
+		return mainMenu;
+	}
+	
+	
+	public static MenuScreen createFightingPauseMenu() {
+		MenuScreen mainMenu = new MenuScreen();
+
+		Texture texture;
+		ButtonAction action;
+
+		float boxHeight;
+		float xCenter = Options.getWindowWidth() / 2f;
+		float yCenter;
+		
+		// Logo
+		texture = TextureLibrary.getLogo();
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		boxHeight = Options.getWindowHeight() * LOGO_SIZE;
+		xCenter = Options.getWindowWidth() / 2f;
+		yCenter = Options.getWindowHeight() * LOGO_Y;
+
+		PassiveTexture logo = makePassiveTexture(texture, xCenter, yCenter, boxHeight);
+		mainMenu.addPassiveTexture(logo);
+
+		// "Fortsetzen" Knopf
+		texture = new Texture("ContinueButton.PNG");
+		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
+		yCenter = Options.getWindowHeight() * MAIN_MENU_SPIELEN_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.continueFight();
+			}
+		};
+		Button playButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		mainMenu.addMenuItem(playButton);
+
+		// "Einstellungen" Knopf
+		texture = new Texture("SettingButton.PNG");
+		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
+		yCenter = Options.getWindowHeight() * MAIN_MENU_EINSTELLUNGEN_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showSettings();
+			}
+		};
+		Button optionsButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
+		mainMenu.addMenuItem(optionsButton);
+
+		// "Beenden" Knopf
+		texture = new Texture("EndButton.PNG");
+
+		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
+		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
+
+		action = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showMainMenuScreen();
 			}
 		};
 		Button endButton = makeButton(texture, xCenter, yCenter, boxHeight, action);

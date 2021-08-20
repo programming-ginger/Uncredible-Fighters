@@ -32,6 +32,8 @@ public class MenuScreen implements Screen {
 	protected Array<PassiveTexture> passiveTextures;
 
 	protected MenuItem currentSelection;
+	
+	public boolean isActive = true;
 
 	public MenuScreen() {
 		this.camera = new OrthographicCamera();
@@ -57,6 +59,11 @@ public class MenuScreen implements Screen {
 	
 	public void addPassiveTexture(PassiveTexture item) {
 		this.passiveTextures.add(item);
+	}
+	
+	public void clear() {
+		items.clear();
+		passiveTextures.clear();
 	}
 
 	@Override
@@ -163,7 +170,10 @@ public class MenuScreen implements Screen {
 	public void dispose() {
 		batch.dispose();
 
+		if (background != null) {
 		background.dispose();
+		}
+		
 		for (MenuItem button : this.items) {
 			button.dispose();
 		}

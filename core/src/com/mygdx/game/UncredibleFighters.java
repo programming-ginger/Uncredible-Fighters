@@ -18,6 +18,7 @@ import com.mygdx.game.screen.FightingScreen;
 public class UncredibleFighters extends Game {
 
 	private static UncredibleFighters instance;
+	private static FightingScreen activeFight;
 
 	private UncredibleFighters() {
 
@@ -67,16 +68,23 @@ public class UncredibleFighters extends Game {
 	}
 
 	public static void showCharacterChoice() {
-		//showFightingScreen();
 		instance.setScreen(MenuFactory.createCharacterChoiceScreen());
 	}
 
 	public static void startFight(UncredibleFighter player1, UncredibleFighter player2) {
 		FightingGame game = new FightingGame(player1, player2);
 
-		FightingScreen screen = new FightingScreen(game);
-		getInstance().setScreen(screen);
-		game.setScreen(screen);
+		activeFight = new FightingScreen(game);
+		getInstance().setScreen(activeFight);
+		game.setScreen(activeFight);
 		
+	}
+	
+	public static void showFightingMenu() {
+		getInstance().setScreen(MenuFactory.createFightingPauseMenu());
+	}
+
+	public static void continueFight() {
+		activeFight.closeMenu();	
 	}
 }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.my.gdx.game.textures.TextureLibrary;
+import com.mygdx.game.textures.TextureLibrary;
 
 public abstract class MenuItem {
 	
@@ -34,6 +34,10 @@ public abstract class MenuItem {
 
 	public boolean contains(float x, float y) {
 		return false;
+	}
+	
+	public boolean contains(Vector2 vector) {
+		return position.contains(vector);
 	}
 
 	public MenuItem getItemAbove() {

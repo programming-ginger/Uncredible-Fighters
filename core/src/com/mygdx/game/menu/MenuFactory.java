@@ -5,9 +5,9 @@ import java.util.function.Supplier;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.screen.CharacterChoiceScreen;
 import com.mygdx.game.screen.MenuScreen;
+import com.mygdx.game.textures.TextureLibrary;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.character.UncredibleFighter;
@@ -21,6 +21,10 @@ public class MenuFactory {
 	
 	private final static float LOGO_SIZE = 0.35f;
 	private final static float LOGO_Y = 0.8f;
+	
+	private final static float BACKBUTTON_SIZE = 0.07f;
+	private final static float BACKBUTTON_X = 0.8f;
+	private final static float BACKBUTTON_Y = 0.1f;
 
 	public static Button makeButton(Texture texture, float xCenter, float yCenter, float height, ButtonAction action) {
 		Rectangle rectangle = makeScaledRectangleForTexture(texture, xCenter, yCenter, height);
@@ -206,9 +210,9 @@ public class MenuFactory {
 		// Zurück-Button
 		texture = new Texture("BackButton.PNG");
 
-		height = Options.getWindowWidth() * itemHeight;
-		x = Options.getWindowWidth() * 0.7f;
-		y = Options.getWindowHeight() * 0.1f;
+		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
+		x = Options.getWindowWidth() * BACKBUTTON_X;;
+		y = Options.getWindowHeight() * BACKBUTTON_Y;
 
 		ButtonAction buttonAction = new ButtonAction() {
 			@Override
@@ -329,9 +333,9 @@ public class MenuFactory {
 		// Zurück-Button
 		texture = new Texture("BackButton.png");
 
-		boxHeight = Options.getWindowWidth() * 0.08f;
-		xCenter = Options.getWindowWidth() * 0.7f;
-		yCenter = Options.getWindowHeight() * 0.1f;
+		boxHeight = Options.getWindowWidth() * BACKBUTTON_SIZE;
+		xCenter = Options.getWindowWidth() * BACKBUTTON_X;;
+		yCenter = Options.getWindowHeight() * BACKBUTTON_Y;
 
 		ButtonAction buttonAction = new ButtonAction() {
 			@Override

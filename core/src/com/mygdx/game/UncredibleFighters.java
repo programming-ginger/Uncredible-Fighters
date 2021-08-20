@@ -19,14 +19,14 @@ public class UncredibleFighters extends Game {
 
 	private static UncredibleFighters instance;
 
-	public UncredibleFighters() {
-		if (instance == null) {
-			instance = this;
-		} else
-			throw new IllegalArgumentException("Game Object is created multiple times");
+	private UncredibleFighters() {
+
 	}
 
 	public static UncredibleFighters getInstance() {
+		if (instance == null) {
+			instance = new UncredibleFighters();
+		}
 		return instance;
 	}
 
@@ -35,7 +35,7 @@ public class UncredibleFighters extends Game {
 	}
 
 	public static void closeGame() {
-		instance.dispose();
+		getInstance().dispose();
 		Gdx.app.exit();
 		System.exit(0);
 	}
@@ -48,6 +48,7 @@ public class UncredibleFighters extends Game {
 	@Override
 	public void dispose() {
 		this.screen.dispose();
+		Options.save();
 	}
 
 	@Override
@@ -62,13 +63,8 @@ public class UncredibleFighters extends Game {
 
 	public static void showMainMenuScreen() {
 		Screen menu = MenuFactory.createMainMenu();
-		instance.setScreen(menu);
+		getInstance().setScreen(menu);
 	}
-
-//	public static void showFightingScreen() {
-//		
-//		//instance.setScreen(new PrototypeCharMove());
-//	}
 
 	public static void showCharacterChoice() {
 		//showFightingScreen();
@@ -79,7 +75,7 @@ public class UncredibleFighters extends Game {
 		FightingGame game = new FightingGame(player1, player2);
 
 		FightingScreen screen = new FightingScreen(game);
-		instance.setScreen(screen);
+		getInstance().setScreen(screen);
 		game.setScreen(screen);
 		
 	}

@@ -7,19 +7,13 @@ import com.mygdx.game.data.Options;
 
 public class DesktopLauncher {
 
-	private final static int SCREEN_WIDTH = 800;
-	private final static int SCREEN_HEIGHT = 480;
-
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		config.height = SCREEN_HEIGHT;
-		Options.setWindowHeight(SCREEN_HEIGHT);
+		config.height = Options.getWindowHeight();
 
-		config.width = SCREEN_WIDTH;
-		Options.setWindowWidth(SCREEN_WIDTH);
+		config.width = Options.getWindowWidth();;
 
-		new LwjglApplication(new UncredibleFighters(), config);
-		//new LwjglApplication(new PrototypeCharMove(), config);
+		new LwjglApplication(UncredibleFighters.getInstance(), config);
 	}
 }

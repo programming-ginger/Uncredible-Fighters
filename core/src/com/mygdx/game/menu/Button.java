@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.my.gdx.game.textures.TextureLibrary;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.sound.SoundPlayer;
+import com.mygdx.game.textures.TextureLibrary;
 
 public class Button extends MenuItem {
 
@@ -59,7 +59,7 @@ public class Button extends MenuItem {
 
 	@Override
 	public void update(SpriteBatch batch, Vector2 mousePosition) {
-		if ((Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
+		if ((Gdx.input.isTouched() && this.contains(mousePosition) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
 				|| Gdx.input.isKeyJustPressed(Input.Keys.E))) {
 			performAction();
 		}

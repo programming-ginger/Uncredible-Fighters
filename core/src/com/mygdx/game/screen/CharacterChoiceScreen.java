@@ -120,9 +120,11 @@ public class CharacterChoiceScreen extends MenuScreen {
 			if (!(currentSelection instanceof CharacterPortrait)) {
 				currentSelection.performAction();
 			}
-			else {			
-				SoundPlayer.playActionSound();
-				player1Confirmed = !player1Confirmed;
+			else {
+				if (! (currentSelection == player2Selection && player2Confirmed)) {
+					SoundPlayer.playActionSound();
+					player1Confirmed = !player1Confirmed;
+				}
 			}
 		}
 		
@@ -131,8 +133,10 @@ public class CharacterChoiceScreen extends MenuScreen {
 				player2Selection.performAction();
 			}
 			else {			
-				SoundPlayer.playActionSound();
-				player2Confirmed = !player2Confirmed;
+				if (! (currentSelection == player2Selection && player1Confirmed)) {
+					SoundPlayer.playActionSound();
+					player2Confirmed = !player2Confirmed;
+				}
 			}
 		}
 		

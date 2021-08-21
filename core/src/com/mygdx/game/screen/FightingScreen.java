@@ -60,6 +60,7 @@ public class FightingScreen implements Screen {
 		srA = new ShapeRenderer();
 		srB = new ShapeRenderer();
 		hud.updateName(charA.getName(), charB.getName());
+		this.menuOverlay = new MenuScreen();
 	}
 
 	@Override
@@ -76,15 +77,16 @@ public class FightingScreen implements Screen {
 			menuIsActive = !menuIsActive;
 			
 			if (menuIsActive) {
-				menuOverlay = MenuFactory.createFightingPauseMenu();
+				showMenu();
 			}
 			else {
 				menuOverlay = null;
 			}
 		}
-
-		if (!menuIsActive) {
+		
 		updateHud();
+		
+		if (!menuIsActive) {		
 		resetMoves();
 		listenUserAInput();
 		listenUserBInput();
@@ -134,7 +136,9 @@ public class FightingScreen implements Screen {
 
 	private void updateHud()
 	{
-		updateTimer();
+		if (!menuIsActive) {
+			updateTimer();
+		}
 		hud.updateData(game.getFightTime(), charA.getCurrentHP(), charB.getCurrentHP());
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
@@ -307,5 +311,14 @@ public class FightingScreen implements Screen {
 	public void closeMenu() {
 		menuOverlay = null;
 		menuIsActive = false;
+	}
+
+	public void showSettings() {
+		MenuFactory.turnIntoOptionsMenu(menuOverlay);		
+	}
+
+	public void showMenu() {
+		MenuFactory.turnIntoFightingPauseMenu(menuOverlay);	
+		
 	}
 }

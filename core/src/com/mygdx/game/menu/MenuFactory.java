@@ -159,9 +159,10 @@ public class MenuFactory {
 	}
 	
 	
-	public static MenuScreen createFightingPauseMenu() {
-		MenuScreen mainMenu = new MenuScreen();
+	public static MenuScreen turnIntoFightingPauseMenu(MenuScreen mainMenu) {
 
+		mainMenu.clear();
+		
 		Texture texture;
 		ButtonAction action;
 
@@ -201,7 +202,7 @@ public class MenuFactory {
 		action = new ButtonAction() {
 			@Override
 			public void action() {
-				UncredibleFighters.showSettings();
+				UncredibleFighters.showFightingSettings();
 			}
 		};
 		Button optionsButton = makeButton(texture, xCenter, yCenter, boxHeight, action);
@@ -296,6 +297,84 @@ public class MenuFactory {
 			@Override
 			public void action() {
 				UncredibleFighters.showMainMenuScreen();
+			}
+		};
+		Button button = makeButton(texture, x, y, height, buttonAction);
+		menu.addMenuItem(button);
+		
+		// linking
+		
+		soundBar.setItemAbove(button);
+		soundBar.setItemBelow(musicBar);
+		
+		musicBar.setItemAbove(soundBar);
+		musicBar.setItemBelow(button);
+		
+		button.setItemAbove(musicBar);
+		button.setItemBelow(soundBar);
+
+		return menu;
+	}
+	
+	public static MenuScreen turnIntoOptionsMenu(MenuScreen menu) {
+			
+		final float itemHeight = 0.1f;
+		menu.clear();
+
+		Texture texture;
+		float x;
+		float y;
+		float height;;
+		IntConsumer action;
+		
+		// Logo
+		texture = TextureLibrary.getLogo();
+		float ratio = (texture.getWidth() + 0.0f) / texture.getHeight();
+		height = Options.getWindowHeight() * LOGO_SIZE;
+		x = Options.getWindowWidth() / 2f;
+		y = Options.getWindowHeight() * LOGO_Y;
+
+		PassiveTexture logo = makePassiveTexture(texture, x, y, height);
+		menu.addPassiveTexture(logo);
+
+		// Sounds-Regler
+		texture = new Texture("VolumeLabel.png");
+		x = Options.getWindowWidth() * 0.3f;
+		y = Options.getWindowHeight() * 0.45f;
+		height = Options.getWindowHeight() * itemHeight;
+		action = new IntConsumer() {
+			@Override
+			public void accept(int value) {
+				Options.setSoundVolume(value);
+			}
+		};
+		VolumeBar soundBar = new VolumeBar(texture, x, y, height, Options.getSoundVolume(), action);
+		menu.addMenuItem(soundBar);
+
+		// Musik-Regler
+		texture = new Texture("MusicLabel.png");
+		y = Options.getWindowHeight() * 0.2f;
+		height = Options.getWindowHeight() * itemHeight;
+		action = new IntConsumer() {
+			@Override
+			public void accept(int value) {
+				Options.setMusicVolume(value);
+			}
+		};
+		VolumeBar musicBar = new VolumeBar(texture, x, y, height, Options.getMusicVolume(), action);
+		menu.addMenuItem(musicBar);
+		
+		// Zurück-Button
+		texture = new Texture("EndFightButton.PNG");
+
+		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
+		x = Options.getWindowWidth() * BACKBUTTON_X;;
+		y = Options.getWindowHeight() * BACKBUTTON_Y;
+
+		ButtonAction buttonAction = new ButtonAction() {
+			@Override
+			public void action() {
+				UncredibleFighters.showFightingMenu();
 			}
 		};
 		Button button = makeButton(texture, x, y, height, buttonAction);

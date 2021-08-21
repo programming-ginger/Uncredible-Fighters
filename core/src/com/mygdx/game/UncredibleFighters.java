@@ -81,10 +81,15 @@ public class UncredibleFighters extends Game {
 	}
 	
 	public static void showFightingMenu() {
-		getInstance().setScreen(MenuFactory.createFightingPauseMenu());
+		activeFight.showMenu();
 	}
 
 	public static void continueFight() {
 		activeFight.closeMenu();	
+	}
+
+	public static void showFightingSettings() {
+		activeFight.showSettings();
+		
 	}
 }

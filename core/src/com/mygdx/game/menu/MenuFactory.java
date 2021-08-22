@@ -286,7 +286,7 @@ public class MenuFactory {
 		VolumeBar musicBar = new VolumeBar(texture, x, y, height, Options.getMusicVolume(), action);
 		menu.addMenuItem(musicBar);
 		
-		// Zurück-Button
+		// Zurueck-Button
 		texture = new Texture("BackButton.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
@@ -364,7 +364,7 @@ public class MenuFactory {
 		VolumeBar musicBar = new VolumeBar(texture, x, y, height, Options.getMusicVolume(), action);
 		menu.addMenuItem(musicBar);
 		
-		// Zurück-Button
+		// Zurueck-Button
 		texture = new Texture("EndFightButton.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
@@ -487,7 +487,7 @@ public class MenuFactory {
 		CharacterPortrait grandpaPortrait = makeCharacterPortrait(texture, xCenter, yCenter, boxHeight, supplier);
 		menu.addMenuItem(grandpaPortrait);
 		
-		// Zurück-Button
+		// Zurueck-Button
 		texture = new Texture("BackButton.png");
 
 		boxHeight = Options.getWindowWidth() * BACKBUTTON_SIZE;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -44,7 +45,9 @@ public class FightingScreen implements Screen {
 	
 	private boolean menuIsActive;
 	private MenuScreen menuOverlay;
-	
+
+	float tmp;
+
 	PrototypeCharMove fights;
 
 	public FightingScreen(FightingGame game)
@@ -259,8 +262,19 @@ public class FightingScreen implements Screen {
 			charA.moveY = 0;
 		}
 
+		float oldX = rectA.x;
+		float oldY = rectA.y;
+
+		tmp = rectA.x;
 		rectA.x += charA.moveX;
+		if (rectA.overlaps(rectB))
+			rectA.x  = tmp;
+
+		tmp = rectA.y;
 		rectA.y = Math.max(rectA.y + charA.moveY, paddingBottom + (rectA.height/2));
+		if (rectA.overlaps(rectB))
+			rectA.y  = tmp;
+
 	}
 
 	private void moveUserB()
@@ -288,8 +302,15 @@ public class FightingScreen implements Screen {
 			charB.moveY = 0;
 		}
 
+		tmp = rectB.x;
 		rectB.x += charB.moveX;
+		if (rectB.overlaps(rectA))
+			rectB.x = tmp;
+
+		tmp = rectB.y;
 		rectB.y = Math.max(rectB.y + charB.moveY, paddingBottom + (rectB.height/2));
+		if (rectB.overlaps(rectA))
+			rectB.y = tmp;
 	}
 
 	private void renderUserA()

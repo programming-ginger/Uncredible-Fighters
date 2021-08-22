@@ -396,7 +396,7 @@ public class MenuFactory {
 	
 	public static MenuScreen createCharacterChoiceScreen() {
 
-		final float PORTRAIT_SIZE = 0.2f;
+		final float PORTRAIT_SIZE = 0.15f;
 		final float FIRST_ROW_Y = 0.75f;
 		final float SECOND_ROW_Y = 0.4f;
 		

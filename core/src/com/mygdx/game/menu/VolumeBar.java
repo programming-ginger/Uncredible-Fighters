@@ -14,10 +14,15 @@ import com.mygdx.game.textures.TextureLibrary;
 public class VolumeBar extends MenuItem {
 
 	private static final float LABEL_BAR_GAP = 0.025f;
+	private static final float LIMIT_DISPLAY_GAP = 0.3f;
+	private static final float LIMIT_DISPLAY_SIZE = 0.4f;
 
 	private Texture controller;
 	private Texture bar;
 	private Texture barSelected;
+	
+	private PassiveTexture lowLimit;
+	private PassiveTexture highLimit;
 
 	private PassiveTexture label;
 
@@ -29,9 +34,11 @@ public class VolumeBar extends MenuItem {
 	private IntConsumer action;
 
 	public VolumeBar(Texture labelTexture, float xCenter, float yCenter, float height, int value, IntConsumer action) {
-		this.controller = TextureLibrary.getVolumeController();
+		
+				this.controller = TextureLibrary.getVolumeController();
 		this.bar = TextureLibrary.getVolumeBar();
 		this.barSelected = TextureLibrary.getSelectedVolumeBar();
+		
 		this.label = MenuFactory.makePassiveTextureToLeft(labelTexture, xCenter - Options.getWindowWidth() * LABEL_BAR_GAP,
 				yCenter, height);
 		this.action = action;
@@ -40,13 +47,19 @@ public class VolumeBar extends MenuItem {
 		action.accept(value);
 
 		this.barPosition = MenuFactory.makeScaledRectangleForTextureToRight(bar, xCenter, yCenter, height);
+		
+		this.position = new Rectangle(this.label.getX(),barPosition.getY(),label.getWidth() + LABEL_BAR_GAP*Options.getWindowWidth() + barPosition.getWidth(), barPosition.getHeight());
+		
+		this.lowLimit = MenuFactory.makePassiveTexture(TextureLibrary.get0(), barPosition.getX(), barPosition.getY() + (1 + LIMIT_DISPLAY_GAP) * barPosition.getHeight(), 
+				barPosition.getHeight() * LIMIT_DISPLAY_SIZE);
+		this.highLimit = MenuFactory.makePassiveTexture(TextureLibrary.get100(), barPosition.getX() + barPosition.getWidth(), 
+				barPosition.getY() + (1 + LIMIT_DISPLAY_GAP) * barPosition.getHeight(), barPosition.getHeight() * LIMIT_DISPLAY_SIZE);
 
 		float xController = this.barPosition.getX()
 				+ this.barPosition.getWidth() * this.value / (Options.MAX_VOLUME + 0f);
 		this.controllerPosition = MenuFactory.makeScaledRectangleForTexture(controller, xCenter, yCenter, 2 * height);
 		adjustControllerPosition();
 		
-		this.position = new Rectangle(this.label.getX(),barPosition.getY(),label.getWidth() + LABEL_BAR_GAP*Options.getWindowWidth() + barPosition.getWidth(), barPosition.getHeight());
 	}
 
 	@Override
@@ -87,7 +100,9 @@ public class VolumeBar extends MenuItem {
 			barTexture = barSelected;
 		}
 		
-		label.draw(batch);		
+		label.draw(batch);	
+		lowLimit.draw(batch);
+		highLimit.draw(batch);
 		batch.draw(barTexture, barPosition.getX(), barPosition.getY(), barPosition.getWidth(), barPosition.getHeight());		
 		batch.draw(controller, controllerPosition.getX(), controllerPosition.getY(), controllerPosition.getWidth(),
 				controllerPosition.getHeight());

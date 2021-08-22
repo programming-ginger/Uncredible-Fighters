@@ -14,6 +14,8 @@ import com.mygdx.game.prototype.FightingGame;
 import com.mygdx.game.prototype.PrototypeCharMove;
 import com.mygdx.game.screen.CharacterChoiceScreen;
 import com.mygdx.game.screen.FightingScreen;
+import com.mygdx.game.sound.SoundPlayer;
+import com.mygdx.game.textures.TextureLibrary;
 
 public class UncredibleFighters extends Game {
 
@@ -50,6 +52,8 @@ public class UncredibleFighters extends Game {
 	public void dispose() {
 		this.screen.dispose();
 		Options.save();
+		TextureLibrary.dispose();
+		SoundPlayer.dispose();
 	}
 
 	@Override

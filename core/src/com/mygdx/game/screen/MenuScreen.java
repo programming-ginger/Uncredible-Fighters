@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.UncredibleFighters;
@@ -38,7 +39,7 @@ public class MenuScreen implements Screen {
 	public MenuScreen() {
 		this.camera = new OrthographicCamera();
 		camera.setToOrtho(false, Options.getWindowWidth(), Options.getWindowHeight());
-		this.viewport = new StretchViewport(Options.getWindowWidth(), Options.getWindowHeight(), camera);
+		this.viewport = new FitViewport(Options.getWindowWidth(), Options.getWindowHeight(), camera);
 		this.batch = new SpriteBatch();
 
 		items = new Array<>();
@@ -80,7 +81,7 @@ public class MenuScreen implements Screen {
 		batch.begin();
 
 		if (background != null) {
-			batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
+			batch.draw(background, 0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
 		}
 
 		for (MenuItem button : this.items) {
@@ -119,17 +120,17 @@ public class MenuScreen implements Screen {
 		}
 
 		MenuItem newSelection = null;
-		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
 			newSelection = currentSelection.getItemBelow();			
 		}
 
-		else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
 			newSelection = currentSelection.getItemAbove();
 		}
-		else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.A)) {
 			newSelection = currentSelection.getItemLeft();
 		}
-		else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.D)) {
 			newSelection = currentSelection.getItemRight();
 		}
 		
@@ -145,6 +146,7 @@ public class MenuScreen implements Screen {
 	public void resize(int width, int height) {
 		Options.setWindowHeight(height);
 		Options.setWindowWidth(width);
+		viewport.update(width, height);
 
 	}
 
@@ -169,13 +171,17 @@ public class MenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		batch.dispose();
-
+		
 		if (background != null) {
 		background.dispose();
 		}
 		
 		for (MenuItem button : this.items) {
 			button.dispose();
+		}
+		
+		for (PassiveTexture texture : this.passiveTextures) {
+			texture.dispose();
 		}
 	}
 

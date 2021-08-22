@@ -16,4 +16,9 @@ public class SoundPlayer {
 	public static void playActionSound() {
 		actionSound.play(Options.getSoundVolumeFloat());
 	}
+	
+	public static void dispose() {
+		selectionSound.dispose();
+		actionSound.dispose();
+	}
 }

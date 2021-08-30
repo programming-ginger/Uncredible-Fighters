@@ -81,7 +81,7 @@ public class MenuScreen implements Screen {
 		batch.begin();
 
 		if (background != null) {
-			batch.draw(background, 0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
+			batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
 		}
 
 		for (MenuItem button : this.items) {

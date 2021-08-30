@@ -2,6 +2,8 @@ package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.data.Options;
+import com.mygdx.game.menu.MenuFactory;
 
 import java.util.Queue;
 
@@ -10,32 +12,21 @@ public class Politician extends UncredibleFighter {
 	private static final int DEF_MAX_PEN_COUNT = 3;
 
 	private Queue<Rectangle> penList;
-	private int maxStoneCount;
-	
-	public Politician() {
-		this("politician", 100, 5, new Texture("Badlogic.jpg"));
-	}
 
-	public Politician(String name, int maxHP, float speed, Texture texture)
+	public Politician()
 	{
-		this(name, maxHP, speed, DEF_MAX_PEN_COUNT, texture);
-	}
-
-	public Politician(String name, int maxHP, float speed, int maxStoneCount, Texture texture)
-	{
-		setName(name);
-		setMaxHP(maxHP);
-		setCurrentHP(maxHP);
-		setSpeed(speed);
-		setMaxStoneCount(maxStoneCount);
-		setTexture(texture);
-		setRectangle(new Rectangle(0,0,50,50));
+		setName("politician");
+		setMaxHP(100);
+		setSpeed(5);
+		setTexture(new Texture("PoliticianFightingSprite.png"));
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
+		setRectangle(rect);
 		//setRectangle(rectangle);
 	}
 
 	public void addPen()
 	{
-		if (getPenCount() < getMaxPenCount())
+		if (getPenCount() < DEF_MAX_PEN_COUNT)
 			penList.add(new Rectangle());
 	}
 
@@ -51,12 +42,7 @@ public class Politician extends UncredibleFighter {
 
 	public int getMaxPenCount()
 	{
-		return maxStoneCount;
-	}
-
-	public void setMaxStoneCount(int maxStoneCount)
-	{
-		this.maxStoneCount = maxStoneCount;
+		return DEF_MAX_PEN_COUNT;
 	}
 
 }

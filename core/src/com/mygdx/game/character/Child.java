@@ -2,6 +2,8 @@ package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.data.Options;
+import com.mygdx.game.menu.MenuFactory;
 
 import java.util.Queue;
 
@@ -10,32 +12,21 @@ public class Child extends UncredibleFighter{
 	private static final int DEF_MAX_STONE_COUNT = 3;
 
 	private Queue<Rectangle> stoneList;
-	private int maxStoneCount;
-	
-	public Child() {
-		this("child", 100, 5, DEF_MAX_STONE_COUNT, new Texture("Badlogic.jpg"));
-	}
 
-	public Child(String name, int maxHP, float speed, Texture texture)
+	public Child()
 	{
-		this(name, maxHP, speed, DEF_MAX_STONE_COUNT, texture);
-	}
-
-	public Child(String name, int maxHP, float speed, int maxStoneCount, Texture texture)
-	{
-		setName(name);
-		setMaxHP(maxHP);
-		setCurrentHP(maxHP);
-		setSpeed(speed);
-		setMaxStoneCount(maxStoneCount);
-		setTexture(texture);
-		setRectangle(new Rectangle(0,0,50,50));
+		setName("child");
+		setMaxHP(100);
+		setSpeed(5);
+		setTexture(new Texture("ChildFightingSprite.png"));
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
+		setRectangle(rect);
 		//setRectangle(rectangle);
 	}
 
 	public void addStone()
 	{
-		if (getStoneCount() < getMaxStoneCount())
+		if (getStoneCount() < DEF_MAX_STONE_COUNT)
 			stoneList.add(new Rectangle());
 	}
 
@@ -51,12 +42,7 @@ public class Child extends UncredibleFighter{
 
 	public int getMaxStoneCount()
 	{
-		return maxStoneCount;
-	}
-
-	public void setMaxStoneCount(int maxStoneCount)
-	{
-		this.maxStoneCount = maxStoneCount;
+		return DEF_MAX_STONE_COUNT;
 	}
 
 }

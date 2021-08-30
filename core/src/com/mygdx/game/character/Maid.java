@@ -3,24 +3,22 @@ package com.mygdx.game.character;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
+import com.mygdx.game.data.Options;
+import com.mygdx.game.menu.MenuFactory;
 import org.w3c.dom.Text;
 
 public class Maid extends UncredibleFighter
 {
 	private Rectangle puddle;
-	
-	public Maid() {
-		this("maid", 100, 5, new Texture("Badlogic.jpg"));
-	}
 
-	public Maid(String name, int maxHP, float speed, Texture texture)
+	public Maid()
 	{
-		setName(name);
-		setMaxHP(maxHP);
-		setCurrentHP(maxHP);
-		setSpeed(speed);
-		setTexture(texture);
-		setRectangle(new Rectangle(0,0,50,50));
+		setName("Maid");
+		setMaxHP(100);
+		setSpeed(5);
+		setTexture(new Texture("MaidFightingSprite.png"));
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
+		setRectangle(rect);
 		//add puddle size (?)
 	}
 

@@ -17,32 +17,6 @@ public class FightingGame extends Game {
     ShapeRenderer shapeRendererRectA;
     ShapeRenderer shapeRendererRectB;
 
-    private final float defSpeed = 2;
-    private final float jumpStartSpeed = 8;
-
-    private final float paddingTop = 10;
-    private final float paddingBottom = 30;
-    private final float paddingLeft = 10;
-    private final float paddingRight = 10;
-
-    private final float rectWidth = 50;
-    private final float rectHeight = 50;
-
-    float rectXA = (rectWidth/2) + paddingLeft;
-    float rectYA = (rectHeight/2) + paddingBottom;
-    float rectXB = (rectWidth/2) + paddingLeft;
-    float rectYB = (rectHeight/2) + paddingBottom;
-
-    float speedXA = 0;
-    float speedYA = 0;
-    float speedXB = 0;
-    float speedYB = 0;
-
-    boolean jumpingA = false;
-    boolean fallingA = false;
-    boolean jumpingB = false;
-    boolean fallingB = false;
-
     public SpriteBatch batch = new SpriteBatch();
     private UncredibleFighter characterA;
     private UncredibleFighter characterB;

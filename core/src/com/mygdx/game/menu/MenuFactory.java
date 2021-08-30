@@ -10,12 +10,7 @@ import com.mygdx.game.screen.MenuScreen;
 import com.mygdx.game.textures.TextureLibrary;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.UncredibleFighters;
-import com.mygdx.game.character.UncredibleFighter;
-import com.mygdx.game.character.Child;
-import com.mygdx.game.character.Grandpa;
-import com.mygdx.game.character.Maid;
-import com.mygdx.game.character.Politician;
-import com.mygdx.game.character.Teacher;
+import com.mygdx.game.character.*;
 
 public class MenuFactory {
 	

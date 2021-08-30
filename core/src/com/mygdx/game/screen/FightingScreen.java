@@ -28,16 +28,15 @@ public class FightingScreen implements Screen {
 	private Camera gameCam;
 	private Viewport viewport;
 	private Hud hud;
+	private SpriteBatch batch;
 
 	private final float paddingTop = 30;
-	private final float paddingBottom = 30;
-	private final float paddingLeft = 50;
-	private final float paddingRight = 50;
+	private final float paddingBottom = 0.1f * Options.getWindowHeight();
+	private final float paddingLeft = 0.05f * Options.getWindowWidth();
+	private final float paddingRight = 0.05f * Options.getWindowWidth();
 
 	private UncredibleFighter charA;
 	private UncredibleFighter charB;
-	private ShapeRenderer srA;
-	private ShapeRenderer srB;
 	private Rectangle rectA;
 	private Rectangle rectB;
 
@@ -50,6 +49,9 @@ public class FightingScreen implements Screen {
 
 	PrototypeCharMove fights;
 
+	private final static float SPEED_FACTOR = 0.05f;
+	private final static int GRAVITY = 5;
+
 	public FightingScreen(FightingGame game)
 	{
 		this.game = game;
@@ -57,11 +59,12 @@ public class FightingScreen implements Screen {
 		viewport = new FitViewport(Options.getWindowWidth(), Options.getWindowHeight(), gameCam);
 		hud = new Hud(game.batch);
 		charA = game.getCharacterA();
+		charA.setPosition(paddingLeft, paddingBottom);
 		charB = game.getCharacterB();
+		charB.setPosition(Options.getWindowWidth() - paddingRight, paddingBottom);
 		rectA = game.getCharacterA().getRectangle();
 		rectB = game.getCharacterB().getRectangle();
-		srA = new ShapeRenderer();
-		srB = new ShapeRenderer();
+		batch = new SpriteBatch();
 		hud.updateName(charA.getName(), charB.getName());
 		this.menuOverlay = new MenuScreen();
 	}
@@ -93,12 +96,14 @@ public class FightingScreen implements Screen {
 		resetMoves();
 		listenUserAInput();
 		listenUserBInput();
-		moveUserA();
-		moveUserB();
+		moveUserA(delta);
+		moveUserB(delta);
 		}
-		
-		renderUserA();
-		renderUserB();
+
+		batch.begin();
+		charA.draw(batch);
+		charB.draw(batch);
+		batch.end();
 		
 		if(menuIsActive) {
 			menuOverlay.render(delta);
@@ -177,6 +182,7 @@ public class FightingScreen implements Screen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.A))
 		{
+			charA.lookLeft();
 			if ((rectA.x - charA.moveX) >= paddingLeft)
 			{
 				charA.moveX = -1 * charA.getSpeed();
@@ -194,6 +200,7 @@ public class FightingScreen implements Screen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D))
 		{
+			charA.lookRight();
 			if ((rectA.x + charA.moveX) < viewport.getScreenWidth() - paddingRight * 2)
 			{
 				charA.moveX = 1 * charA.getSpeed();
@@ -213,6 +220,7 @@ public class FightingScreen implements Screen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
 		{
+			charB.lookLeft();
 			if ((rectB.x - charB.moveX) >= paddingLeft)
 			{
 				charB.moveX = -1 * charB.getSpeed();
@@ -230,6 +238,7 @@ public class FightingScreen implements Screen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
 		{
+			charB.lookRight();
 			if ((rectB.x + charB.moveX) < viewport.getScreenWidth() - paddingRight * 2)
 			{
 				charB.moveX = 1 * charB.getSpeed();
@@ -237,11 +246,11 @@ public class FightingScreen implements Screen {
 		}
 	}
 
-	private void moveUserA()
+	private void moveUserA(float delta)
 	{
 		if (charA.jumping)
 		{
-			charA.moveY -= 0.2;
+			charA.moveY -= GRAVITY * delta;
 			if (charA.moveY <= 0)
 			{
 				charA.moveY = 0;
@@ -251,7 +260,7 @@ public class FightingScreen implements Screen {
 		}
 		else if (charA.falling)
 		{
-			charA.moveY -= 0.2;
+			charA.moveY -= GRAVITY * delta;
 			if (rectA.y + charA.moveY < paddingBottom + (rectA.height/2))
 			{
 				charA.falling = false;
@@ -266,22 +275,22 @@ public class FightingScreen implements Screen {
 		float oldY = rectA.y;
 
 		tmp = rectA.x;
-		rectA.x += charA.moveX;
+		rectA.x += charA.moveX * delta * Options.getWindowWidth() * SPEED_FACTOR;
 		if (rectA.overlaps(rectB))
 			rectA.x  = tmp;
 
 		tmp = rectA.y;
-		rectA.y = Math.max(rectA.y + charA.moveY, paddingBottom + (rectA.height/2));
+		rectA.y = Math.max(rectA.y + charA.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR, paddingBottom + (rectA.height/2));
 		if (rectA.overlaps(rectB))
 			rectA.y  = tmp;
 
 	}
 
-	private void moveUserB()
+	private void moveUserB(float delta)
 	{
 		if (charB.jumping)
 		{
-			charB.moveY -= 0.2;
+			charB.moveY -= GRAVITY * delta;
 			if (charB.moveY <= 0)
 			{
 				charB.moveY = 0;
@@ -291,7 +300,7 @@ public class FightingScreen implements Screen {
 		}
 		else if (charB.falling)
 		{
-			charB.moveY -= 0.2;
+			charB.moveY -= GRAVITY * delta;
 			if (rectB.y + charB.moveY < paddingBottom + (rectB.height/2))
 			{
 				charB.falling = false;
@@ -303,30 +312,14 @@ public class FightingScreen implements Screen {
 		}
 
 		tmp = rectB.x;
-		rectB.x += charB.moveX;
+		rectB.x += charB.moveX * delta * Options.getWindowWidth() * SPEED_FACTOR;
 		if (rectB.overlaps(rectA))
 			rectB.x = tmp;
 
 		tmp = rectB.y;
-		rectB.y = Math.max(rectB.y + charB.moveY, paddingBottom + (rectB.height/2));
+		rectB.y = Math.max(rectB.y + charB.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR, paddingBottom + (rectB.height/2));
 		if (rectB.overlaps(rectA))
 			rectB.y = tmp;
-	}
-
-	private void renderUserA()
-	{
-		srA.begin(ShapeRenderer.ShapeType.Filled);
-		srA.setColor(1, 0, 0 , 1);
-		srA.rect(rectA.x, rectA.y, rectA.width, rectA.height);
-		srA.end();
-	}
-
-	private void renderUserB()
-	{
-		srB.begin(ShapeRenderer.ShapeType.Filled);
-		srB.setColor(0, 1, 0 , 1);
-		srB.rect(rectB.x, rectB.y, rectB.width, rectB.height);
-		srB.end();
 	}
 
 	public void closeMenu() {

@@ -16,7 +16,7 @@ public class Maid extends UncredibleFighter
 		setName("Maid");
 		setMaxHP(100);
 		setSpeed(5);
-		setTexture(new Texture("MaidFightingSprite.png"));
+		setTexture(new Texture("Maid/MaidFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
 		//add puddle size (?)

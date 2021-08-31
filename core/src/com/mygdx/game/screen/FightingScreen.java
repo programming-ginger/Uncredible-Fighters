@@ -6,15 +6,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
@@ -50,7 +45,13 @@ public class FightingScreen implements Screen {
 	PrototypeCharMove fights;
 
 	private final static float SPEED_FACTOR = 0.05f;
-	private final static int GRAVITY = 5;
+	private final static int GRAVITY = 28;
+
+	private final int MOVE1_BUTTON_PLAYER_A = Input.Keys.R;
+	private final int MOVE2_BUTTON_PLAYER_A = Input.Keys.F;
+
+	private final int MOVE1_BUTTON_PLAYER_B = Input.Keys.O;
+	private final int MOVE2_BUTTON_PLAYER_B = Input.Keys.L;
 
 	public FightingScreen(FightingGame game)
 	{
@@ -100,17 +101,14 @@ public class FightingScreen implements Screen {
 		moveUserB(delta);
 		}
 
-		batch.begin();
-		charA.draw(batch);
-		charB.draw(batch);
-		batch.end();
+		game.batch.begin();
+		charA.draw(game.batch);
+		charB.draw(game.batch);
+		game.batch.end();
 		
 		if(menuIsActive) {
 			menuOverlay.render(delta);
 		}
-
-		game.batch.begin();
-		game.batch.end();
 
 	}
 
@@ -206,6 +204,10 @@ public class FightingScreen implements Screen {
 				charA.moveX = 1 * charA.getSpeed();
 			}
 		}
+
+		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_A)){
+			charA.useMove1();
+		}
 	}
 
 	private void listenUserBInput()
@@ -243,6 +245,10 @@ public class FightingScreen implements Screen {
 			{
 				charB.moveX = 1 * charB.getSpeed();
 			}
+		}
+
+		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_B)){
+			charB.useMove1();
 		}
 	}
 
@@ -284,6 +290,7 @@ public class FightingScreen implements Screen {
 		if (rectA.overlaps(rectB))
 			rectA.y  = tmp;
 
+		charA.update(delta, charB);
 	}
 
 	private void moveUserB(float delta)
@@ -320,6 +327,8 @@ public class FightingScreen implements Screen {
 		rectB.y = Math.max(rectB.y + charB.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR, paddingBottom + (rectB.height/2));
 		if (rectB.overlaps(rectA))
 			rectB.y = tmp;
+
+		charB.update(delta, charA);
 	}
 
 	public void closeMenu() {

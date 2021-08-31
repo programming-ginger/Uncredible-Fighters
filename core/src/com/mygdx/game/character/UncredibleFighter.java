@@ -1,8 +1,12 @@
 package com.mygdx.game.character;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureArray;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.moves.Move;
 
 public abstract class UncredibleFighter
 {
@@ -10,6 +14,9 @@ public abstract class UncredibleFighter
     private int maxHP;
     private int currentHP;
     private float speed;
+    protected Move move1;
+
+    protected Move activeMove;
     protected Texture texture;
     protected Rectangle rectangle;
     protected boolean lookingLeft = false;
@@ -17,7 +24,7 @@ public abstract class UncredibleFighter
     public boolean falling = false;
     public float moveX = 0;
     public float moveY = 0;
-    public final float jumpSpeed = 8;
+    public final float jumpSpeed = 22;
 
     public void lookLeft(){
         lookingLeft = true;
@@ -28,7 +35,34 @@ public abstract class UncredibleFighter
     }
 
     public void draw (SpriteBatch batch){
-        batch.draw(texture, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), 0, 0, texture.getWidth(), texture.getHeight(), lookingLeft, false);
+        Texture sprite;
+
+        if (activeMove != null) {
+            sprite = activeMove.getCurrentSprite();
+        }
+
+        else sprite = texture;
+
+        draw(batch, sprite);
+    }
+
+    public void draw (SpriteBatch batch, Texture currentSprite){
+        batch.draw(currentSprite, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), 0, 0, texture.getWidth(), texture.getHeight(), lookingLeft, false);
+    }
+
+    public void useMove1(){
+        activeMove = move1;
+        activeMove.use();
+    }
+
+    public void update(float delta, UncredibleFighter enemy){
+        if (activeMove != null) {
+            boolean state = activeMove.updateMove(delta, enemy);
+
+            if (!state){
+                activeMove = null;
+            }
+        }
     }
 
     public void setPosition(float x, float y){
@@ -91,4 +125,7 @@ public abstract class UncredibleFighter
         this.rectangle = rectangle;
     }
 
+    public void setMove1(Move move){
+        move1 = move;
+    }
 }

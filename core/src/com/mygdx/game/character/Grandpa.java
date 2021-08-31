@@ -1,9 +1,11 @@
 package com.mygdx.game.character;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.GrandpaWalkingStickBlow;
 
 public class Grandpa extends UncredibleFighter {
 
@@ -14,9 +16,10 @@ public class Grandpa extends UncredibleFighter {
 		setName("grandpa");
 		setMaxHP(100);
 		setSpeed(5);
-		setTexture(new Texture("GrandpaFightingSprite.jpg"));
+		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
+		move1 = new GrandpaWalkingStickBlow();
 		//setRectangle(rectangle);
 	}
 

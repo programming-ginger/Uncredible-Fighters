@@ -33,7 +33,7 @@ public class MenuScreen implements Screen {
 	protected Array<PassiveTexture> passiveTextures;
 
 	protected MenuItem currentSelection;
-	
+
 	public boolean isActive = true;
 
 	public MenuScreen() {
@@ -52,16 +52,16 @@ public class MenuScreen implements Screen {
 
 	public void addMenuItem(MenuItem item) {
 		this.items.add(item);
-		
+
 		if (this.items.size == 1) {
 			this.currentSelection = this.items.get(0);
 		}
 	}
-	
+
 	public void addPassiveTexture(PassiveTexture item) {
 		this.passiveTextures.add(item);
 	}
-	
+
 	public void clear() {
 		items.clear();
 		passiveTextures.clear();
@@ -88,7 +88,7 @@ public class MenuScreen implements Screen {
 			button.draw(batch, button == currentSelection);
 		}
 
-		for (PassiveTexture textures: this.passiveTextures) {
+		for (PassiveTexture textures : this.passiveTextures) {
 			textures.draw(batch);
 		}
 
@@ -110,7 +110,7 @@ public class MenuScreen implements Screen {
 
 		for (MenuItem item : this.items) {
 			if (item.contains(touchPos.x, touchPos.y)) {
-				
+
 				if (item != currentSelection) {
 					SoundPlayer.playSelectionSound();
 				}
@@ -121,24 +121,22 @@ public class MenuScreen implements Screen {
 
 		MenuItem newSelection = null;
 		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-			newSelection = currentSelection.getItemBelow();			
+			newSelection = currentSelection.getItemBelow();
 		}
 
 		else if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.W)) {
 			newSelection = currentSelection.getItemAbove();
-		}
-		else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.A)) {
 			newSelection = currentSelection.getItemLeft();
-		}
-		else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.D)) {
 			newSelection = currentSelection.getItemRight();
 		}
-		
+
 		if (newSelection != null && newSelection != currentSelection) {
 			SoundPlayer.playSelectionSound();
 			currentSelection = newSelection;
 		}
-		
+
 		currentSelection.update(batch, touchPos);
 	}
 
@@ -171,15 +169,15 @@ public class MenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		
+
 		if (background != null) {
-		background.dispose();
+			background.dispose();
 		}
-		
+
 		for (MenuItem button : this.items) {
 			button.dispose();
 		}
-		
+
 		for (PassiveTexture texture : this.passiveTextures) {
 			texture.dispose();
 		}

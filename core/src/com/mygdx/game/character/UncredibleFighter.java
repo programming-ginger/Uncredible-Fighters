@@ -1,131 +1,134 @@
 package com.mygdx.game.character;
 
+import javax.sound.midi.Sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureArray;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mygdx.game.moves.Move;
 
-public abstract class UncredibleFighter
-{
-    private String name;
-    private int maxHP;
-    private int currentHP;
-    private float speed;
-    protected Move move1;
+public abstract class UncredibleFighter {
+	private String name;
+	private int maxHP;
+	private int currentHP;
+	private float speed;
+	protected Move move1;
 
-    protected Move activeMove;
-    protected Texture texture;
-    protected Rectangle rectangle;
-    protected boolean lookingLeft = false;
-    public boolean jumping = false;
-    public boolean falling = false;
-    public float moveX = 0;
-    public float moveY = 0;
-    public final float jumpSpeed = 22;
+	protected Move activeMove;
+	protected Texture texture;
+	protected Rectangle rectangle;
+	protected boolean lookingLeft = false;
+	public boolean jumping = false;
+	public boolean falling = false;
+	public float moveX = 0;
+	public float moveY = 0;
+	public final float jumpSpeed = 22;
+	public Action action;
 
-    public void lookLeft(){
-        lookingLeft = true;
-    }
+	public void lookLeft() {
+		lookingLeft = true;
+	}
 
-    public void lookRight(){
-        lookingLeft = false;
-    }
+	public void lookRight() {
+		lookingLeft = false;
+	}
 
-    public void draw (SpriteBatch batch){
-        Texture sprite;
+	public void draw(SpriteBatch batch) {
+		Texture sprite;
 
-        if (activeMove != null) {
-            sprite = activeMove.getCurrentSprite();
-        }
+		if (activeMove != null) {
+			sprite = activeMove.getCurrentSprite();
+		}
 
-        else sprite = texture;
+		else
+			sprite = texture;
 
-        draw(batch, sprite);
-    }
+		draw(batch, sprite);
+	}
 
-    public void draw (SpriteBatch batch, Texture currentSprite){
-        batch.draw(currentSprite, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), 0, 0, texture.getWidth(), texture.getHeight(), lookingLeft, false);
-    }
+	public void draw(SpriteBatch batch, Texture currentSprite) {
+		batch.draw(currentSprite, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), 0, 0,
+				texture.getWidth(), texture.getHeight(), lookingLeft, false);
+	}
 
-    public void useMove1(){
-        activeMove = move1;
-        activeMove.use();
-    }
+	public void useMove1() {
+		move1.use();
+	}
 
-    public void update(float delta, UncredibleFighter enemy){
-        if (activeMove != null) {
-            boolean state = activeMove.updateMove(delta, enemy);
+//    public void addAction() {
+//    	action.act(getCurrentHP());
+//    }
 
-            if (!state){
-                activeMove = null;
-            }
-        }
-    }
+	public void update(float delta, UncredibleFighter enemy) {
+		if (activeMove != null) {
+			boolean state = activeMove.updateMove(delta, enemy);
 
-    public void setPosition(float x, float y){
-        rectangle.x = x - rectangle.getWidth()/2;
-        rectangle.y = y - rectangle.getHeight()/2;
-    }
+			if (!state) {
+				activeMove = null;
+			}
+		}
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public void setPosition(float x, float y) {
+		rectangle.x = x - rectangle.getWidth() / 2;
+		rectangle.y = y - rectangle.getHeight() / 2;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public int getMaxHP()
-    {
-        return maxHP;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setMaxHP(int maxHP)
-    {
-        this.maxHP = maxHP;
-        this.setCurrentHP(maxHP);
-    }
+	public int getMaxHP() {
+		return maxHP;
+	}
 
-    public int getCurrentHP()
-    {
-        return currentHP;
-    }
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+		this.setCurrentHP(maxHP);
+	}
 
-    public void setCurrentHP(int currentHP)
-    {
-        this.currentHP = currentHP;
-    }
+	public int getCurrentHP() {
+		return currentHP;
+	}
 
-    public float getSpeed() {
-        return speed;
-    }
+	public void setCurrentHP(int currentHP) {
+		this.currentHP = currentHP;
+	}
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
+	public float getSpeed() {
+		return speed;
+	}
 
-    public Texture getTexture() {
-        return texture;
-    }
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
 
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
+	public Texture getTexture() {
+		return texture;
+	}
 
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
 
-    public void setMove1(Move move){
-        move1 = move;
-    }
+	public void setRectangle(Rectangle rectangle) {
+		this.rectangle = rectangle;
+	}
+
+	public void setMove1(Move move) {
+		move1 = move;
+	}
 }

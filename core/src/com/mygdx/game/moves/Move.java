@@ -1,6 +1,7 @@
 package com.mygdx.game.moves;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.UncredibleFighter;
@@ -25,17 +26,21 @@ public abstract class Move extends Group {
 	 * Updates the state of the move And applies the effect at the right time.
 	 * Returns of the move is still in the use
 	 */
-	public boolean updateMove(float delta, UncredibleFighter enemy) {
+	public boolean updateMove(float delta, UncredibleFighter attacker, UncredibleFighter enemy) {
 		passedTime += delta;
 
 		if (passedTime > timeBeforeEffect && !effectWasApplied) {
-			applyEffect(enemy);
+			if (moveHits(attacker, enemy)) {
+				applyEffect(enemy);
+			}
 			effectWasApplied = true;
 		}
 
 		return passedTime < timeAfterEffect + timeBeforeEffect;
 
 	}
+
+	protected abstract boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy);
 
 	public abstract void applyEffect(UncredibleFighter enemy);
 

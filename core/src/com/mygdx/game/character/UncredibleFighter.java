@@ -57,7 +57,8 @@ public abstract class UncredibleFighter {
 	}
 
 	public void useMove1() {
-		move1.use();
+		activeMove = move1;
+        activeMove.use();
 	}
 
 //    public void addAction() {
@@ -66,7 +67,7 @@ public abstract class UncredibleFighter {
 
 	public void update(float delta, UncredibleFighter enemy) {
 		if (activeMove != null) {
-			boolean state = activeMove.updateMove(delta, enemy);
+			boolean state = activeMove.updateMove(delta, this, enemy);
 
 			if (!state) {
 				activeMove = null;
@@ -130,5 +131,14 @@ public abstract class UncredibleFighter {
 
 	public void setMove1(Move move) {
 		move1 = move;
+	}
+
+	public void reduceHP(int damage) {
+		currentHP -= damage;
+		
+	}
+
+	public boolean looksLeft() {
+		return this.lookingLeft;
 	}
 }

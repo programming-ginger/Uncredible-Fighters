@@ -47,6 +47,7 @@ public class FightingScreen implements Screen {
 
 	PrototypeCharMove fights;
 
+	private final static float SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS = 8f;
 	private final static float SPEED_FACTOR = 0.05f;
 	private final static int GRAVITY = 28;
 
@@ -260,8 +261,16 @@ public class FightingScreen implements Screen {
 		tmp = rectA.y;
 		rectA.y = Math.max(rectA.y + charA.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
 				paddingBottom + (rectA.height / 2));
-		if (rectA.overlaps(rectB))
+		if (rectA.overlaps(rectB)) {
 			rectA.y = tmp;
+			
+			if (rectB.getX() > rectA.getX()) {
+				rectA.x -= SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
+			}
+			else {
+				rectA.x += SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
+			}
+		}
 
 		charA.update(delta, charB);
 	}
@@ -291,8 +300,16 @@ public class FightingScreen implements Screen {
 		tmp = rectB.y;
 		rectB.y = Math.max(rectB.y + charB.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
 				paddingBottom + (rectB.height / 2));
-		if (rectB.overlaps(rectA))
+		if (rectB.overlaps(rectA)) {
 			rectB.y = tmp;
+			
+			if (rectA.getX() > rectB.getX()) {
+				rectB.x -= SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
+			}
+			else {
+				rectB.x += SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
+			}
+		}
 
 		charB.update(delta, charA);
 	}

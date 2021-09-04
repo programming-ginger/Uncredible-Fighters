@@ -11,7 +11,7 @@ public class Teacher extends UncredibleFighter {
 	
 	public Teacher()
 	{
-		setName("teacher");
+		setName("Teacher");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Teacher/TeacherFightingSprite.png"));

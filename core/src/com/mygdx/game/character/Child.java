@@ -15,7 +15,7 @@ public class Child extends UncredibleFighter{
 
 	public Child()
 	{
-		setName("child");
+		setName("Child");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Child/ChildFightingSprite.png"));

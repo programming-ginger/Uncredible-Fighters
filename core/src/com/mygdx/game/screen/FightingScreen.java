@@ -175,6 +175,7 @@ public class FightingScreen implements Screen {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			charA.lookLeft();
+			//rectA.setWidth(0.2f);
 			if ((rectA.x - charA.moveX) >= paddingLeft) {
 				charA.moveX = -1 * charA.getSpeed();
 			}

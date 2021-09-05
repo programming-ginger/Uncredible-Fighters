@@ -22,6 +22,7 @@ public class Politician extends UncredibleFighter {
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
 		//setRectangle(rectangle);
+
 	}
 
 	public void addPen()

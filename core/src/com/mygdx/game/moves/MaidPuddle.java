@@ -8,21 +8,21 @@ import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.sound.SoundPlayer;
 
-public class ChildSlingshot extends Move{
+public class MaidPuddle extends Move{
 
     private final static int MOVE_DAMAGE = 5;
     private final static float ATTACK_RANGE = 0.5f;
     private final static float ATTACK_HEIGHT = 0.75f;
 
-    public ChildSlingshot(){
+    public MaidPuddle(){
         Array<Texture> texturesBeforeEffect = new Array<>();
-        texturesBeforeEffect.add(new Texture("Child/ChildFightingSprite.png"));
-        texturesBeforeEffect.add(new Texture("Child/Child-Move1 - 1.png"));
+        texturesBeforeEffect.add(new Texture("Maid/MaidFightingSprite.png"));
+        texturesBeforeEffect.add(new Texture("Maid/Maid-Move1 - 1.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        texturesAfterEffect.add(new Texture("Child/Child-Move1 - 2.png"));
-        texturesAfterEffect.add(new Texture("Child/Child-Move1 - 3.png"));
-        texturesAfterEffect.add(new Texture("Child/ChildFightingSprite.png"));
+        texturesAfterEffect.add(new Texture("Maid/Maid-Move1 - 2.png"));
+        texturesAfterEffect.add(new Texture("Maid/Maid-Move1 - 3.png"));
+        texturesAfterEffect.add(new Texture("Maid/MaidFightingSprite.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);
         setTexturesAfterEffect(texturesAfterEffect);

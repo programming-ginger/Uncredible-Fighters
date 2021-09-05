@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.ChildSlingshot;
+import com.mygdx.game.moves.MaidPuddle;
 import org.w3c.dom.Text;
 
 public class Maid extends UncredibleFighter
@@ -20,6 +22,7 @@ public class Maid extends UncredibleFighter
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
 		//add puddle size (?)
+		move1 = new MaidPuddle();
 	}
 
 	public Rectangle getPuddle()

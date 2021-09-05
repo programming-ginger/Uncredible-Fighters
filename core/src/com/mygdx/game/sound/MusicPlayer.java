@@ -1,48 +1,28 @@
-//package com.mygdx.game.sound;
-//
-//public class MusicPlayer {
-//
-//
-//
-//    public class PlayMusic {
-//
-//
-//        public static void main(String[] args){
-//
-//            playMusicMenu("Hier Dateipfad");
-//
-//
-//        }
-//
-//        public static void playMusicMenu(String filepath)
-//        {
-//            inputStream music;
-//            try
-//            {
-//                music = new FileInputStream(new File(filepath));
-//                AudioStream audios = new AudioStream(music);
-//                AudioPlayer.player.start(audio);
-//            }
-//            catch(Exception e)
-//            {
-//                jOptionPane.showMessageDialog(null,"Error");
-//            }
-//        }
-//
-//
-//        public static void playMusicFight(String filepath)
-//        {
-//            inputStream music;
-//            try
-//            {
-//                music = new FileInputStream(new File(filepath));
-//                AudioStream audios = new AudioStream(music);
-//                AudioPlayer.player.start(audio);
-//            }
-//            catch(Exception e)
-//            {
-//                jOptionPane.showMessageDialog(null,"Error");
-//            }
-//        }
-//
-//}
+import com.badlogic.gdx.Gdx;
+
+public class menu {
+
+
+    private Musik music
+
+    music =Gdx.audio.newMusic(Gdx.files.internal("Filepath_keineAhnug_welches");
+    music.setLooping(true);
+    music.setVolume(Hier_sicher_Variable_aus_menu);
+    music.play();
+
+}
+
+
+public class fight {        //keine Ahnung wie diese Klasse heißt
+
+
+    private Musik music
+
+    music =Gdx.audio.newMusic(Gdx.files.internal("Filepath_keineAhnug_welches");
+    music.setLooping(true);
+    music.setVolume(Hier_sicher_Variable_aus_menu);
+    music.play();
+
+}
+
+// Da fehlt noch was um die musik auszuschalten mit disposal ?? aber bin damit leicht überfragt

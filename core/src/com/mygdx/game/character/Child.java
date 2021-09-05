@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.ChildSlingshot;
+import com.mygdx.game.moves.GrandpaWalkingStickBlow;
 
 import java.util.Queue;
 
@@ -34,6 +36,8 @@ public class Child extends UncredibleFighter{
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
 		//setRectangle(rectangle);
+		move1 = new ChildSlingshot();
+
 	}
 
 	public void addStone()

@@ -14,6 +14,7 @@ import com.mygdx.game.prototype.FightingGame;
 import com.mygdx.game.prototype.PrototypeCharMove;
 import com.mygdx.game.screen.CharacterChoiceScreen;
 import com.mygdx.game.screen.FightingScreen;
+import com.mygdx.game.sound.MusicPlayer;
 import com.mygdx.game.sound.SoundPlayer;
 import com.mygdx.game.textures.TextureLibrary;
 
@@ -69,6 +70,7 @@ public class UncredibleFighters extends Game {
 	public static void showMainMenuScreen() {
 		Screen menu = MenuFactory.createMainMenu();
 		getInstance().setScreen(menu);
+		MusicPlayer.playMenuMusic();
 	}
 
 	public static void showCharacterChoice() {
@@ -81,6 +83,7 @@ public class UncredibleFighters extends Game {
 		activeFight = new FightingScreen(game);
 		getInstance().setScreen(activeFight);
 		game.setScreen(activeFight);
+		MusicPlayer.playFightMusic();
 		
 	}
 	

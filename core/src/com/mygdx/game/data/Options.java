@@ -1,5 +1,7 @@
 package com.mygdx.game.data;
 
+import com.mygdx.game.sound.MusicPlayer;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -93,6 +95,7 @@ public class Options implements Serializable{
 	public static  void setMusicVolume(int musicVolume) {
 		if (isValidVolume(musicVolume)) {
 			getInstance().musicVolume = musicVolume;
+			MusicPlayer.setVolume(getMusicVolumeFloat());
 		} else
 			throw new IllegalArgumentException("Invalid Music Volume " + musicVolume);
 	}

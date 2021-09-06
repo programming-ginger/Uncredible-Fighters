@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.MaidPuddle;
+import com.mygdx.game.moves.PoliticianPen;
 
 import java.util.Queue;
 
@@ -22,7 +24,7 @@ public class Politician extends UncredibleFighter {
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
 		//setRectangle(rectangle);
-
+		move1 = new PoliticianPen();
 	}
 
 	public void addPen()

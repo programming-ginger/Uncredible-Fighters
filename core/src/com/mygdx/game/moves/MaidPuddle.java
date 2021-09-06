@@ -10,7 +10,7 @@ import com.mygdx.game.sound.SoundPlayer;
 
 public class MaidPuddle extends Move{
 
-    private final static int MOVE_DAMAGE = 5;
+    private final static int MOVE_DAMAGE = 50;
     private final static float ATTACK_RANGE = 0.5f;
     private final static float ATTACK_HEIGHT = 0.75f;
 

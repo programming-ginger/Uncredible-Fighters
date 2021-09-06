@@ -2,10 +2,8 @@ package com.mygdx.game.moves;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.UncredibleFighter;
-import com.mygdx.game.data.Options;
 import com.mygdx.game.sound.SoundPlayer;
 
 public class PoliticianPen extends Move{
@@ -14,7 +12,7 @@ public class PoliticianPen extends Move{
     private final static float ATTACK_RANGE = 0.5f;
     private final static float ATTACK_HEIGHT = 0.75f;
 
-    public GrandpaWalkingStickBlow(){
+    public PoliticianPen(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Politician/PoliticianFightingSprite.png"));
         texturesBeforeEffect.add(new Texture("Politician/Politician-Move1 - 1.png"));

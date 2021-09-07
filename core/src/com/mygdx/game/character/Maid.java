@@ -25,6 +25,7 @@ public class Maid extends UncredibleFighter
 		setRectangle(rect);
 		//add puddle size (?)
 		move1 = new MaidPuddle();
+		move2 = new MaidPuddle();
 	}
 
 	public Rectangle getPuddle()

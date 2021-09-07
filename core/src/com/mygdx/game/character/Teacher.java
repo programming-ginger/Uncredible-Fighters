@@ -22,6 +22,7 @@ public class Teacher extends UncredibleFighter {
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new TeacherRuler();
+		move2 = new TeacherRuler();
 	}
 
 	public Rectangle getRuler()

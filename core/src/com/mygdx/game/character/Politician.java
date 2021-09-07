@@ -26,6 +26,7 @@ public class Politician extends UncredibleFighter {
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new PoliticianPen();
+		move2 = new PoliticianPen();
 	}
 
 	public void addPen()

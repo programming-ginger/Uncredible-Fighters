@@ -86,7 +86,7 @@ public abstract class UncredibleFighter {
 
 	public void setPosition(float x, float y) {
 		rectangle.x = x - rectangle.getWidth() / 2;
-		rectangle.y = y - rectangle.getHeight() / 2;
+		rectangle.y = y;
 	}
 
 	public String getName() {

@@ -34,10 +34,11 @@ public class Child extends UncredibleFighter{
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Child/ChildFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.15f);
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new ChildSlingshot();
+		move2 = new ChildSlingshot();
 
 	}
 

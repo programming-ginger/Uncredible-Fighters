@@ -203,8 +203,10 @@ public class FightingScreen implements Screen {
 		}
 
 		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_A)) {
-
 			charA.useMove1();
+		}
+		if (Gdx.input.isKeyPressed(MOVE2_BUTTON_PLAYER_A)) {
+			charA.useMove2();
 		}
 	}
 
@@ -238,6 +240,9 @@ public class FightingScreen implements Screen {
 
 		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_B)) {
 			charB.useMove1();
+		}
+		if (Gdx.input.isKeyPressed(MOVE2_BUTTON_PLAYER_B)) {
+			charB.useMove2();
 		}
 	}
 

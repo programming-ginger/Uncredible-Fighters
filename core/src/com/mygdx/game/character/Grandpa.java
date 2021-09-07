@@ -21,6 +21,7 @@ public class Grandpa extends UncredibleFighter {
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
 		setRectangle(rect);
 		move1 = new GrandpaWalkingStickBlow();
+		move2 = new GrandpaWalkingStickBlow();
 		//setRectangle(rectangle);
 	}
 

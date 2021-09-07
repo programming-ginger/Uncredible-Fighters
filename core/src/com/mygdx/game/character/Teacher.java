@@ -6,6 +6,7 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.MaidPuddle;
 import com.mygdx.game.moves.TeacherRuler;
+import com.mygdx.game.textures.TextureLibrary;
 
 public class Teacher extends UncredibleFighter {
 
@@ -32,6 +33,11 @@ public class Teacher extends UncredibleFighter {
 	public void setRuler(Rectangle ruler)
 	{
 		//throw new NotImplementedException();
+	}
+	
+	@Override
+	public Texture getSpecificBackground() {
+		return TextureLibrary.getClassroom();
 	}
 
 }

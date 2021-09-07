@@ -18,6 +18,7 @@ public abstract class UncredibleFighter {
 	private int currentHP;
 	private float speed;
 	protected Move move1;
+	protected Move move2;
 
 	protected Move activeMove;
 	protected Texture texture;
@@ -57,7 +58,15 @@ public abstract class UncredibleFighter {
 	}
 
 	public void useMove1() {
-		activeMove = move1;
+		useMove(move1);
+	}
+	
+	public void useMove2() {
+		useMove(move2);
+	}
+	
+	private void useMove(Move move) {
+		activeMove = move;
         activeMove.use();
 	}
 
@@ -141,4 +150,6 @@ public abstract class UncredibleFighter {
 	public boolean looksLeft() {
 		return this.lookingLeft;
 	}
+
+	public abstract Texture getSpecificBackground();
 }

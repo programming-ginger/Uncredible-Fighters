@@ -6,6 +6,7 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.MaidPuddle;
 import com.mygdx.game.moves.PoliticianPen;
+import com.mygdx.game.textures.TextureLibrary;
 
 import java.util.Queue;
 
@@ -46,6 +47,11 @@ public class Politician extends UncredibleFighter {
 	public int getMaxPenCount()
 	{
 		return DEF_MAX_PEN_COUNT;
+	}
+	
+	@Override
+	public Texture getSpecificBackground() {
+		return TextureLibrary.getElectionCampaign();
 	}
 
 }

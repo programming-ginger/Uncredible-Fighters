@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
+import com.mygdx.game.textures.TextureLibrary;
 
 public class Grandpa extends UncredibleFighter {
 
@@ -32,6 +33,11 @@ public class Grandpa extends UncredibleFighter {
 	public void setRollator(Rectangle rollator)
 	{
 		//throw new NotImplementedException();
+	}
+	
+	@Override
+	public Texture getSpecificBackground() {
+		return TextureLibrary.getFrontYard();
 	}
 
 }

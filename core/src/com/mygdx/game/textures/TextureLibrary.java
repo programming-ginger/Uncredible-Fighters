@@ -18,6 +18,12 @@ public class TextureLibrary {
 	private static Texture player2SelectionFrame;
 	private static Texture zero;
 	private static Texture hundret;
+	
+	private static Texture classroom;
+	private static Texture electionCampaign;
+	private static Texture frontYard;
+	private static Texture hallway;
+	private static Texture playground;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -89,6 +95,41 @@ public class TextureLibrary {
 		return hundret;		
 	}
 	
+	public static Texture getClassroom() {
+		if (classroom == null) {
+			classroom = new Texture("Arenas/Classroom.jpg");
+		}
+		return classroom;		
+	}
+	
+	public static Texture getElectionCampaign() {
+		if (electionCampaign == null) {
+			electionCampaign = new Texture("Arenas/Election Campaign.jpg");
+		}
+		return electionCampaign;		
+	}
+	
+	public static Texture getFrontYard() {
+		if (frontYard == null) {
+			frontYard = new Texture("Arenas/Front Yard.jpg");
+		}
+		return frontYard;		
+	}
+	
+	public static Texture getHallway() {
+		if (hallway == null) {
+			hallway = new Texture("Arenas/Hallway.jpg");
+		}
+		return hallway;		
+	}
+	
+	public static Texture getPlayground() {
+		if (playground == null) {
+			playground = new Texture("Arenas/Playground.jpg");
+		}
+		return playground;		
+	}
+	
 	public static void dispose() {
 		if (volumeController != null) {
 			volumeController.dispose();
@@ -128,6 +169,26 @@ public class TextureLibrary {
 		
 		if (hundret != null) {
 			hundret.dispose();
+		}
+		
+		if (classroom != null) {
+			classroom.dispose();
+		}
+		
+		if (electionCampaign != null) {
+			electionCampaign.dispose();
+		}
+		
+		if (frontYard != null) {
+			frontYard.dispose();
+		}
+		
+		if (hallway != null) {
+			hallway.dispose();
+		}
+		
+		if (playground != null) {
+			playground.dispose();
 		}
 	}
 }

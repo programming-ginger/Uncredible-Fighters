@@ -9,6 +9,7 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.ChildSlingshot;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
+import com.mygdx.game.textures.TextureLibrary;
 
 import java.util.Queue;
 
@@ -59,6 +60,11 @@ public class Child extends UncredibleFighter{
 	public int getMaxStoneCount()
 	{
 		return DEF_MAX_STONE_COUNT;
+	}
+
+	@Override
+	public Texture getSpecificBackground() {
+		return TextureLibrary.getPlayground();
 	}
 
 }

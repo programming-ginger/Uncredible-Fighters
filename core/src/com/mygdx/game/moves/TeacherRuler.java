@@ -14,7 +14,7 @@ public class TeacherRuler extends Move{
     private final static float ATTACK_RANGE = 0.5f;
     private final static float ATTACK_HEIGHT = 0.75f;
 
-    public GrandpaWalkingStickBlow(){
+    public TeacherRuler(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
         texturesBeforeEffect.add(new Texture("Teacher/Teacher-Move1 - 1.png"));

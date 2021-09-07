@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -26,7 +27,6 @@ public class FightingScreen implements Screen {
 	private Camera gameCam;
 	private Viewport viewport;
 	private Hud hud;
-	private SpriteBatch batch;
 
 	private final float paddingTop = 30;
 	private final float paddingBottom = 0.1f * Options.getWindowHeight();
@@ -42,6 +42,8 @@ public class FightingScreen implements Screen {
 
 	private boolean menuIsActive;
 	private MenuScreen menuOverlay;
+	
+	private Texture background;
 
 	float tmp;
 
@@ -68,9 +70,15 @@ public class FightingScreen implements Screen {
 		charB.setPosition(Options.getWindowWidth() - paddingRight, paddingBottom);
 		rectA = game.getCharacterA().getRectangle();
 		rectB = game.getCharacterB().getRectangle();
-		batch = new SpriteBatch();
 		hud.updateName(charA.getName(), charB.getName());
 		this.menuOverlay = new MenuScreen();
+		
+		if (Math.random() < 0.5) {
+			background = charA.getSpecificBackground();
+		}
+		else {
+			background = charB.getSpecificBackground();
+		}
 	}
 
 	@Override
@@ -80,8 +88,6 @@ public class FightingScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			menuIsActive = !menuIsActive;
@@ -93,8 +99,6 @@ public class FightingScreen implements Screen {
 			}
 		}
 
-		updateHud();
-
 		if (!menuIsActive) {
 			resetMoves();
 			listenUserAInput();
@@ -104,10 +108,13 @@ public class FightingScreen implements Screen {
 		}
 
 		game.batch.begin();
+		game.batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
 		charA.draw(game.batch);
 		charB.draw(game.batch);
 		game.batch.end();
-
+		
+		updateHud();
+		
 		if (menuIsActive) {
 			menuOverlay.render(delta);
 		}

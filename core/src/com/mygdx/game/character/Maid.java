@@ -7,6 +7,8 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.ChildSlingshot;
 import com.mygdx.game.moves.MaidPuddle;
+import com.mygdx.game.textures.TextureLibrary;
+
 import org.w3c.dom.Text;
 
 public class Maid extends UncredibleFighter
@@ -34,5 +36,10 @@ public class Maid extends UncredibleFighter
 	public void setPuddle(Rectangle puddle)
 	{
 		//throw new NotImplementedException();
+	}
+	
+	@Override
+	public Texture getSpecificBackground() {
+		return TextureLibrary.getHallway();
 	}
 }

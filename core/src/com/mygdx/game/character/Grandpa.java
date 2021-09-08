@@ -11,6 +11,7 @@ import com.mygdx.game.textures.TextureLibrary;
 public class Grandpa extends UncredibleFighter {
 
 	private Rectangle rollator;
+	private static final float SIZE = 0.35f;
 
 	public Grandpa()
 	{
@@ -18,7 +19,7 @@ public class Grandpa extends UncredibleFighter {
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		move1 = new GrandpaWalkingStickBlow();
 		move2 = new GrandpaWalkingStickBlow();

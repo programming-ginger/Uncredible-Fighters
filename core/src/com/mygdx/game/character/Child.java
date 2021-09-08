@@ -16,6 +16,7 @@ import java.util.Queue;
 public class Child extends UncredibleFighter{
 	
 	private static final int DEF_MAX_STONE_COUNT = 3;
+	private static final float SIZE = 0.25f;
 
 	private Queue<Rectangle> stoneList;
 	
@@ -34,7 +35,7 @@ public class Child extends UncredibleFighter{
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Child/ChildFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.15f);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new ChildSlingshot();

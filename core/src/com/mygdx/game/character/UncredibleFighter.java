@@ -53,8 +53,18 @@ public abstract class UncredibleFighter {
 	}
 
 	public void draw(SpriteBatch batch, Texture currentSprite) {
-		batch.draw(currentSprite, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), 0, 0,
-				texture.getWidth(), texture.getHeight(), lookingLeft, false);
+		float heightRatio = currentSprite.getHeight()/(texture.getHeight() + 0f);
+		float widthRatio = currentSprite.getWidth()/(texture.getWidth() + 0f);
+		
+		float x = rectangle.getX();
+		float y = rectangle.getY();
+		
+		if (lookingLeft) {
+			x = x - rectangle.getWidth() * (widthRatio - 1);
+		}
+		
+		batch.draw(currentSprite, x, y, rectangle.getWidth() * widthRatio, rectangle.getHeight() * heightRatio, 0, 0,
+				currentSprite.getWidth(), currentSprite.getHeight(), lookingLeft, false);
 	}
 
 	public void useMove1() {

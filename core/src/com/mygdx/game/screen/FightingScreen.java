@@ -47,8 +47,6 @@ public class FightingScreen implements Screen {
 
 	float tmp;
 
-	PrototypeCharMove fights;
-
 	private final static float SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS = 8f;
 	private final static float SPEED_FACTOR = 0.05f;
 	private final static int GRAVITY = 28;
@@ -94,9 +92,7 @@ public class FightingScreen implements Screen {
 
 			if (menuIsActive) {
 				showMenu();
-			} else {
-				menuOverlay = null;
-			}
+			} 
 		}
 
 		if (!menuIsActive) {
@@ -256,7 +252,7 @@ public class FightingScreen implements Screen {
 			}
 		} else if (charA.falling) {
 			charA.moveY -= GRAVITY * delta;
-			if (rectA.y + charA.moveY < paddingBottom + (rectA.height / 2)) {
+			if (rectA.y + charA.moveY < paddingBottom) {
 				charA.falling = false;
 			}
 		} else {
@@ -273,7 +269,7 @@ public class FightingScreen implements Screen {
 
 		tmp = rectA.y;
 		rectA.y = Math.max(rectA.y + charA.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
-				paddingBottom + (rectA.height / 2));
+				paddingBottom);
 		if (rectA.overlaps(rectB)) {
 			rectA.y = tmp;
 			
@@ -298,7 +294,7 @@ public class FightingScreen implements Screen {
 			}
 		} else if (charB.falling) {
 			charB.moveY -= GRAVITY * delta;
-			if (rectB.y + charB.moveY < paddingBottom + (rectB.height / 2)) {
+			if (rectB.y + charB.moveY < paddingBottom) {
 				charB.falling = false;
 			}
 		} else {
@@ -312,7 +308,7 @@ public class FightingScreen implements Screen {
 
 		tmp = rectB.y;
 		rectB.y = Math.max(rectB.y + charB.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
-				paddingBottom + (rectB.height / 2));
+				paddingBottom);
 		if (rectB.overlaps(rectA)) {
 			rectB.y = tmp;
 			
@@ -328,7 +324,6 @@ public class FightingScreen implements Screen {
 	}
 
 	public void closeMenu() {
-		menuOverlay = null;
 		menuIsActive = false;
 	}
 

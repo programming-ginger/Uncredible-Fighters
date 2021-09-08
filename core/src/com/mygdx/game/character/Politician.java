@@ -13,7 +13,8 @@ import java.util.Queue;
 public class Politician extends UncredibleFighter {
 
 	private static final int DEF_MAX_PEN_COUNT = 3;
-
+	private static final float SIZE = 0.35f;
+	
 	private Queue<Rectangle> penList;
 
 	public Politician()
@@ -22,7 +23,7 @@ public class Politician extends UncredibleFighter {
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Politician/PoliticianFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * 0.2f);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new PoliticianPen();

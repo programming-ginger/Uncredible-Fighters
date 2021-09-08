@@ -63,7 +63,7 @@ public class VolumeBar extends MenuItem {
 	}
 
 	@Override
-	public void update(SpriteBatch batch, Vector2 mousePosition) {
+	public void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked) {
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && value > 0) {
 			this.value--;
 		}
@@ -72,7 +72,7 @@ public class VolumeBar extends MenuItem {
 			this.value++;
 		}
 
-		if (Gdx.input.isTouched()) {
+		if (isClicked) {
 
 			if (barPosition.getX() <= mousePosition.x
 					&& mousePosition.x <= barPosition.getX() + barPosition.getWidth()) {

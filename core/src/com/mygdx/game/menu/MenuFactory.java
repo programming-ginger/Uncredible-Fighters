@@ -204,7 +204,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(optionsButton);
 
 		// "Beenden" Knopf
-		texture = new Texture("EndButton.PNG");
+		texture = new Texture("EndFightButton.PNG");
 
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
@@ -360,7 +360,7 @@ public class MenuFactory {
 		menu.addMenuItem(musicBar);
 		
 		// Zurueck-Button
-		texture = new Texture("EndFightButton.PNG");
+		texture = new Texture("BackButton.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		x = Options.getWindowWidth() * BACKBUTTON_X;;

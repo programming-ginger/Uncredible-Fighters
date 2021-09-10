@@ -10,44 +10,43 @@ import com.mygdx.game.data.Options;
     public class MusicPlayer{
 
 
-    private static Music Menu = Gdx.audio.newMusic(Gdx.files.internal("MenuMusic.mp3"));
-    private static Music Fight1 = Gdx.audio.newMusic(Gdx.files.internal("FightMusic1.mp3"));
-    private static Music Fight2 = Gdx.audio.newMusic(Gdx.files.internal("FightMusic2.mp3"));
-    private static Music CurrentMusic;
+    private static Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("MenuMusic.mp3"));
+    private static Music fightMusic1 = Gdx.audio.newMusic(Gdx.files.internal("FightMusic1.mp3"));
+    private static Music fightMusic2 = Gdx.audio.newMusic(Gdx.files.internal("FightMusic2.mp3"));
+    private static Music currentMusic;
 
     public static void playMenuMusic(){
-
-       CurrentMusic = Menu;
-        Menu.setLooping(true);
-        Menu.setVolume(Options.getMusicVolumeFloat());
-        Menu.play();
-
+    	playMusic(menuMusic);
     }
 
     public static void playFightMusic(){
-
         double random = Math.random();
-        Music music;
-
         if (random > 0.5){
-
-            CurrentMusic = Fight1;
-
+        	playMusic(fightMusic1);
         }
         else {
-            CurrentMusic = Fight2;
+        	playMusic(fightMusic2);
         }
 
-        CurrentMusic.setLooping(true);
-        CurrentMusic.setVolume(Options.getMusicVolumeFloat());
-        CurrentMusic.play();
 
+    }
+    
+    private static void playMusic(Music musicToPlay) {
+    	if (currentMusic != musicToPlay) {
+    		
+    		if (currentMusic != null) {
+    			currentMusic.stop();
+    		}
+    		
+	    	currentMusic = musicToPlay;
+	    	currentMusic.setLooping(true);
+	    	currentMusic.setVolume(Options.getMusicVolumeFloat());
+	    	currentMusic.play();
+    	}
     }
 
     public static void  setVolume(float Volume){
-
-        CurrentMusic.setVolume(Volume);
-
+        currentMusic.setVolume(Volume);
     }
 
 }

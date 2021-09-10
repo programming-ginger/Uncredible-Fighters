@@ -15,7 +15,7 @@ public class Grandpa extends UncredibleFighter {
 
 	public Grandpa()
 	{
-		setName("Grandpa");
+		setName("Groﬂvater");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));

@@ -19,7 +19,7 @@ public class Politician extends UncredibleFighter {
 
 	public Politician()
 	{
-		setName("Politician");
+		setName("Politiker");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Politician/PoliticianFightingSprite.png"));

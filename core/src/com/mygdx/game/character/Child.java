@@ -31,7 +31,7 @@ public class Child extends UncredibleFighter{
 //		Pixmap fg = new Pixmap(Gdx.files.internal("Child/ChildFightingSprite.png"));
 //		fg.drawPixmap(mask, fg.getWidth(), fg.getHeight());
 //		mask.setBlending(Pixmap.Blending.SourceOver);
-		setName("Child");
+		setName("Kind");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Child/ChildFightingSprite.png"));

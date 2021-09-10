@@ -1,5 +1,7 @@
 package com.mygdx.game.scene;
 
+import org.omg.CORBA.FREE_MEM;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.data.Options;
@@ -26,7 +29,10 @@ public class Hud
     Label hpBLabel;
     ProgressBar hpAProgressBar;
     ProgressBar hpBProgressbar;
-
+    BitmapFont font;
+    
+    		
+    		
     public Hud(SpriteBatch sb)
     {
         viewport = new FitViewport(Options.getWindowWidth(), Options.getWindowHeight(), new OrthographicCamera());
@@ -36,12 +42,15 @@ public class Hud
         table.top();
         table.setFillParent(true);
 
-        countdownLabel = new Label(("ZEIT"), new Label.LabelStyle(new BitmapFont(), Color.BLACK));
-        charNameALabel = new Label(("Player 1"), new Label.LabelStyle(new BitmapFont(), Color.BLACK));
-        charNameBLabel = new Label(("Player 2"), new Label.LabelStyle(new BitmapFont(), Color.BLACK));
-        timeLabel = new Label(String.format("%03d", 300), new Label.LabelStyle(new BitmapFont(), Color.BLACK));
-        hpALabel = new Label(String.format("%03d", 100), new Label.LabelStyle(new BitmapFont(), Color.BLACK));
-        hpBLabel = new Label(String.format("%03d", 100), new Label.LabelStyle(new BitmapFont(), Color.BLACK));
+        font = new BitmapFont();
+        font.getData().setScale(2.0f);
+        
+        countdownLabel = new Label(("ZEIT"), new Label.LabelStyle(font, Color.valueOf("FFE033")));
+        charNameALabel = new Label(("Player 1"), new Label.LabelStyle(font, Color.valueOf("FFE033")));
+        charNameBLabel = new Label(("Player 2"), new Label.LabelStyle(font, Color.valueOf("FFE033")));
+        timeLabel = new Label(String.format("%03d", 300), new Label.LabelStyle(font, Color.valueOf("FFE033")));
+        hpALabel = new Label(String.format("%03d", 100), new Label.LabelStyle(font, Color.valueOf("FFE033")));
+        hpBLabel = new Label(String.format("%03d", 100), new Label.LabelStyle(font, Color.valueOf("FFE033")));
 
         table.add(charNameALabel).expandX().padTop(10).padLeft(10).align(Align.left);
         table.add(countdownLabel).expandX().padTop(10);

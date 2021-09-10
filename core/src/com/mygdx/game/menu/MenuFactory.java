@@ -97,7 +97,7 @@ public class MenuFactory {
 		mainMenu.addPassiveTexture(logo);
 
 		// "Spielen" Knopf
-		texture = new Texture("PlayButton.PNG");
+		texture = new Texture("Buttons/ButtonSpielen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_SPIELEN_Y;
 
@@ -111,7 +111,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(playButton);
 
 		// "Einstellungen" Knopf
-		texture = new Texture("SettingButton.PNG");
+		texture = new Texture("Buttons/ButtonEinstellungen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_EINSTELLUNGEN_Y;
 
@@ -125,7 +125,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(optionsButton);
 
 		// "Beenden" Knopf
-		texture = new Texture("EndButton.PNG");
+		texture = new Texture("Buttons/ButtonBeenden.PNG");
 
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
@@ -176,7 +176,7 @@ public class MenuFactory {
 		mainMenu.addPassiveTexture(logo);
 
 		// "Fortsetzen" Knopf
-		texture = new Texture("ContinueButton.PNG");
+		texture = new Texture("Buttons/ButtonFortsetzen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_SPIELEN_Y;
 
@@ -190,7 +190,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(playButton);
 
 		// "Einstellungen" Knopf
-		texture = new Texture("SettingButton.PNG");
+		texture = new Texture("Buttons/ButtonEinstellungen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_EINSTELLUNGEN_Y;
 
@@ -204,7 +204,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(optionsButton);
 
 		// "Beenden" Knopf
-		texture = new Texture("EndFightButton.PNG");
+		texture = new Texture("Buttons/ButtonSpielBeenden.PNG");
 
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
@@ -255,7 +255,7 @@ public class MenuFactory {
 		menu.addPassiveTexture(logo);
 
 		// Sounds-Regler
-		texture = new Texture("VolumeLabel.png");
+		texture = new Texture("Buttons/ButtonSound.png");
 		x = Options.getWindowWidth() * 0.3f;
 		y = Options.getWindowHeight() * 0.45f;
 		height = Options.getWindowHeight() * itemHeight;
@@ -269,7 +269,7 @@ public class MenuFactory {
 		menu.addMenuItem(soundBar);
 
 		// Musik-Regler
-		texture = new Texture("MusicLabel.png");
+		texture = new Texture("Buttons/ButtonMusik.png");
 		y = Options.getWindowHeight() * 0.2f;
 		height = Options.getWindowHeight() * itemHeight;
 		action = new IntConsumer() {
@@ -282,7 +282,7 @@ public class MenuFactory {
 		menu.addMenuItem(musicBar);
 		
 		// Zurueck-Button
-		texture = new Texture("BackButton.PNG");
+		texture = new Texture("Buttons/ButtonZurueck.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		x = Options.getWindowWidth() * BACKBUTTON_X;;
@@ -333,7 +333,7 @@ public class MenuFactory {
 		menu.addPassiveTexture(logo);
 
 		// Sounds-Regler
-		texture = new Texture("VolumeLabel.png");
+		texture = new Texture("Buttons/ButtonSound.png");
 		x = Options.getWindowWidth() * 0.3f;
 		y = Options.getWindowHeight() * 0.45f;
 		height = Options.getWindowHeight() * itemHeight;
@@ -347,7 +347,7 @@ public class MenuFactory {
 		menu.addMenuItem(soundBar);
 
 		// Musik-Regler
-		texture = new Texture("MusicLabel.png");
+		texture = new Texture("Buttons/ButtonMusik.png");
 		y = Options.getWindowHeight() * 0.2f;
 		height = Options.getWindowHeight() * itemHeight;
 		action = new IntConsumer() {
@@ -360,7 +360,7 @@ public class MenuFactory {
 		menu.addMenuItem(musicBar);
 		
 		// Zurueck-Button
-		texture = new Texture("BackButton.PNG");
+		texture = new Texture("Buttons/ButtonZurueck.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		x = Options.getWindowWidth() * BACKBUTTON_X;;
@@ -483,7 +483,7 @@ public class MenuFactory {
 		menu.addMenuItem(grandpaPortrait);
 		
 		// Zurueck-Button
-		texture = new Texture("BackButton.png");
+		texture = new Texture("Buttons/ButtonZurueck.png");
 
 		boxHeight = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		xCenter = Options.getWindowWidth() * BACKBUTTON_X;;

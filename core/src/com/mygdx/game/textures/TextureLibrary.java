@@ -48,7 +48,7 @@ public class TextureLibrary {
 
 	public static Texture getMainMenuBackground() {
 		if (mainMenuBackground == null) {
-			mainMenuBackground = new Texture("MenuBackground.png");
+			mainMenuBackground = new Texture("FightingWallpaper.png");
 		}
 		return mainMenuBackground;
 	}

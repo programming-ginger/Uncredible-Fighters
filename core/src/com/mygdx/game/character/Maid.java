@@ -18,7 +18,7 @@ public class Maid extends UncredibleFighter
 
 	public Maid()
 	{
-		setName("Maid");
+		setName("Putzfrau");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Maid/MaidFightingSprite.png"));

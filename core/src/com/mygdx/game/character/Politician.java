@@ -56,4 +56,9 @@ public class Politician extends UncredibleFighter {
 		return TextureLibrary.getElectionCampaign();
 	}
 
+	@Override
+	protected Texture getKOTexture() {
+		return new Texture("Politician/PoliticianKO.png");
+	}
+
 }

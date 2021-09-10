@@ -44,4 +44,9 @@ public class Maid extends UncredibleFighter
 	public Texture getSpecificBackground() {
 		return TextureLibrary.getHallway();
 	}
+
+	@Override
+	protected Texture getKOTexture() {
+		return new Texture("Maid/MaidKO.png");
+	}
 }

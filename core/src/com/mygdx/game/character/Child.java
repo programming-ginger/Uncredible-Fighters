@@ -69,4 +69,9 @@ public class Child extends UncredibleFighter{
 		return TextureLibrary.getPlayground();
 	}
 
+	@Override
+	protected Texture getKOTexture() {
+		return new Texture("Child/ChildKO.png");
+	}
+
 }

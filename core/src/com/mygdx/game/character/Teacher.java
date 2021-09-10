@@ -42,4 +42,9 @@ public class Teacher extends UncredibleFighter {
 		return TextureLibrary.getClassroom();
 	}
 
+	@Override
+	protected Texture getKOTexture() {
+		return new Texture("Teacher/TeacherKO.png");
+	}
+
 }

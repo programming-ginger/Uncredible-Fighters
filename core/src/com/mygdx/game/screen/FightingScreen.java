@@ -335,4 +335,16 @@ public class FightingScreen implements Screen {
 		MenuFactory.turnIntoFightingPauseMenu(menuOverlay);
 
 	}
+
+	public Texture getBackground() {
+		return background;
+	}
+
+	public UncredibleFighter getPlayer1() {
+		return this.charA;
+	}
+	
+	public UncredibleFighter getPlayer2() {
+		return this.charB;
+	}
 }

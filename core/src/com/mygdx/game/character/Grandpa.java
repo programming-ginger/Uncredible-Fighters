@@ -42,4 +42,9 @@ public class Grandpa extends UncredibleFighter {
 		return TextureLibrary.getFrontYard();
 	}
 
+	@Override
+	protected Texture getKOTexture() {
+		return new Texture("Grandpa/GrandpaKO.png");
+	}
+
 }

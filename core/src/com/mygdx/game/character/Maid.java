@@ -49,4 +49,9 @@ public class Maid extends UncredibleFighter
 	protected Texture getKOTexture() {
 		return new Texture("Maid/MaidKO.png");
 	}
+	
+	@Override
+	public Texture getPortrait() {
+		return TextureLibrary.getMaidPortrait();
+	}
 }

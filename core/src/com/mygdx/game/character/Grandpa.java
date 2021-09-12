@@ -46,5 +46,10 @@ public class Grandpa extends UncredibleFighter {
 	protected Texture getKOTexture() {
 		return new Texture("Grandpa/GrandpaKO.png");
 	}
+	
+	@Override
+	public Texture getPortrait() {
+		return TextureLibrary.getGrandpaPortrait();
+	}
 
 }

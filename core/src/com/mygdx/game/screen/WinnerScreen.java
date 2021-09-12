@@ -5,15 +5,20 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
+import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.menu.PassiveTexture;
 
 public class WinnerScreen implements Screen{
 	
 	private Texture background;
+	private PassiveTexture winnerPortrait;
+	private PassiveTexture winnerLabel;
 	
 	private UncredibleFighter winner;
 	private UncredibleFighter loser;
@@ -27,6 +32,12 @@ public class WinnerScreen implements Screen{
 	private float timer;
 	
 	private static final float timeAfterFalling = 3f;
+	
+	private static final float PORTRAIT_Y = 0.7f;
+	private static final float PORTRAIT_SIZE = 0.4f;
+	
+	private static final float LABEL_Y = 0.4f;
+	private static final float LABEL_SIZE = 0.2f;
 
 	public WinnerScreen(Texture background, UncredibleFighter player1, UncredibleFighter player2) {
 		gameCam = new OrthographicCamera();
@@ -43,6 +54,9 @@ public class WinnerScreen implements Screen{
 		}
 				
 		this.background = background;
+		
+		winnerPortrait = MenuFactory.makePassiveTexture(winner.getPortrait(), Options.getWindowWidth()/2, PORTRAIT_Y * Options.getWindowHeight(), Options.getWindowHeight() * PORTRAIT_SIZE);
+		winnerLabel = MenuFactory.makePassiveTexture(new Texture("WinnerLabel.png"), Options.getWindowWidth()/2, LABEL_Y * Options.getWindowHeight(), Options.getWindowHeight() * LABEL_SIZE);
 	}
 
 	@Override
@@ -69,6 +83,8 @@ public class WinnerScreen implements Screen{
 		batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
 		winner.draw(batch);
 		loser.draw(batch);
+		winnerPortrait.draw(batch);
+		winnerLabel.draw(batch);
 		batch.end();		
 	}
 

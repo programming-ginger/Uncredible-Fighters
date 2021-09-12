@@ -74,4 +74,9 @@ public class Child extends UncredibleFighter{
 		return new Texture("Child/ChildKO.png");
 	}
 
+	@Override
+	public Texture getPortrait() {
+		return TextureLibrary.getChildPortrait();
+	}
+
 }

@@ -407,7 +407,7 @@ public class MenuFactory {
 		float yCenter;
 		
 		// Child-Portrait
-		texture = new Texture("Child/child-portrait.jpg");
+		texture = TextureLibrary.getChildPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.2f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
@@ -422,7 +422,7 @@ public class MenuFactory {
 		menu.addMenuItem(childPortrait);
 		
 		// Teacher-Portrait
-		texture = new Texture("Teacher/teacher-portrait.jpg");
+		texture = TextureLibrary.getTeacherPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.5f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
@@ -437,7 +437,7 @@ public class MenuFactory {
 		menu.addMenuItem(teacherPortrait);
 		
 		// Maid-Portrait
-		texture = new Texture("Maid/maid-portrait.jpg");
+		texture = TextureLibrary.getMaidPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.8f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
@@ -452,7 +452,7 @@ public class MenuFactory {
 		menu.addMenuItem(maidPortrait);
 		
 		// Politician-Portrait
-		texture = new Texture("Politician/politician-portrait.jpg");
+		texture = TextureLibrary.getPoliticianPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.33f;
 		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
@@ -467,7 +467,7 @@ public class MenuFactory {
 		menu.addMenuItem(politicianPortrait);
 		
 		// Grandpa-Portrait
-		texture = new Texture("Grandpa/grandpa-portrait.jpg");
+		texture = TextureLibrary.getGrandpaPortrait();
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.66f;
 		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;

@@ -24,6 +24,12 @@ public class TextureLibrary {
 	private static Texture frontYard;
 	private static Texture hallway;
 	private static Texture playground;
+	
+	private static Texture childPortrait;
+	private static Texture grandpaPortrait;
+	private static Texture teacherPortrait;
+	private static Texture maidPortrait;
+	private static Texture politicianPortrait;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -130,6 +136,42 @@ public class TextureLibrary {
 		return playground;		
 	}
 	
+	public static Texture getChildPortrait() {
+		if (childPortrait == null) {
+			childPortrait = new Texture("Child/child-portrait.jpg");
+		}
+		return childPortrait;		
+	}
+	
+	public static Texture getGrandpaPortrait() {
+		if (grandpaPortrait == null) {
+			grandpaPortrait = new Texture("Grandpa/grandpa-portrait.jpg");
+		}
+		return grandpaPortrait;		
+	}
+	
+	public static Texture getTeacherPortrait() {
+		if (teacherPortrait == null) {
+			teacherPortrait = new Texture("Teacher/teacher-portrait.jpg");
+		}
+		return teacherPortrait;		
+	}
+	
+	public static Texture getMaidPortrait() {
+		if (maidPortrait == null) {
+			maidPortrait = new Texture("Maid/maid-portrait.jpg");
+		}
+		return maidPortrait;		
+	}
+	
+	public static Texture getPoliticianPortrait() {
+		if (politicianPortrait == null) {
+			politicianPortrait = new Texture("Politician/politician-portrait.jpg");
+		}
+		return politicianPortrait;		
+	}
+
+	
 	public static void dispose() {
 		if (volumeController != null) {
 			volumeController.dispose();
@@ -190,5 +232,26 @@ public class TextureLibrary {
 		if (playground != null) {
 			playground.dispose();
 		}
+		
+		if (childPortrait != null) {
+			childPortrait.dispose();
+		}
+		
+		if (grandpaPortrait != null) {
+			grandpaPortrait.dispose();
+		}
+		
+		if (teacherPortrait != null) {
+			teacherPortrait.dispose();
+		}
+		
+		if (maidPortrait != null) {
+			maidPortrait.dispose();
+		}
+		
+		if (politicianPortrait != null) {
+			politicianPortrait.dispose();
+		}
+		
 	}
 }

@@ -210,4 +210,6 @@ public abstract class UncredibleFighter {
 	}
 
 	protected abstract Texture getKOTexture();
+
+	public abstract Texture getPortrait();
 }

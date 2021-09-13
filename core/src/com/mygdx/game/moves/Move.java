@@ -31,7 +31,7 @@ public abstract class Move extends Group {
 
 		if (passedTime > timeBeforeEffect && !effectWasApplied) {
 			if (moveHits(attacker, enemy)) {
-				applyEffect(enemy);
+				applyEffect(attacker, enemy);
 			}
 			effectWasApplied = true;
 		}
@@ -42,7 +42,7 @@ public abstract class Move extends Group {
 
 	protected abstract boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy);
 
-	public abstract void applyEffect(UncredibleFighter enemy);
+	public abstract void applyEffect(UncredibleFighter self, UncredibleFighter enemy);
 
 	public Texture getCurrentSprite() {
 		if (passedTime < timeBeforeEffect) {

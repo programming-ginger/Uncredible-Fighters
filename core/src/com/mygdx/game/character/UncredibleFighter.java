@@ -190,11 +190,14 @@ public abstract class UncredibleFighter {
 			sprite.setBounds(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 			sprite.flip(lookingLeft, false);
 			
+			
 			if (lookingLeft) {
 				rotationDirectionFactor = -1;
+				sprite.setOrigin(sprite.getX() + sprite.getWidth(), sprite.getY());
 			}
 			else {
 				rotationDirectionFactor = 1;
+				sprite.setOrigin(sprite.getX(), sprite.getY());
 			}
 		}
 		

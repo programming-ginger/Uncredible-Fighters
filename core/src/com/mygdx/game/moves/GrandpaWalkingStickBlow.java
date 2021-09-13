@@ -32,7 +32,7 @@ public class GrandpaWalkingStickBlow extends Move{
     }
 
     @Override
-    public void applyEffect(UncredibleFighter enemy) {
+    public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
     	enemy.reduceHP(MOVE_DAMAGE);
     	SoundPlayer.playHitSound();
     }

@@ -30,6 +30,8 @@ public class TextureLibrary {
 	private static Texture teacherPortrait;
 	private static Texture maidPortrait;
 	private static Texture politicianPortrait;
+	
+	private static Texture pen;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -170,6 +172,13 @@ public class TextureLibrary {
 		}
 		return politicianPortrait;		
 	}
+	
+	public static Texture getPen() {
+		if (pen == null) {
+			pen = new Texture("Politician/Pen.png");
+		}
+		return pen;	
+	}
 
 	
 	public static void dispose() {
@@ -251,6 +260,10 @@ public class TextureLibrary {
 		
 		if (politicianPortrait != null) {
 			politicianPortrait.dispose();
+		}
+		
+		if (pen != null) {
+			pen.dispose();
 		}
 		
 	}

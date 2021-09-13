@@ -48,7 +48,7 @@ public class FightingScreen implements Screen {
 	float tmp;
 
 	private final static float SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS = 8f;
-	private final static float SPEED_FACTOR = 0.05f;
+	public final static float SPEED_FACTOR = 0.05f;
 	private final static int GRAVITY = 28;
 
 	private final int MOVE1_BUTTON_PLAYER_A = Input.Keys.R;

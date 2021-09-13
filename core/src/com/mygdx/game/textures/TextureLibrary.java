@@ -1,5 +1,7 @@
 package com.mygdx.game.textures;
 
+import javax.xml.soap.Text;
+
 import com.badlogic.gdx.graphics.Texture;
 
 /*
@@ -32,6 +34,7 @@ public class TextureLibrary {
 	private static Texture politicianPortrait;
 	
 	private static Texture pen;
+	private static Texture walkingStick;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -179,6 +182,13 @@ public class TextureLibrary {
 		}
 		return pen;	
 	}
+	
+	public static Texture getWalkingStick() {
+		if(walkingStick == null) {
+			walkingStick = new Texture("Grandpa/WalkingStick.png");
+		}
+		return walkingStick;
+	}
 
 	
 	public static void dispose() {
@@ -264,6 +274,10 @@ public class TextureLibrary {
 		
 		if (pen != null) {
 			pen.dispose();
+		}
+		
+		if(walkingStick != null) {
+			walkingStick.dispose();
 		}
 		
 	}

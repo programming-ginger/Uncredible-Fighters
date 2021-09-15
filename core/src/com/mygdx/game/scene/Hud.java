@@ -2,21 +2,29 @@ package com.mygdx.game.scene;
 
 import org.omg.CORBA.FREE_MEM;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.data.Options;
 
-public class Hud
+public class Hud extends ApplicationAdapter
 {
     public Stage stage;
     private Viewport viewport;
@@ -30,7 +38,7 @@ public class Hud
     ProgressBar hpAProgressBar;
     ProgressBar hpBProgressbar;
     BitmapFont font;
-    
+       
     		
     		
     public Hud(SpriteBatch sb)
@@ -75,4 +83,61 @@ public class Hud
         charNameALabel.setText(charAName);
         charNameBLabel.setText(charBName);
     }
+    	
+    
+	@Override
+	public void create () {
+		
+		Pixmap pixmapGreen = new Pixmap(0, 20, Format.RGBA8888);
+		pixmapGreen = new Pixmap(0, 20, Format.RGBA8888);
+		pixmapGreen.setColor(Color.GREEN);
+		pixmapGreen.fill();
+		
+		Pixmap pixmapRed = new Pixmap(100, 20, Format.RGBA8888);
+		pixmapRed = new Pixmap(0, 20, Format.RGBA8888);
+		pixmapRed.setColor(Color.RED);
+		pixmapRed.fill();
+		
+		
+		createHealthBar(pixmapGreen);
+		createHealthBar(pixmapRed);
+		
+		
+		render();
+	
+	}
+	
+	
+	public void createHealthBar(Pixmap pixmap) {
+		
+		TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegionDrawable(new Texture(pixmap)));
+		pixmap.dispose();
+		
+		ProgressBarStyle progressBarStyle = new ProgressBarStyle();
+		progressBarStyle.background = drawable;
+		drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
+		progressBarStyle.knob = drawable;
+		progressBarStyle.knobBefore = drawable;
+		
+		pixmap.dispose();
+		
+		stage = new Stage();
+		 
+		ProgressBar healthBar = new ProgressBar(0.0f, 1.0f, 0.01f, false, progressBarStyle);
+		healthBar.setValue(1.0f);
+		healthBar.setAnimateDuration(0.25f);
+		healthBar.setBounds(10, 10, 100, 20);
+		 
+		stage.addActor(healthBar);
+		
+	}
+	
+	@Override
+	public void render () {
+		stage.draw();
+		stage.act();
+	}
+
+	
+    
 }

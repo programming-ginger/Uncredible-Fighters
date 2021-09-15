@@ -69,6 +69,7 @@ public class FightingScreen implements Screen {
 		rectA = game.getCharacterA().getRectangle();
 		rectB = game.getCharacterB().getRectangle();
 		hud.updateName(charA.getName(), charB.getName());
+		
 		this.menuOverlay = new MenuScreen();
 		
 		if (Math.random() < 0.5) {

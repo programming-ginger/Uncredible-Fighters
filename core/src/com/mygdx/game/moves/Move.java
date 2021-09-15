@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.projectiles.Projectile;
 
 public abstract class Move extends Group {
+
 
 	private Array<Texture> texturesBeforeEffect;
 	private Array<Texture> texturesAfterEffect;

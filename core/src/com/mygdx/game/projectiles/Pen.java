@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.sound.SoundPlayer;
 import com.mygdx.game.textures.TextureLibrary;
 
 public class Pen extends Projectile {
@@ -17,7 +18,8 @@ public class Pen extends Projectile {
 
 	@Override
 	public void applyEffect(UncredibleFighter enemy) {
-		enemy.reduceHP(DAMAGE);	
+		enemy.reduceHP(DAMAGE);
+		SoundPlayer.playHitSound();
 	}
 
 }

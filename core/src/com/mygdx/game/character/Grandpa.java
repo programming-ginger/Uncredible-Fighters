@@ -8,19 +8,16 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
-import com.mygdx.game.projectiles.Pen;
 import com.mygdx.game.projectiles.WalkingStick;
 import com.mygdx.game.textures.TextureLibrary;
 
 public class Grandpa extends UncredibleFighter {
-
-	private Rectangle rollator;
 	
 	private static final int DEF_MAX_PEN_COUNT = 3;
 	private static final float SIZE = 0.35f;
 	
 	private static final float WALKINGSTICK_THROWING_Y = 0.7f;
-	private static final float WALKINGSTICK_SIZE = 0.005f;
+	private static final float WALKINGSTICK_SIZE = 0.01f;
 
 	private Array<WalkingStick> walkingStickList;
 	
@@ -32,6 +29,7 @@ public class Grandpa extends UncredibleFighter {
 		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
+		walkingStickList = new Array<WalkingStick>();
 		move1 = new GrandpaWalkingStickBlow();
 		move2 = new GrandpaWalkingStickBlow();
 		//setRectangle(rectangle);
@@ -66,29 +64,29 @@ public class Grandpa extends UncredibleFighter {
 		return DEF_MAX_PEN_COUNT;
 	}
 	
-//	@Override
-//	public void update(float delta, UncredibleFighter enemy) {
-//		super.update(delta, enemy);
-//		
-//		ArrayIterator<WalkingStick> it = walkingStickList.iterator();
-//		
-//		while (it.hasNext()) {
-//			WalkingStick stick = it.next();
-//			
-//			if (!stick.update(delta, enemy)) {
-//				it.remove();
-//			}
-//		}
-//	}
+	@Override
+	public void update(float delta, UncredibleFighter enemy) {
+		super.update(delta, enemy);
+		
+		ArrayIterator<WalkingStick> it = walkingStickList.iterator();
+		
+		while (it.hasNext()) {
+			WalkingStick stick = it.next();
+			
+			if (!stick.update(delta, enemy)) {
+				it.remove();
+			}
+		}
+	}
 	
-//    @Override
-//	public void draw(SpriteBatch batch, Texture currentSprite) {
-//    	super.draw(batch, currentSprite);
-//    	
-//    	for (WalkingStick stick : walkingStickList) {
-//    		stick.draw(batch);
-//    	}
-//    }
+    @Override
+	public void draw(SpriteBatch batch, Texture currentSprite) {
+    	super.draw(batch, currentSprite);
+    	
+    	for (WalkingStick stick : walkingStickList) {
+    		stick.draw(batch);
+    	}
+    }
 	
 	public Rectangle getRollator()
 	{

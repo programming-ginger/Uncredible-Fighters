@@ -35,6 +35,8 @@ public class TextureLibrary {
 	
 	private static Texture pen;
 	private static Texture walkingStick;
+	private static Texture ruler;
+	private static Texture stone;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -188,6 +190,13 @@ public class TextureLibrary {
 			walkingStick = new Texture("Grandpa/WalkingStick.png");
 		}
 		return walkingStick;
+	}
+	
+	public static Texture getRuler() {
+		if(ruler == null) {
+			ruler = new Texture("Teacher/Ruler.png");
+		}
+		return ruler;
 	}
 
 	

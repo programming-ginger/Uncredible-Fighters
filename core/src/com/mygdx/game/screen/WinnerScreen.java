@@ -13,6 +13,7 @@ import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.menu.PassiveTexture;
+import com.mygdx.game.sound.MusicPlayer;
 
 public class WinnerScreen implements Screen{
 	
@@ -29,10 +30,6 @@ public class WinnerScreen implements Screen{
 	
 	private boolean loserIsFalling = true;
 	
-	private float timer;
-	
-	private static final float timeAfterFalling = 3f;
-	
 	private static final float PORTRAIT_Y = 0.7f;
 	private static final float PORTRAIT_SIZE = 0.4f;
 	
@@ -40,6 +37,7 @@ public class WinnerScreen implements Screen{
 	private static final float LABEL_SIZE = 0.2f;
 
 	public WinnerScreen(Texture background, UncredibleFighter player1, UncredibleFighter player2) {
+		
 		gameCam = new OrthographicCamera();
 		viewport = new FitViewport(Options.getWindowWidth(), Options.getWindowHeight(), gameCam);
 		batch = new SpriteBatch();
@@ -70,13 +68,6 @@ public class WinnerScreen implements Screen{
 		
 		if (loserIsFalling) {
 			loserIsFalling = loser.fallToTheGround(delta);
-		}
-		else {
-			timer += delta;
-			
-			if (timer >= timeAfterFalling) {
-				UncredibleFighters.showMainMenuScreen();
-			}
 		}
 		
 		batch.begin();

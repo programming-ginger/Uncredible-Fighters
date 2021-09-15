@@ -193,11 +193,11 @@ public abstract class UncredibleFighter {
 			
 			if (lookingLeft) {
 				rotationDirectionFactor = -1;
-				sprite.setOrigin(sprite.getX() + sprite.getWidth(), sprite.getY());
+				sprite.setOrigin(sprite.getWidth(), 0);
 			}
 			else {
 				rotationDirectionFactor = 1;
-				sprite.setOrigin(sprite.getX(), sprite.getY());
+				sprite.setOrigin(0, 0);
 			}
 		}
 		

@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.character.UncredibleFighter;
@@ -102,7 +104,20 @@ public class UncredibleFighters extends Game {
 	public static void showWinnerScreen() {
 		FightingScreen fight = instance.activeFight;
 		showWinnerScreen(fight.getBackground(), fight.getPlayer1(), fight.getPlayer2());
+		MusicPlayer.playWinningMelody();
+		
+    	OnCompletionListener listener = new OnCompletionListener() {
+
+			@Override
+			public void onCompletion(Music music) {
+				showMainMenuScreen();				
+			}
+    		
+    	};
+    	
+    	MusicPlayer.addOnCompletionListener(listener);
 	}
+
 	
 	private static void showWinnerScreen(Texture background, UncredibleFighter player1, UncredibleFighter player2) {
 		instance.setScreen(new WinnerScreen(background, player1, player2));

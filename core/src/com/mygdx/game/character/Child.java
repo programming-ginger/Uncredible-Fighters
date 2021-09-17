@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.ChildSlingshot;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
+import com.mygdx.game.projectiles.Pen;
+import com.mygdx.game.projectiles.Stone;
 import com.mygdx.game.textures.TextureLibrary;
 
 import java.util.Queue;
@@ -17,8 +22,11 @@ public class Child extends UncredibleFighter{
 	
 	private static final int DEF_MAX_STONE_COUNT = 3;
 	private static final float SIZE = 0.25f;
+	
+	private static final float STONE_Y = 0.8f;
+	private static final float STONE_SIZE = 0.03f;
 
-	private Queue<Rectangle> stoneList;
+	private Array<Stone> stoneList;
 	
 	Pixmap mask = new Pixmap(128, 128, Pixmap.Format.Alpha);
 	
@@ -40,23 +48,34 @@ public class Child extends UncredibleFighter{
 		//setRectangle(rectangle);
 		move1 = new ChildSlingshot();
 		move2 = new ChildSlingshot();
-
+		stoneList = new Array<>();
 	}
 
 	public void addStone()
 	{
-		if (getStoneCount() < DEF_MAX_STONE_COUNT)
-			stoneList.add(new Rectangle());
+		if (getStoneCount() < DEF_MAX_STONE_COUNT) {
+			
+			float x = rectangle.getX();
+			int directionFactor = -1;;
+			
+			if (!lookingLeft) {
+				x += rectangle.getWidth();
+				directionFactor = 1;
+			}
+		
+			float y = rectangle.getY() + rectangle.getHeight() * STONE_Y;
+			stoneList.add(new Stone(x, y, Options.getWindowHeight() * STONE_SIZE, directionFactor));
+		}
 	}
 
-	public Rectangle getStone()
-	{
-		return stoneList.poll();
-	}
+//	public Rectangle getStone()
+//	{
+//		return stoneList.poll();
+//	}
 
 	public int getStoneCount()
 	{
-		return stoneList.size();
+		return stoneList.size;
 	}
 
 	public int getMaxStoneCount()
@@ -78,5 +97,29 @@ public class Child extends UncredibleFighter{
 	public Texture getPortrait() {
 		return TextureLibrary.getChildPortrait();
 	}
+	
+	@Override
+	public void update(float delta, UncredibleFighter enemy) {
+		super.update(delta, enemy);
+		
+		ArrayIterator<Stone> it = stoneList.iterator();
+		
+		while (it.hasNext()) {
+			Stone stone = it.next();
+			
+			if (!stone.update(delta, enemy)) {
+				it.remove();
+			}
+		}
+	}
+	
+    @Override
+	public void draw(SpriteBatch batch, Texture currentSprite) {
+    	super.draw(batch, currentSprite);
+    	
+    	for (Stone stone : stoneList) {
+    		stone.draw(batch);
+    	}
+    }
 
 }

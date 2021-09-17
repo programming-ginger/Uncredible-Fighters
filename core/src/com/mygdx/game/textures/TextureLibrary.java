@@ -198,6 +198,13 @@ public class TextureLibrary {
 		}
 		return ruler;
 	}
+	
+	public static Texture getStone() {
+		if(stone == null) {
+			stone = new Texture("Child/Stone.png");
+		}
+		return stone;
+	}
 
 	
 	public static void dispose() {
@@ -289,5 +296,8 @@ public class TextureLibrary {
 			walkingStick.dispose();
 		}
 		
+		if(stone != null) {
+			stone.dispose();
+		}
 	}
 }

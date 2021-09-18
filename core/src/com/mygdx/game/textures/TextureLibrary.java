@@ -37,6 +37,7 @@ public class TextureLibrary {
 	private static Texture walkingStick;
 	private static Texture ruler;
 	private static Texture stone;
+	private static Texture puddle;
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -205,6 +206,13 @@ public class TextureLibrary {
 		}
 		return stone;
 	}
+	
+	public static Texture getPuddle() {
+		if(puddle == null) {
+			puddle = new Texture("Maid/Puddle.png");
+		}
+		return puddle;
+	}
 
 	
 	public static void dispose() {
@@ -298,6 +306,10 @@ public class TextureLibrary {
 		
 		if(stone != null) {
 			stone.dispose();
+		}
+		
+		if(puddle != null) {
+			puddle.dispose();
 		}
 	}
 }

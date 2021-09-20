@@ -32,6 +32,7 @@ public class Button extends MenuItem {
 		this(texture, position, null);
 	}
 
+	@Override
 	public boolean contains(float x, float y) {
 		return position.contains(x, y);
 	}

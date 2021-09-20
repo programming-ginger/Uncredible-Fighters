@@ -20,6 +20,8 @@ public class TextureLibrary {
 	private static Texture player2SelectionFrame;
 	private static Texture zero;
 	private static Texture hundret;
+	private static Texture buttonBackground;
+	private static Texture buttonArrow;
 	
 	private static Texture classroom;
 	private static Texture electionCampaign;
@@ -37,7 +39,7 @@ public class TextureLibrary {
 	private static Texture walkingStick;
 	private static Texture ruler;
 	private static Texture stone;
-	private static Texture puddle;
+	private static Texture puddle;	
 
 	public static Texture getVolumeController() {
 		if (volumeController == null) {
@@ -214,6 +216,20 @@ public class TextureLibrary {
 		return puddle;
 	}
 
+	public static Texture getButtonBackground() {
+		if(buttonBackground == null) {
+			buttonBackground = new Texture("ButtonBackground.png");
+		}
+		return buttonBackground;
+	}
+	
+
+	public static Texture geButtonArrow() {
+		if(buttonArrow == null) {
+			buttonArrow = new Texture("ButtonArrow.png");
+		}
+		return buttonArrow;
+	}
 	
 	public static void dispose() {
 		if (volumeController != null) {
@@ -310,6 +326,14 @@ public class TextureLibrary {
 		
 		if(puddle != null) {
 			puddle.dispose();
+		}
+		
+		if (buttonBackground != null) {
+			buttonBackground.dispose();
+		}
+		
+		if (buttonArrow != null) {
+			buttonArrow.dispose();
 		}
 	}
 }

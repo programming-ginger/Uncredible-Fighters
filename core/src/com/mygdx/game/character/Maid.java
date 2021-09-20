@@ -38,7 +38,12 @@ public class Maid extends UncredibleFighter
 	}
 
 	public void makePuddle(){
-		puddle = new Puddle(rectangle.getX(), rectangle.getY(), PUDDLE_SIZE * Options.getWindowHeight(), lookingLeft);
+		float x = rectangle.getX();
+		
+		if (!lookingLeft) {
+			x += rectangle.getWidth();
+		}
+		puddle = new Puddle(x, rectangle.getY(), PUDDLE_SIZE * Options.getWindowHeight(), lookingLeft);
 	}
 	
 	@Override

@@ -281,6 +281,26 @@ public class MenuFactory {
 		VolumeBar musicBar = new VolumeBar(texture, x, y, height, Options.getMusicVolume(), action);
 		menu.addMenuItem(musicBar);
 		
+		// Kampfzeit-Selector
+//		texture = new Texture("Buttons/ButtonSound.png");
+		x = Options.getWindowWidth() * 0.7f;
+		y = Options.getWindowHeight() * 0.45f;
+		height = Options.getWindowHeight() * itemHeight;
+//		action = new IntConsumer() {
+//			@Override
+//			public void accept(int value) {
+//				Options.setSoundVolume(value);
+//			}
+//		};
+		ArrowButton<Integer> arrowButton = new ArrowButton<>(new Rectangle(x, y, height, height));
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("60.png"), 60));
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("100.png"), 100));
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("150.png"), 150));
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("200.png"), 200));
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("300.png"), 300));
+		
+		menu.addMenuItem(arrowButton);
+		
 		// Zurueck-Button
 		texture = new Texture("Buttons/ButtonZurueck.PNG");
 

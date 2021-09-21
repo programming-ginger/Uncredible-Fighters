@@ -1,7 +1,5 @@
 package com.mygdx.game.scene;
 
-import org.omg.CORBA.FREE_MEM;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;

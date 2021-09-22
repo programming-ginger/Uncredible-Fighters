@@ -59,7 +59,7 @@ public class Button extends MenuItem {
 	}
 
 	@Override
-	public void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked) {
+	public void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked, boolean isJustClicked) {
 		if ((isClicked && this.contains(mousePosition) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
 				|| Gdx.input.isKeyJustPressed(Input.Keys.E))) {
 			performAction();

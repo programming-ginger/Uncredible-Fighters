@@ -22,6 +22,7 @@ public class TextureLibrary {
 	private static Texture hundret;
 	private static Texture buttonBackground;
 	private static Texture buttonArrow;
+	private static Texture selectionFrame;	
 	
 	private static Texture classroom;
 	private static Texture electionCampaign;
@@ -231,6 +232,13 @@ public class TextureLibrary {
 		return buttonArrow;
 	}
 	
+	public static Texture getSelectionFrame() {
+		if(selectionFrame == null) {
+			selectionFrame = new Texture("SelectionFrame.png");
+		}
+		return selectionFrame;
+	}
+	
 	public static void dispose() {
 		if (volumeController != null) {
 			volumeController.dispose();
@@ -335,5 +343,9 @@ public class TextureLibrary {
 		if (buttonArrow != null) {
 			buttonArrow.dispose();
 		}
+		
+		if (selectionFrame != null) {
+			selectionFrame.dispose();
+		}		
 	}
 }

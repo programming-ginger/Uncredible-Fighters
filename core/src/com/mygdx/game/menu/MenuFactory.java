@@ -1,5 +1,6 @@
 package com.mygdx.game.menu;
 
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.Supplier;
 
@@ -282,22 +283,23 @@ public class MenuFactory {
 		menu.addMenuItem(musicBar);
 		
 		// Kampfzeit-Selector
-//		texture = new Texture("Buttons/ButtonSound.png");
-		x = Options.getWindowWidth() * 0.7f;
+		x = Options.getWindowWidth() * 0.75f;
 		y = Options.getWindowHeight() * 0.45f;
 		height = Options.getWindowHeight() * itemHeight;
-//		action = new IntConsumer() {
-//			@Override
-//			public void accept(int value) {
-//				Options.setSoundVolume(value);
-//			}
-//		};
-		ArrowButton<Integer> arrowButton = new ArrowButton<>(new Rectangle(x, y, height, height));
-		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("60.png"), 60));
-		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("100.png"), 100));
-		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("150.png"), 150));
-		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("200.png"), 200));
-		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("300.png"), 300));
+		Rectangle rect = new Rectangle(x, y - height/2, 1.5f*height, height);
+		
+		Consumer<Integer> consumer = new Consumer<Integer>() {
+			@Override
+			public void accept(Integer fightTime) {
+				Options.setFightTime(fightTime);				
+			}
+		};
+		ArrowButton<Integer> arrowButton = new ArrowButton<>(new Texture("Buttons/FightTime.png"), rect, consumer);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("60.png"), 60), Options.getFightTime() == 60);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("100.png"), 100), Options.getFightTime() == 100);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("150.png"), 150), Options.getFightTime() == 150);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("200.png"), 200), Options.getFightTime() == 200);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("300.png"), 300), Options.getFightTime() == 300);
 		
 		menu.addMenuItem(arrowButton);
 		
@@ -321,12 +323,19 @@ public class MenuFactory {
 		
 		soundBar.setItemAbove(button);
 		soundBar.setItemBelow(musicBar);
+		soundBar.setItemRight(arrowButton);
+		soundBar.setItemLeft(arrowButton);
 		
 		musicBar.setItemAbove(soundBar);
 		musicBar.setItemBelow(button);
 		
 		button.setItemAbove(musicBar);
 		button.setItemBelow(soundBar);
+		
+		arrowButton.setItemBelow(button);
+		arrowButton.setItemAbove(button);
+		arrowButton.setItemLeft(soundBar);
+		arrowButton.setItemRight(soundBar);
 
 		return menu;
 	}

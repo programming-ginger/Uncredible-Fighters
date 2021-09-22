@@ -24,7 +24,7 @@ public abstract class MenuItem {
 		player2SelectionFrame = TextureLibrary.getPlayer2SelectionFrame();
 	}
 
-	public abstract void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked);
+	public abstract void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked, boolean isJustClicked);
 
 	public abstract void draw(SpriteBatch batch, boolean isSelected);
 

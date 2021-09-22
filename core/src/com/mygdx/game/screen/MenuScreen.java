@@ -35,6 +35,8 @@ public class MenuScreen implements Screen {
 	protected MenuItem currentSelection;
 
 	public boolean isActive = true;
+	private boolean clickFromScreenBefore = true;
+	private boolean wasClickedOnLastFrame;
 
 	public MenuScreen() {
 		this.camera = new OrthographicCamera();
@@ -65,6 +67,7 @@ public class MenuScreen implements Screen {
 	public void clear() {
 		items.clear();
 		passiveTextures.clear();
+		clickFromScreenBefore = true;
 	}
 
 	@Override
@@ -93,7 +96,7 @@ public class MenuScreen implements Screen {
 		}
 
 		batch.end();
-
+		wasClickedOnLastFrame = Gdx.input.isTouched();
 	}
 
 	protected Vector2 getMousePosition() {
@@ -137,7 +140,12 @@ public class MenuScreen implements Screen {
 			currentSelection = newSelection;
 		}
 
-		currentSelection.update(batch, touchPos);
+		boolean clicked = Gdx.input.isTouched();
+		currentSelection.update(batch, touchPos, clicked && !clickFromScreenBefore, clicked & !this.wasClickedOnLastFrame);
+		
+		if (!clicked) {
+			clickFromScreenBefore = false;
+		}
 	}
 
 	@Override

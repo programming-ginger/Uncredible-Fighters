@@ -32,6 +32,7 @@ public class Button extends MenuItem {
 		this(texture, position, null);
 	}
 
+	@Override
 	public boolean contains(float x, float y) {
 		return position.contains(x, y);
 	}
@@ -58,8 +59,8 @@ public class Button extends MenuItem {
 	}
 
 	@Override
-	public void update(SpriteBatch batch, Vector2 mousePosition) {
-		if ((Gdx.input.isTouched() && this.contains(mousePosition) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
+	public void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked, boolean isJustClicked) {
+		if ((isClicked && this.contains(mousePosition) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
 				|| Gdx.input.isKeyJustPressed(Input.Keys.E))) {
 			performAction();
 		}

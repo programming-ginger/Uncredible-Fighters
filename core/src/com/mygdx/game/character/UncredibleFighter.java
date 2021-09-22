@@ -6,10 +6,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureArray;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.moves.Move;
 
 public abstract class UncredibleFighter {
@@ -17,10 +19,14 @@ public abstract class UncredibleFighter {
 	private int maxHP;
 	private int currentHP;
 	private float speed;
+	private float angle = 0;
+	private int rotationDirectionFactor;
 	protected Move move1;
+	protected Move move2;
 
 	protected Move activeMove;
 	protected Texture texture;
+	protected Sprite sprite; //todo: Texture durch Sprite ersetzen, damit kann man vieles einfacher machen, wie drehen und Spiegeln
 	protected Rectangle rectangle;
 	protected boolean lookingLeft = false;
 	public boolean jumping = false;
@@ -29,6 +35,8 @@ public abstract class UncredibleFighter {
 	public float moveY = 0;
 	public final float jumpSpeed = 22;
 	public Action action;
+	
+	private final static float FALL_SPEED_AFTER_KO = 100f;
 
 	public void lookLeft() {
 		lookingLeft = true;
@@ -52,13 +60,38 @@ public abstract class UncredibleFighter {
 	}
 
 	public void draw(SpriteBatch batch, Texture currentSprite) {
-		batch.draw(currentSprite, rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight(), 0, 0,
-				texture.getWidth(), texture.getHeight(), lookingLeft, false);
+		float heightRatio = currentSprite.getHeight()/(texture.getHeight() + 0f);
+		float widthRatio = currentSprite.getWidth()/(texture.getWidth() + 0f);
+		
+		float x = rectangle.getX();
+		float y = rectangle.getY();
+		
+		if (lookingLeft) {
+			x = x - rectangle.getWidth() * (widthRatio - 1);
+		}
+		
+		if (angle == 0) {
+		batch.draw(currentSprite, x, y, rectangle.getWidth() * widthRatio, rectangle.getHeight() * heightRatio, 0, 0,
+				currentSprite.getWidth(), currentSprite.getHeight(), lookingLeft, false);
+		}
+		else {
+			sprite.draw(batch);
+		}
 	}
 
 	public void useMove1() {
-		activeMove = move1;
-        activeMove.use();
+		useMove(move1);
+	}
+	
+	public void useMove2() {
+		useMove(move2);
+	}
+	
+	private void useMove(Move move) {
+		if (activeMove == null) {
+			activeMove = move;
+	        activeMove.use();
+		}
 	}
 
 //    public void addAction() {
@@ -67,9 +100,7 @@ public abstract class UncredibleFighter {
 
 	public void update(float delta, UncredibleFighter enemy) {
 		if (activeMove != null) {
-			boolean state = activeMove.updateMove(delta, this, enemy);
-
-			if (!state) {
+			if (!activeMove.updateMove(delta, this, enemy)) {
 				activeMove = null;
 			}
 		}
@@ -77,7 +108,7 @@ public abstract class UncredibleFighter {
 
 	public void setPosition(float x, float y) {
 		rectangle.x = x - rectangle.getWidth() / 2;
-		rectangle.y = y - rectangle.getHeight() / 2;
+		rectangle.y = y;
 	}
 
 	public String getName() {
@@ -119,6 +150,7 @@ public abstract class UncredibleFighter {
 
 	public void setTexture(Texture texture) {
 		this.texture = texture;
+		this.sprite = new Sprite(texture);
 	}
 
 	public Rectangle getRectangle() {
@@ -136,9 +168,51 @@ public abstract class UncredibleFighter {
 	public void reduceHP(int damage) {
 		currentHP -= damage;
 		
+		if (currentHP <= 0) {
+			currentHP = 0;
+			UncredibleFighters.showWinnerScreen();
+		}
+		
 	}
 
 	public boolean looksLeft() {
 		return this.lookingLeft;
 	}
+
+	public abstract Texture getSpecificBackground();
+
+	/*
+	 * returns if Character is still falling
+	 */
+	public boolean fallToTheGround(float delta) {
+		if (angle == 0) {
+			sprite = new Sprite(getKOTexture());
+			sprite.setBounds(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+			sprite.flip(lookingLeft, false);
+			
+			
+			if (lookingLeft) {
+				rotationDirectionFactor = -1;
+				sprite.setOrigin(sprite.getWidth(), 0);
+			}
+			else {
+				rotationDirectionFactor = 1;
+				sprite.setOrigin(0, 0);
+			}
+		}
+		
+		angle += delta * FALL_SPEED_AFTER_KO * rotationDirectionFactor;
+		
+		if (Math.abs(angle) >= 90) {
+			angle = 90 * rotationDirectionFactor;
+			sprite.setRotation(angle);
+			return false;
+		}
+		sprite.setRotation(angle);
+		return true;		
+	}
+
+	protected abstract Texture getKOTexture();
+
+	public abstract Texture getPortrait();
 }

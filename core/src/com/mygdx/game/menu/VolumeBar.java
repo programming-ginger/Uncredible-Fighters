@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.textures.TextureLibrary;
 
-public class VolumeBar extends MenuItem {
+public class VolumeBar extends SelectToInteractMenuItem {
 
 	private static final float LABEL_BAR_GAP = 0.025f;
 	private static final float LIMIT_DISPLAY_GAP = 0.3f;
@@ -20,9 +20,6 @@ public class VolumeBar extends MenuItem {
 	private Texture controller;
 	private Texture bar;
 	private Texture barSelected;
-	
-	private PassiveTexture lowLimit;
-	private PassiveTexture highLimit;
 
 	private PassiveTexture label;
 
@@ -49,11 +46,6 @@ public class VolumeBar extends MenuItem {
 		this.barPosition = MenuFactory.makeScaledRectangleForTextureToRight(bar, xCenter, yCenter, height);
 		
 		this.position = new Rectangle(this.label.getX(),barPosition.getY(),label.getWidth() + LABEL_BAR_GAP*Options.getWindowWidth() + barPosition.getWidth(), barPosition.getHeight());
-		
-		this.lowLimit = MenuFactory.makePassiveTexture(TextureLibrary.get0(), barPosition.getX(), barPosition.getY() + (1 + LIMIT_DISPLAY_GAP) * barPosition.getHeight(), 
-				barPosition.getHeight() * LIMIT_DISPLAY_SIZE);
-		this.highLimit = MenuFactory.makePassiveTexture(TextureLibrary.get100(), barPosition.getX() + barPosition.getWidth(), 
-				barPosition.getY() + (1 + LIMIT_DISPLAY_GAP) * barPosition.getHeight(), barPosition.getHeight() * LIMIT_DISPLAY_SIZE);
 
 		float xController = this.barPosition.getX()
 				+ this.barPosition.getWidth() * this.value / (Options.MAX_VOLUME + 0f);
@@ -63,16 +55,20 @@ public class VolumeBar extends MenuItem {
 	}
 
 	@Override
-	public void update(SpriteBatch batch, Vector2 mousePosition) {
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && value > 0) {
-			this.value--;
+	public void update(SpriteBatch batch, Vector2 mousePosition, boolean isClicked, boolean isJustClicked) {
+		super.update(batch, mousePosition, isClicked, isJustClicked);
+		
+		if (super.isSelected) {
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && value > 0) {
+				this.value--;
+			}
+	
+			if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && value < Options.MAX_VOLUME) {
+				this.value++;
+			}
 		}
 
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && value < Options.MAX_VOLUME) {
-			this.value++;
-		}
-
-		if (Gdx.input.isTouched()) {
+		if (isClicked) {
 
 			if (barPosition.getX() <= mousePosition.x
 					&& mousePosition.x <= barPosition.getX() + barPosition.getWidth()) {
@@ -91,7 +87,7 @@ public class VolumeBar extends MenuItem {
 
 	@Override
 	public void draw(SpriteBatch batch, boolean isSelected) {
-		
+		super.draw(batch, isSelected);
 		Texture barTexture;
 		if (!isSelected) {
 			barTexture = bar;
@@ -101,8 +97,6 @@ public class VolumeBar extends MenuItem {
 		}
 		
 		label.draw(batch);	
-		lowLimit.draw(batch);
-		highLimit.draw(batch);
 		batch.draw(barTexture, barPosition.getX(), barPosition.getY(), barPosition.getWidth(), barPosition.getHeight());		
 		batch.draw(controller, controllerPosition.getX(), controllerPosition.getY(), controllerPosition.getWidth(),
 				controllerPosition.getHeight());
@@ -129,7 +123,6 @@ public class VolumeBar extends MenuItem {
 
 	@Override
 	public void performAction() {
-		// TODO Auto-generated method stub
 		
 	}
 }

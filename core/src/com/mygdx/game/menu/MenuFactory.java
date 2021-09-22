@@ -1,5 +1,6 @@
 package com.mygdx.game.menu;
 
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.Supplier;
 
@@ -97,7 +98,7 @@ public class MenuFactory {
 		mainMenu.addPassiveTexture(logo);
 
 		// "Spielen" Knopf
-		texture = new Texture("PlayButton.PNG");
+		texture = new Texture("Buttons/ButtonSpielen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_SPIELEN_Y;
 
@@ -111,7 +112,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(playButton);
 
 		// "Einstellungen" Knopf
-		texture = new Texture("SettingButton.PNG");
+		texture = new Texture("Buttons/ButtonEinstellungen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_EINSTELLUNGEN_Y;
 
@@ -125,7 +126,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(optionsButton);
 
 		// "Beenden" Knopf
-		texture = new Texture("EndButton.PNG");
+		texture = new Texture("Buttons/ButtonBeenden.PNG");
 
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
@@ -176,7 +177,7 @@ public class MenuFactory {
 		mainMenu.addPassiveTexture(logo);
 
 		// "Fortsetzen" Knopf
-		texture = new Texture("ContinueButton.PNG");
+		texture = new Texture("Buttons/ButtonFortsetzen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_SPIELEN_Y;
 
@@ -190,7 +191,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(playButton);
 
 		// "Einstellungen" Knopf
-		texture = new Texture("SettingButton.PNG");
+		texture = new Texture("Buttons/ButtonEinstellungen.PNG");
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_EINSTELLUNGEN_Y;
 
@@ -204,7 +205,7 @@ public class MenuFactory {
 		mainMenu.addMenuItem(optionsButton);
 
 		// "Beenden" Knopf
-		texture = new Texture("EndButton.PNG");
+		texture = new Texture("Buttons/ButtonSpielBeenden.PNG");
 
 		boxHeight = Options.getWindowWidth() * MAIN_MENU_BUTTON_SIZE;
 		yCenter = Options.getWindowHeight() * MAIN_MENU_BEENDEN_Y;
@@ -255,7 +256,7 @@ public class MenuFactory {
 		menu.addPassiveTexture(logo);
 
 		// Sounds-Regler
-		texture = new Texture("VolumeLabel.png");
+		texture = new Texture("Buttons/ButtonSound.png");
 		x = Options.getWindowWidth() * 0.3f;
 		y = Options.getWindowHeight() * 0.45f;
 		height = Options.getWindowHeight() * itemHeight;
@@ -269,7 +270,7 @@ public class MenuFactory {
 		menu.addMenuItem(soundBar);
 
 		// Musik-Regler
-		texture = new Texture("MusicLabel.png");
+		texture = new Texture("Buttons/ButtonMusik.png");
 		y = Options.getWindowHeight() * 0.2f;
 		height = Options.getWindowHeight() * itemHeight;
 		action = new IntConsumer() {
@@ -281,8 +282,29 @@ public class MenuFactory {
 		VolumeBar musicBar = new VolumeBar(texture, x, y, height, Options.getMusicVolume(), action);
 		menu.addMenuItem(musicBar);
 		
+		// Kampfzeit-Selector
+		x = Options.getWindowWidth() * 0.75f;
+		y = Options.getWindowHeight() * 0.45f;
+		height = Options.getWindowHeight() * itemHeight;
+		Rectangle rect = new Rectangle(x, y - height/2, 1.5f*height, height);
+		
+		Consumer<Integer> consumer = new Consumer<Integer>() {
+			@Override
+			public void accept(Integer fightTime) {
+				Options.setFightTime(fightTime);				
+			}
+		};
+		ArrowButton<Integer> arrowButton = new ArrowButton<>(new Texture("Buttons/FightTime.png"), rect, consumer);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("60.png"), 60), Options.getFightTime() == 60);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("100.png"), 100), Options.getFightTime() == 100);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("150.png"), 150), Options.getFightTime() == 150);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("200.png"), 200), Options.getFightTime() == 200);
+		arrowButton.addOption(new ArrowButtonOption<Integer>(new Texture("300.png"), 300), Options.getFightTime() == 300);
+		
+		menu.addMenuItem(arrowButton);
+		
 		// Zurueck-Button
-		texture = new Texture("BackButton.PNG");
+		texture = new Texture("Buttons/ButtonZurueck.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		x = Options.getWindowWidth() * BACKBUTTON_X;;
@@ -301,12 +323,19 @@ public class MenuFactory {
 		
 		soundBar.setItemAbove(button);
 		soundBar.setItemBelow(musicBar);
+		soundBar.setItemRight(arrowButton);
+		soundBar.setItemLeft(arrowButton);
 		
 		musicBar.setItemAbove(soundBar);
 		musicBar.setItemBelow(button);
 		
 		button.setItemAbove(musicBar);
 		button.setItemBelow(soundBar);
+		
+		arrowButton.setItemBelow(button);
+		arrowButton.setItemAbove(button);
+		arrowButton.setItemLeft(soundBar);
+		arrowButton.setItemRight(soundBar);
 
 		return menu;
 	}
@@ -333,7 +362,7 @@ public class MenuFactory {
 		menu.addPassiveTexture(logo);
 
 		// Sounds-Regler
-		texture = new Texture("VolumeLabel.png");
+		texture = new Texture("Buttons/ButtonSound.png");
 		x = Options.getWindowWidth() * 0.3f;
 		y = Options.getWindowHeight() * 0.45f;
 		height = Options.getWindowHeight() * itemHeight;
@@ -347,7 +376,7 @@ public class MenuFactory {
 		menu.addMenuItem(soundBar);
 
 		// Musik-Regler
-		texture = new Texture("MusicLabel.png");
+		texture = new Texture("Buttons/ButtonMusik.png");
 		y = Options.getWindowHeight() * 0.2f;
 		height = Options.getWindowHeight() * itemHeight;
 		action = new IntConsumer() {
@@ -360,7 +389,7 @@ public class MenuFactory {
 		menu.addMenuItem(musicBar);
 		
 		// Zurueck-Button
-		texture = new Texture("EndFightButton.PNG");
+		texture = new Texture("Buttons/ButtonZurueck.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		x = Options.getWindowWidth() * BACKBUTTON_X;;
@@ -407,7 +436,7 @@ public class MenuFactory {
 		float yCenter;
 		
 		// Child-Portrait
-		texture = new Texture("Child/child-portrait.jpg");
+		texture = TextureLibrary.getChildPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.2f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
@@ -422,7 +451,7 @@ public class MenuFactory {
 		menu.addMenuItem(childPortrait);
 		
 		// Teacher-Portrait
-		texture = new Texture("Teacher/teacher-portrait.jpg");
+		texture = TextureLibrary.getTeacherPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.5f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
@@ -437,7 +466,7 @@ public class MenuFactory {
 		menu.addMenuItem(teacherPortrait);
 		
 		// Maid-Portrait
-		texture = new Texture("Maid/maid-portrait.jpg");
+		texture = TextureLibrary.getMaidPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.8f;
 		yCenter = Options.getWindowHeight() * FIRST_ROW_Y;
@@ -452,7 +481,7 @@ public class MenuFactory {
 		menu.addMenuItem(maidPortrait);
 		
 		// Politician-Portrait
-		texture = new Texture("Politician/politician-portrait.jpg");
+		texture = TextureLibrary.getPoliticianPortrait();;
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.33f;
 		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
@@ -467,7 +496,7 @@ public class MenuFactory {
 		menu.addMenuItem(politicianPortrait);
 		
 		// Grandpa-Portrait
-		texture = new Texture("Grandpa/grandpa-portrait.jpg");
+		texture = TextureLibrary.getGrandpaPortrait();
 		boxHeight = Options.getWindowWidth() * PORTRAIT_SIZE;
 		xCenter = Options.getWindowWidth() * 0.66f;
 		yCenter = Options.getWindowHeight() * SECOND_ROW_Y;
@@ -483,7 +512,7 @@ public class MenuFactory {
 		menu.addMenuItem(grandpaPortrait);
 		
 		// Zurueck-Button
-		texture = new Texture("BackButton.png");
+		texture = new Texture("Buttons/ButtonZurueck.png");
 
 		boxHeight = Options.getWindowWidth() * BACKBUTTON_SIZE;
 		xCenter = Options.getWindowWidth() * BACKBUTTON_X;;

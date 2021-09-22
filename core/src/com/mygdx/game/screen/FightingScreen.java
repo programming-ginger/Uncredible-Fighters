@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -26,7 +27,6 @@ public class FightingScreen implements Screen {
 	private Camera gameCam;
 	private Viewport viewport;
 	private Hud hud;
-	private SpriteBatch batch;
 
 	private final float paddingTop = 30;
 	private final float paddingBottom = 0.1f * Options.getWindowHeight();
@@ -42,13 +42,13 @@ public class FightingScreen implements Screen {
 
 	private boolean menuIsActive;
 	private MenuScreen menuOverlay;
+	
+	private Texture background;
 
 	float tmp;
 
-	PrototypeCharMove fights;
-
 	private final static float SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS = 8f;
-	private final static float SPEED_FACTOR = 0.05f;
+	public final static float SPEED_FACTOR = 0.05f;
 	private final static int GRAVITY = 28;
 
 	private final int MOVE1_BUTTON_PLAYER_A = Input.Keys.R;
@@ -68,9 +68,16 @@ public class FightingScreen implements Screen {
 		charB.setPosition(Options.getWindowWidth() - paddingRight, paddingBottom);
 		rectA = game.getCharacterA().getRectangle();
 		rectB = game.getCharacterB().getRectangle();
-		batch = new SpriteBatch();
 		hud.updateName(charA.getName(), charB.getName());
+		
 		this.menuOverlay = new MenuScreen();
+		
+		if (Math.random() < 0.5) {
+			background = charA.getSpecificBackground();
+		}
+		else {
+			background = charB.getSpecificBackground();
+		}
 	}
 
 	@Override
@@ -80,20 +87,14 @@ public class FightingScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			menuIsActive = !menuIsActive;
 
 			if (menuIsActive) {
 				showMenu();
-			} else {
-				menuOverlay = null;
-			}
+			} 
 		}
-
-		updateHud();
 
 		if (!menuIsActive) {
 			resetMoves();
@@ -104,10 +105,13 @@ public class FightingScreen implements Screen {
 		}
 
 		game.batch.begin();
+		game.batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
 		charA.draw(game.batch);
 		charB.draw(game.batch);
 		game.batch.end();
-
+		
+		updateHud();
+		
 		if (menuIsActive) {
 			menuOverlay.render(delta);
 		}
@@ -196,8 +200,10 @@ public class FightingScreen implements Screen {
 		}
 
 		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_A)) {
-
 			charA.useMove1();
+		}
+		if (Gdx.input.isKeyPressed(MOVE2_BUTTON_PLAYER_A)) {
+			charA.useMove2();
 		}
 	}
 
@@ -232,6 +238,9 @@ public class FightingScreen implements Screen {
 		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_B)) {
 			charB.useMove1();
 		}
+		if (Gdx.input.isKeyPressed(MOVE2_BUTTON_PLAYER_B)) {
+			charB.useMove2();
+		}
 	}
 
 	private void moveUserA(float delta) {
@@ -244,7 +253,7 @@ public class FightingScreen implements Screen {
 			}
 		} else if (charA.falling) {
 			charA.moveY -= GRAVITY * delta;
-			if (rectA.y + charA.moveY < paddingBottom + (rectA.height / 2)) {
+			if (rectA.y + charA.moveY < paddingBottom) {
 				charA.falling = false;
 			}
 		} else {
@@ -261,7 +270,7 @@ public class FightingScreen implements Screen {
 
 		tmp = rectA.y;
 		rectA.y = Math.max(rectA.y + charA.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
-				paddingBottom + (rectA.height / 2));
+				paddingBottom);
 		if (rectA.overlaps(rectB)) {
 			rectA.y = tmp;
 			
@@ -286,7 +295,7 @@ public class FightingScreen implements Screen {
 			}
 		} else if (charB.falling) {
 			charB.moveY -= GRAVITY * delta;
-			if (rectB.y + charB.moveY < paddingBottom + (rectB.height / 2)) {
+			if (rectB.y + charB.moveY < paddingBottom) {
 				charB.falling = false;
 			}
 		} else {
@@ -300,7 +309,7 @@ public class FightingScreen implements Screen {
 
 		tmp = rectB.y;
 		rectB.y = Math.max(rectB.y + charB.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
-				paddingBottom + (rectB.height / 2));
+				paddingBottom);
 		if (rectB.overlaps(rectA)) {
 			rectB.y = tmp;
 			
@@ -316,7 +325,6 @@ public class FightingScreen implements Screen {
 	}
 
 	public void closeMenu() {
-		menuOverlay = null;
 		menuIsActive = false;
 	}
 
@@ -327,5 +335,17 @@ public class FightingScreen implements Screen {
 	public void showMenu() {
 		MenuFactory.turnIntoFightingPauseMenu(menuOverlay);
 
+	}
+
+	public Texture getBackground() {
+		return background;
+	}
+
+	public UncredibleFighter getPlayer1() {
+		return this.charA;
+	}
+	
+	public UncredibleFighter getPlayer2() {
+		return this.charB;
 	}
 }

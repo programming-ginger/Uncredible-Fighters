@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.projectiles.Projectile;
 
 public abstract class Move extends Group {
+
 
 	private Array<Texture> texturesBeforeEffect;
 	private Array<Texture> texturesAfterEffect;
@@ -31,7 +33,7 @@ public abstract class Move extends Group {
 
 		if (passedTime > timeBeforeEffect && !effectWasApplied) {
 			if (moveHits(attacker, enemy)) {
-				applyEffect(enemy);
+				applyEffect(attacker, enemy);
 			}
 			effectWasApplied = true;
 		}
@@ -42,7 +44,7 @@ public abstract class Move extends Group {
 
 	protected abstract boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy);
 
-	public abstract void applyEffect(UncredibleFighter enemy);
+	public abstract void applyEffect(UncredibleFighter self, UncredibleFighter enemy);
 
 	public Texture getCurrentSprite() {
 		if (passedTime < timeBeforeEffect) {

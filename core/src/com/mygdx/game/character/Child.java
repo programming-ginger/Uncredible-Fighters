@@ -1,7 +1,5 @@
 package com.mygdx.game.character;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,12 +10,8 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.ChildHeadNut;
 import com.mygdx.game.moves.ChildSlingshot;
-import com.mygdx.game.moves.GrandpaWalkingStickBlow;
-import com.mygdx.game.projectiles.Pen;
 import com.mygdx.game.projectiles.Stone;
 import com.mygdx.game.textures.TextureLibrary;
-
-import java.util.Queue;
 
 public class Child extends UncredibleFighter{
 	

@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.ChildHeadNut;
 import com.mygdx.game.moves.ChildSlingshot;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
 import com.mygdx.game.projectiles.Pen;
@@ -47,7 +48,7 @@ public class Child extends UncredibleFighter{
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new ChildSlingshot();
-		move2 = new ChildSlingshot();
+		move2 = new ChildHeadNut();
 		stoneList = new Array<>();
 	}
 

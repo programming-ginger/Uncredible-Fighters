@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.MaidPuddle;
+import com.mygdx.game.moves.PoliticianConfusionSpeech;
 import com.mygdx.game.moves.PoliticianPen;
 import com.mygdx.game.projectiles.Pen;
 import com.mygdx.game.textures.TextureLibrary;
@@ -34,7 +35,7 @@ public class Politician extends UncredibleFighter {
 		setRectangle(rect);
 		penList = new Array<>();
 		move1 = new PoliticianPen();
-		move2 = new PoliticianPen();
+		move2 = new PoliticianConfusionSpeech();
 	}
 
 	public void addPen()

@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.GrandpaPills;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
 import com.mygdx.game.projectiles.WalkingStick;
 import com.mygdx.game.textures.TextureLibrary;
@@ -31,7 +32,7 @@ public class Grandpa extends UncredibleFighter {
 		setRectangle(rect);
 		walkingStickList = new Array<WalkingStick>();
 		move1 = new GrandpaWalkingStickBlow();
-		move2 = new GrandpaWalkingStickBlow();
+		move2 = new GrandpaPills();
 		//setRectangle(rectangle);
 	}
 	

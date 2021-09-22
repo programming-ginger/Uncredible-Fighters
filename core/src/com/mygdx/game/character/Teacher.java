@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.TeacherChalkCloud;
 import com.mygdx.game.moves.TeacherRuler;
 import com.mygdx.game.projectiles.Ruler;
 import com.mygdx.game.textures.TextureLibrary;
@@ -29,7 +30,7 @@ public class Teacher extends UncredibleFighter {
 		setRectangle(rect);
 		rulerStickList = new Array<>();
 		move1 = new TeacherRuler();
-		move2 = new TeacherRuler();
+		move2 = new TeacherChalkCloud();
 	}
 	
 	

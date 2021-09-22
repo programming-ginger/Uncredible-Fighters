@@ -1,7 +1,5 @@
 package com.mygdx.game.textures;
 
-import javax.xml.soap.Text;
-
 import com.badlogic.gdx.graphics.Texture;
 
 /*

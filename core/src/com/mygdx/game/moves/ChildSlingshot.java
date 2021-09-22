@@ -18,11 +18,10 @@ public class ChildSlingshot extends Move{
     public ChildSlingshot(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Child/ChildFightingSprite.png"));
-        texturesBeforeEffect.add(new Texture("Child/Child-Move1 - 1.png"));
+        texturesBeforeEffect.add(new Texture("Child/ChildShootingSprite1.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        texturesAfterEffect.add(new Texture("Child/Child-Move1 - 2.png"));
-        texturesAfterEffect.add(new Texture("Child/Child-Move1 - 3.png"));
+        texturesAfterEffect.add(new Texture("Child/ChildShootingSprite2.png"));
         texturesAfterEffect.add(new Texture("Child/ChildFightingSprite.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);

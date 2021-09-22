@@ -3,11 +3,9 @@ package com.mygdx.game.moves;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.Politician;
 import com.mygdx.game.character.UncredibleFighter;
-import com.mygdx.game.data.Options;
 import com.mygdx.game.sound.SoundPlayer;
 
 public class PoliticianPen extends Move{

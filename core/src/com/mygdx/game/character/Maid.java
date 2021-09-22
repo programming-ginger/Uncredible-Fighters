@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.ChildSlingshot;
+import com.mygdx.game.moves.MaidDirtyMop;
 import com.mygdx.game.moves.MaidPuddle;
 import com.mygdx.game.projectiles.Puddle;
 import com.mygdx.game.projectiles.Stone;
@@ -30,7 +31,7 @@ public class Maid extends UncredibleFighter
 		setRectangle(rect);
 		//add puddle size (?)
 		move1 = new MaidPuddle();
-		move2 = new MaidPuddle();
+		move2 = new MaidDirtyMop();
 	}
 
 	public Rectangle getPuddle(){

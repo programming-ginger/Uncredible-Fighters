@@ -31,7 +31,7 @@ public class Politician extends UncredibleFighter {
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Politician/PoliticianFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		penList = new Array<>();
 		move1 = new PoliticianPen();
@@ -42,15 +42,15 @@ public class Politician extends UncredibleFighter {
 	{
 		if (getPenCount() < DEF_MAX_PEN_COUNT) {
 			
-			float x = rectangle.getX();
+			float x = sprite.getX();
 			int directionFactor = -1;;
 			
 			if (!lookingLeft) {
-				x += rectangle.getWidth();
+				x += sprite.getWidth();
 				directionFactor = 1;
 			}
 			
-			float y = rectangle.getY() + rectangle.getHeight() * PEN_THROWING_Y;
+			float y = sprite.getY() + sprite.getHeight() * PEN_THROWING_Y;
 			
 			penList.add(new Pen(x, y, PEN_SIZE * Options.getWindowHeight(), directionFactor));
 		}

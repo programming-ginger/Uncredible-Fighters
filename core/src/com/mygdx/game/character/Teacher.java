@@ -26,7 +26,7 @@ public class Teacher extends UncredibleFighter {
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Teacher/TeacherFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		rulerStickList = new Array<>();
 		move1 = new TeacherRuler();
@@ -38,15 +38,15 @@ public class Teacher extends UncredibleFighter {
 	{
 		if (getRulerCount() < DEF_MAX_PEN_COUNT) {
 			
-			float x = rectangle.getX();
+			float x = sprite.getX();
 			int directionFactor = -1;;
 			
 			if (!lookingLeft) {
-				x += rectangle.getWidth();
+				x += sprite.getWidth();
 				directionFactor = 1;
 			}
 			
-			float y = rectangle.getY() + rectangle.getHeight() * RULER_THROWING_Y;
+			float y = sprite.getY() + sprite.getHeight() * RULER_THROWING_Y;
 			
 			rulerStickList.add(new Ruler(x, y, RULER_SIZE * Options.getWindowHeight(), directionFactor));
 		}

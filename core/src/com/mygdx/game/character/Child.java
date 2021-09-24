@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
-import com.mygdx.game.moves.ChildHeadNut;
 import com.mygdx.game.moves.ChildSlingshot;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
 import com.mygdx.game.projectiles.Pen;
@@ -44,11 +43,12 @@ public class Child extends UncredibleFighter{
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Child/ChildFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		//setRectangle(rectangle);
 		move1 = new ChildSlingshot();
-		move2 = new ChildHeadNut();
+		move2 = new ChildSlingshot();
+		//move2 = new ChildHeadNut();
 		stoneList = new Array<>();
 	}
 
@@ -56,15 +56,15 @@ public class Child extends UncredibleFighter{
 	{
 		if (getStoneCount() < DEF_MAX_STONE_COUNT) {
 			
-			float x = rectangle.getX();
+			float x = sprite.getX();
 			int directionFactor = -1;;
 			
 			if (!lookingLeft) {
-				x += rectangle.getWidth();
+				x += sprite.getWidth();
 				directionFactor = 1;
 			}
 		
-			float y = rectangle.getY() + rectangle.getHeight() * STONE_Y;
+			float y = sprite.getY() + sprite.getHeight() * STONE_Y;
 			stoneList.add(new Stone(x, y, Options.getWindowHeight() * STONE_SIZE, directionFactor));
 		}
 	}

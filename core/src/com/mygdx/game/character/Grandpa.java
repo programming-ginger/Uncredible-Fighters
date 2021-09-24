@@ -28,7 +28,7 @@ public class Grandpa extends UncredibleFighter {
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		walkingStickList = new Array<WalkingStick>();
 		move1 = new GrandpaWalkingStickBlow();
@@ -40,15 +40,15 @@ public class Grandpa extends UncredibleFighter {
 	{
 		if (getWalkingStickCount() < DEF_MAX_PEN_COUNT) {
 			
-			float x = rectangle.getX();
+			float x = sprite.getX();
 			int directionFactor = -1;;
 			
 			if (!lookingLeft) {
-				x += rectangle.getWidth();
+				x += sprite.getWidth();
 				directionFactor = 1;
 			}
 			
-			float y = rectangle.getY() + rectangle.getHeight() * WALKINGSTICK_THROWING_Y;
+			float y = sprite.getY() + sprite.getHeight() * WALKINGSTICK_THROWING_Y;
 			
 			walkingStickList.add(new WalkingStick(x, y, WALKINGSTICK_SIZE * Options.getWindowHeight(), directionFactor));
 		}

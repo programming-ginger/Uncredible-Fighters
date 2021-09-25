@@ -22,6 +22,7 @@ public class Teacher extends UncredibleFighter {
 	
 	public Teacher()
 	{
+		super();
 		setName("Lehrer");
 		setMaxHP(100);
 		setSpeed(5);
@@ -30,7 +31,7 @@ public class Teacher extends UncredibleFighter {
 		setRectangle(rect);
 		rulerStickList = new Array<>();
 		move1 = new TeacherRuler();
-		move2 = new TeacherChalkCloud();
+		//move2 = new TeacherChalkCloud();
 	}
 	
 	
@@ -41,7 +42,7 @@ public class Teacher extends UncredibleFighter {
 			float x = sprite.getX();
 			int directionFactor = -1;;
 			
-			if (!lookingLeft) {
+			if (!looksLeft()) {
 				x += sprite.getWidth();
 				directionFactor = 1;
 			}
@@ -79,8 +80,8 @@ public class Teacher extends UncredibleFighter {
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	for (Ruler ruler : rulerStickList) {
     		ruler.draw(batch);

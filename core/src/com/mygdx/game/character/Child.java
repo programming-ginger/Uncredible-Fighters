@@ -14,6 +14,7 @@ import com.mygdx.game.moves.ChildSlingshot;
 import com.mygdx.game.moves.GrandpaWalkingStickBlow;
 import com.mygdx.game.projectiles.Pen;
 import com.mygdx.game.projectiles.Stone;
+import com.mygdx.game.sound.SoundPlayer;
 import com.mygdx.game.textures.TextureLibrary;
 
 import java.util.Queue;
@@ -33,12 +34,7 @@ public class Child extends UncredibleFighter{
 
 	public Child()
 	{
-//		mask.setBlending(Pixmap.Blending.None);
-//		mask.setColor(new Color(0f, 0f, 0f, 0f));
-//		mask.fillRectangle(0, 0, 32, 32);
-//		Pixmap fg = new Pixmap(Gdx.files.internal("Child/ChildFightingSprite.png"));
-//		fg.drawPixmap(mask, fg.getWidth(), fg.getHeight());
-//		mask.setBlending(Pixmap.Blending.SourceOver);
+		super();
 		setName("Kind");
 		setMaxHP(100);
 		setSpeed(5);
@@ -59,7 +55,7 @@ public class Child extends UncredibleFighter{
 			float x = sprite.getX();
 			int directionFactor = -1;;
 			
-			if (!lookingLeft) {
+			if (!looksLeft()) {
 				x += sprite.getWidth();
 				directionFactor = 1;
 			}
@@ -115,8 +111,8 @@ public class Child extends UncredibleFighter{
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	for (Stone stone : stoneList) {
     		stone.draw(batch);

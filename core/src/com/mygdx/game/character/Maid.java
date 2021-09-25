@@ -23,6 +23,7 @@ public class Maid extends UncredibleFighter
 	private static final float PUDDLE_SIZE = 0.1f;
 	
 	public Maid(){
+		super();
 		setName("Putzfrau");
 		setMaxHP(100);
 		setSpeed(5);
@@ -31,7 +32,7 @@ public class Maid extends UncredibleFighter
 		setRectangle(rect);
 		//add puddle size (?)
 		move1 = new MaidPuddle();
-		move2 = new MaidDirtyMop();
+		//move2 = new MaidDirtyMop();
 	}
 
 	public Rectangle getPuddle(){
@@ -41,10 +42,10 @@ public class Maid extends UncredibleFighter
 	public void makePuddle(){
 		float x = sprite.getX();
 		
-		if (!lookingLeft) {
+		if (!looksLeft()) {
 			x += sprite.getWidth();
 		}
-		puddle = new Puddle(x, sprite.getY(), PUDDLE_SIZE * Options.getWindowHeight(), lookingLeft);
+		puddle = new Puddle(x, sprite.getY(), PUDDLE_SIZE * Options.getWindowHeight(), looksLeft());
 	}
 	
 	@Override
@@ -72,8 +73,8 @@ public class Maid extends UncredibleFighter
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	if (puddle != null) {
     		puddle.draw(batch);

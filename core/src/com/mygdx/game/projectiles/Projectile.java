@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.data.Constants;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.screen.FightingScreen;
+import com.mygdx.game.sound.SoundPlayer;
 
 public abstract class Projectile {
 	
@@ -26,6 +28,7 @@ public abstract class Projectile {
 
 	public void draw(SpriteBatch batch) {
 		sprite.draw(batch);
+		batch.draw(sprite.getTexture(), 0, 0, 100, 100);
 	}
 	
 	/*
@@ -44,7 +47,7 @@ public abstract class Projectile {
 			return false;
 		}
 		
-		float x = sprite.getX() + FightingScreen.SPEED_FACTOR * delta * speed * Options.getWindowWidth();
+		float x = sprite.getX() + Constants.SPEED_FACTOR * delta * speed * Options.getWindowWidth();
 		sprite.setX(x);
 		return true;
 	}

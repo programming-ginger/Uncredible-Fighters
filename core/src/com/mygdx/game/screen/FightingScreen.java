@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.data.Constants;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.prototype.FightingGame;
@@ -28,10 +29,10 @@ public class FightingScreen implements Screen {
 	private Viewport viewport;
 	private Hud hud;
 
-	private final float paddingTop = 30;
-	private final float paddingBottom = 0.1f * Options.getWindowHeight();
-	private final float paddingLeft = 0.05f * Options.getWindowWidth();
-	private final float paddingRight = 0.05f * Options.getWindowWidth();
+	public final static float paddingTop = 30;
+	public final static float paddingBottom = 0.1f * Options.getWindowHeight();
+	public final static float paddingLeft = 0.05f * Options.getWindowWidth();
+	public final static float paddingRight = 0.05f * Options.getWindowWidth();
 
 	private UncredibleFighter charA;
 	private UncredibleFighter charB;
@@ -46,10 +47,6 @@ public class FightingScreen implements Screen {
 	private Texture background;
 
 	float tmp;
-
-	private final static float SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS = 8f;
-	public final static float SPEED_FACTOR = 0.05f;
-	private final static int GRAVITY = 28;
 
 	private final int MOVE1_BUTTON_PLAYER_A = Input.Keys.R;
 	private final int MOVE2_BUTTON_PLAYER_A = Input.Keys.F;
@@ -100,8 +97,10 @@ public class FightingScreen implements Screen {
 			resetMoves();
 			listenUserAInput();
 			listenUserBInput();
-			moveUserA(delta);
-			moveUserB(delta);
+			charA.update(delta, charB);
+			charB.update(delta, charA);
+//			moveUserA(delta);
+//			moveUserB(delta);
 		}
 
 		game.batch.begin();
@@ -120,9 +119,9 @@ public class FightingScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		Options.setWindowWidth(width);
-		Options.setWindowHeight(height);
-		viewport.update(Options.getWindowWidth(), Options.getWindowHeight());
+//		Options.setWindowWidth(width);
+//		Options.setWindowHeight(height);
+//		viewport.update(Options.getWindowWidth(), Options.getWindowHeight());
 	}
 
 	@Override
@@ -172,31 +171,16 @@ public class FightingScreen implements Screen {
 
 	private void listenUserAInput() {
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-			if (charA.moveY == 0 && !charA.jumping && !charA.falling) {
-				charA.jumping = true;
-				charA.moveY = charA.jumpSpeed;
-			}
+			charA.jump();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			charA.lookLeft();
-			//rectA.setWidth(0.2f);
-			if ((rectA.x - charA.moveX) >= paddingLeft) {
-				charA.moveX = -1 * charA.getSpeed();
-			}
+			charA.moveLeft();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-			if (charA.jumping) {
-				charA.jumping = false;
-				charA.falling = true;
-			}
-			if (charA.falling)
-				charA.moveY -= 0.5;
+			charA.moveDown();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			charA.lookRight();
-			if ((rectA.x + charA.moveX) < viewport.getScreenWidth() - paddingRight * 2) {
-				charA.moveX = 1 * charA.getSpeed();
-			}
+			charA.moveRight();
 		}
 
 		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_A)) {
@@ -208,31 +192,17 @@ public class FightingScreen implements Screen {
 	}
 
 	private void listenUserBInput() {
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) {
-			if (charB.moveY == 0 && !charB.jumping && !charB.falling) {
-				charB.jumping = true;
-				charB.moveY = charB.jumpSpeed;
-			}
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			charB.jump();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
-			charB.lookLeft();
-			if ((rectB.x - charB.moveX) >= paddingLeft) {
-				charB.moveX = -1 * charB.getSpeed();
-			}
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			charB.moveLeft();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) {
-			if (charB.jumping) {
-				charB.jumping = false;
-				charB.falling = true;
-			}
-			if (charB.falling)
-				charB.moveY -= 0.5;
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			charB.moveDown();
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
-			charB.lookRight();
-			if ((rectB.x + charB.moveX) < viewport.getScreenWidth() - paddingRight * 2) {
-				charB.moveX = 1 * charB.getSpeed();
-			}
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			charB.moveRight();
 		}
 
 		if (Gdx.input.isKeyPressed(MOVE1_BUTTON_PLAYER_B)) {
@@ -241,87 +211,6 @@ public class FightingScreen implements Screen {
 		if (Gdx.input.isKeyPressed(MOVE2_BUTTON_PLAYER_B)) {
 			charB.useMove2();
 		}
-	}
-
-	private void moveUserA(float delta) {
-		if (charA.jumping) {
-			charA.moveY -= GRAVITY * delta;
-			if (charA.moveY <= 0) {
-				charA.moveY = 0;
-				charA.falling = true;
-				charA.jumping = false;
-			}
-		} else if (charA.falling) {
-			charA.moveY -= GRAVITY * delta;
-			if (rectA.y + charA.moveY < paddingBottom) {
-				charA.falling = false;
-			}
-		} else {
-			charA.moveY = 0;
-		}
-
-		float oldX = rectA.x;
-		float oldY = rectA.y;
-
-		tmp = rectA.x;
-		rectA.x += charA.moveX * delta * Options.getWindowWidth() * SPEED_FACTOR;
-		if (rectA.overlaps(rectB))
-			rectA.x = tmp;
-
-		tmp = rectA.y;
-		rectA.y = Math.max(rectA.y + charA.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
-				paddingBottom);
-		if (rectA.overlaps(rectB)) {
-			rectA.y = tmp;
-			
-			if (rectB.getX() > rectA.getX()) {
-				rectA.x -= SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
-			}
-			else {
-				rectA.x += SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
-			}
-		}
-
-		charA.update(delta, charB);
-	}
-
-	private void moveUserB(float delta) {
-		if (charB.jumping) {
-			charB.moveY -= GRAVITY * delta;
-			if (charB.moveY <= 0) {
-				charB.moveY = 0;
-				charB.falling = true;
-				charB.jumping = false;
-			}
-		} else if (charB.falling) {
-			charB.moveY -= GRAVITY * delta;
-			if (rectB.y + charB.moveY < paddingBottom) {
-				charB.falling = false;
-			}
-		} else {
-			charB.moveY = 0;
-		}
-
-		tmp = rectB.x;
-		rectB.x += charB.moveX * delta * Options.getWindowWidth() * SPEED_FACTOR;
-		if (rectB.overlaps(rectA))
-			rectB.x = tmp;
-
-		tmp = rectB.y;
-		rectB.y = Math.max(rectB.y + charB.moveY * delta * Options.getWindowHeight() * SPEED_FACTOR,
-				paddingBottom);
-		if (rectB.overlaps(rectA)) {
-			rectB.y = tmp;
-			
-			if (rectA.getX() > rectB.getX()) {
-				rectB.x -= SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
-			}
-			else {
-				rectB.x += SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * SPEED_FACTOR;
-			}
-		}
-
-		charB.update(delta, charA);
 	}
 
 	public void closeMenu() {

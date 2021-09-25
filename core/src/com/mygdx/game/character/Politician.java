@@ -27,6 +27,7 @@ public class Politician extends UncredibleFighter {
 
 	public Politician()
 	{
+		super();
 		setName("Politiker");
 		setMaxHP(100);
 		setSpeed(5);
@@ -35,7 +36,7 @@ public class Politician extends UncredibleFighter {
 		setRectangle(rect);
 		penList = new Array<>();
 		move1 = new PoliticianPen();
-		move2 = new PoliticianConfusionSpeech();
+		//move2 = new PoliticianConfusionSpeech();
 	}
 
 	public void addPen()
@@ -45,7 +46,7 @@ public class Politician extends UncredibleFighter {
 			float x = sprite.getX();
 			int directionFactor = -1;;
 			
-			if (!lookingLeft) {
+			if (!looksLeft()) {
 				x += sprite.getWidth();
 				directionFactor = 1;
 			}
@@ -72,8 +73,8 @@ public class Politician extends UncredibleFighter {
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	for (Pen pen : penList) {
     		pen.draw(batch);

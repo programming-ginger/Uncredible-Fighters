@@ -24,6 +24,7 @@ public class Grandpa extends UncredibleFighter {
 	
 	public Grandpa()
 	{
+		super();
 		setName("Grossvater");
 		setMaxHP(100);
 		setSpeed(5);
@@ -32,7 +33,7 @@ public class Grandpa extends UncredibleFighter {
 		setRectangle(rect);
 		walkingStickList = new Array<WalkingStick>();
 		move1 = new GrandpaWalkingStickBlow();
-		move2 = new GrandpaPills();
+		//move2 = new GrandpaPills();
 		//setRectangle(rectangle);
 	}
 	
@@ -43,7 +44,7 @@ public class Grandpa extends UncredibleFighter {
 			float x = sprite.getX();
 			int directionFactor = -1;;
 			
-			if (!lookingLeft) {
+			if (!looksLeft()) {
 				x += sprite.getWidth();
 				directionFactor = 1;
 			}
@@ -81,8 +82,8 @@ public class Grandpa extends UncredibleFighter {
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	for (WalkingStick stick : walkingStickList) {
     		stick.draw(batch);

@@ -18,11 +18,11 @@ public class PoliticianConfusionSpeech extends Move{
     public PoliticianConfusionSpeech(){
         Array<Texture> texturesBeforeEffect = new Array<>();
 
-        texturesBeforeEffect.add(new Texture("Politician/Politician-"));
+        texturesBeforeEffect.add(new Texture("Politician/PoliticianFightingSprite.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        texturesAfterEffect.add(new Texture("Politician/Politician-"));
-        texturesAfterEffect.add(new Texture("Politician/Politician-"));
+        texturesAfterEffect.add(new Texture("Politician/PoliticianConfuseSprite.png"));
+        texturesAfterEffect.add(new Texture("Politician/PoliticianFightingSprite.png"));
 
 
         setTexturesBeforeEffect(texturesBeforeEffect);

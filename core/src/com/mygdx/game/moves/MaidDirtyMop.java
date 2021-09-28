@@ -13,7 +13,7 @@ public class MaidDirtyMop extends Move{
 
     private final static int MOVE_DAMAGE = 5;
     private final static float ATTACK_RANGE = 0.5f;
-    private final static float ATTACK_HEIGHT = 0.75f;
+    private final static float ATTACK_HEIGHT = 0.65f;
 
     public MaidDirtyMop(){
         Array<Texture> texturesBeforeEffect = new Array<>();

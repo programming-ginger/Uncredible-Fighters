@@ -20,6 +20,9 @@ public class Teacher extends UncredibleFighter {
 	private static final float RULER_SIZE = 0.02f;
 	private Array<Ruler> rulerStickList;
 	
+	private boolean passiveAbilityWasApplied;
+	private static final float BOREDOM_SPEED_FACTOR = 0.7f;
+	
 	public Teacher()
 	{
 		super();
@@ -32,6 +35,8 @@ public class Teacher extends UncredibleFighter {
 		rulerStickList = new Array<>();
 		move1 = new TeacherRuler();
 		//move2 = new TeacherChalkCloud();
+		
+		passiveAbilityWasApplied = false;
 	}
 	
 	
@@ -67,6 +72,11 @@ public class Teacher extends UncredibleFighter {
 	@Override
 	public void update(float delta, UncredibleFighter enemy) {
 		super.update(delta, enemy);
+		
+		if (!passiveAbilityWasApplied) {
+			boreEnemy(enemy);
+			passiveAbilityWasApplied = true;
+		}
 		
 		ArrayIterator<Ruler> it = rulerStickList.iterator();
 		
@@ -111,6 +121,10 @@ public class Teacher extends UncredibleFighter {
 	@Override
 	public Texture getPortrait() {
 		return TextureLibrary.getTeacherPortrait();
+	}
+	
+	private void boreEnemy(UncredibleFighter enemy) {
+		enemy.bore(BOREDOM_SPEED_FACTOR);
 	}
 
 }

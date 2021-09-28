@@ -26,8 +26,12 @@ public class Child extends UncredibleFighter{
 	
 	private static final float STONE_Y = 0.8f;
 	private static final float STONE_SIZE = 0.03f;
+	
+	private static final float CRYING_TIME = 2f;
 
 	private Array<Stone> stoneList;
+	
+	private float cryingTimeLeft;
 	
 	Pixmap mask = new Pixmap(128, 128, Pixmap.Format.Alpha);
 	
@@ -37,7 +41,7 @@ public class Child extends UncredibleFighter{
 		super();
 		setName("Kind");
 		setMaxHP(100);
-		setSpeed(5);
+		setSpeed(7);
 		setTexture(new Texture("Child/ChildFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
@@ -117,6 +121,12 @@ public class Child extends UncredibleFighter{
     	for (Stone stone : stoneList) {
     		stone.draw(batch);
     	}
+    }
+    
+    @Override
+    public void reduceHP(int damage) {
+    	super.reduceHP(damage);
+    	cryingTimeLeft = CRYING_TIME;
     }
 
 }

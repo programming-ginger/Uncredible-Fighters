@@ -36,8 +36,6 @@ public class FightingScreen implements Screen {
 
 	private UncredibleFighter charA;
 	private UncredibleFighter charB;
-	private Rectangle rectA;
-	private Rectangle rectB;
 
 	private float timeSeconds = 0f;
 
@@ -63,8 +61,6 @@ public class FightingScreen implements Screen {
 		charA.setPosition(paddingLeft, paddingBottom);
 		charB = game.getCharacterB();
 		charB.setPosition(Options.getWindowWidth() - paddingRight, paddingBottom);
-		rectA = game.getCharacterA().getRectangle();
-		rectB = game.getCharacterB().getRectangle();
 		hud.updateName(charA.getName(), charB.getName());
 		
 		this.menuOverlay = new MenuScreen();

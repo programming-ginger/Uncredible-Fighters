@@ -12,13 +12,13 @@ import com.mygdx.game.sound.SoundPlayer;
 public class GrandpaWalkingStickBlow extends Move{
 	
 	private final static int MOVE_DAMAGE = 5;
-	private final static float ATTACK_RANGE = 0.5f;
-	private final static float ATTACK_HEIGHT = 0.75f;
+	private final static float ATTACK_RANGE = 0.3f;
+	private final static float ATTACK_HEIGHT = 0.6f;
 
     public GrandpaWalkingStickBlow(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Grandpa/GrandpaFightingSprite.png"));
-        texturesBeforeEffect.add(new Texture("Grandpa/GrandpaAttackSprite - 1.png"));
+        texturesBeforeEffect.add(new Texture("Grandpa/GrandpaAttackSprite.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Grandpa/GrandpaFightingSprite.png"));

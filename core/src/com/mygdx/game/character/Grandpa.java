@@ -19,6 +19,8 @@ public class Grandpa extends UncredibleFighter {
 	
 	private static final float WALKINGSTICK_THROWING_Y = 0.7f;
 	private static final float WALKINGSTICK_SIZE = 0.01f;
+	
+	private static final float DAMAGE_REDUCTION = 8f;
 
 	private Array<WalkingStick> walkingStickList;
 	
@@ -27,7 +29,7 @@ public class Grandpa extends UncredibleFighter {
 		super();
 		setName("Grossvater");
 		setMaxHP(100);
-		setSpeed(5);
+		setSpeed(4);
 		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
@@ -115,5 +117,10 @@ public class Grandpa extends UncredibleFighter {
 	public Texture getPortrait() {
 		return TextureLibrary.getGrandpaPortrait();
 	}
+	
+    @Override
+    public void reduceHP(int damage) {
+    	super.reduceHP((int)(damage * DAMAGE_REDUCTION));
+    }
 
 }

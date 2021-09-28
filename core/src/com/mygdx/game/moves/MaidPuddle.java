@@ -13,7 +13,7 @@ public class MaidPuddle extends Move{
 
     private final static int MOVE_DAMAGE = 50;
     private final static float ATTACK_RANGE = 0.5f;
-    private final static float ATTACK_HEIGHT = 0.75f;
+    private final static float ATTACK_HEIGHT = 0.65f;
 
     public MaidPuddle(){
         Array<Texture> texturesBeforeEffect = new Array<>();

@@ -25,7 +25,7 @@ public class Maid extends UncredibleFighter
 	public Maid(){
 		super();
 		setName("Putzfrau");
-		setMaxHP(100);
+		setMaxHP(120);
 		setSpeed(5);
 		setTexture(new Texture("Maid/MaidFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);

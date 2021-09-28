@@ -28,7 +28,6 @@ public abstract class Projectile {
 
 	public void draw(SpriteBatch batch) {
 		sprite.draw(batch);
-		batch.draw(sprite.getTexture(), 0, 0, 100, 100);
 	}
 	
 	/*

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
+import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.MaidPuddle;
@@ -24,6 +25,8 @@ public class Politician extends UncredibleFighter {
 	private static final float PEN_SIZE = 0.005f;
 	
 	private Array<Pen> penList;
+	
+	private boolean passiveAbilityWasApplied;
 
 	public Politician()
 	{
@@ -37,6 +40,8 @@ public class Politician extends UncredibleFighter {
 		penList = new Array<>();
 		move1 = new PoliticianPen();
 		//move2 = new PoliticianConfusionSpeech();
+		
+		passiveAbilityWasApplied = false;
 	}
 
 	public void addPen()
@@ -105,5 +110,16 @@ public class Politician extends UncredibleFighter {
 	public Texture getPortrait() {
 		return TextureLibrary.getPoliticianPortrait();
 	}
+	
+    @Override
+    public void reduceHP(int damage) {
+    	if(this.getCurrentHP() <= damage && !passiveAbilityWasApplied) {
+    		passiveAbilityWasApplied = true;
+    		setCurrentHP(10);
+    	}
+    	else super.reduceHP(damage);
+
+
+    }
 
 }

@@ -28,6 +28,8 @@ public abstract class UncredibleFighter {
 	private float confusionSpeedFactor;
 	private float confusionDuration;
 	
+	private float stunDuration;
+	
 	private float angle = 0;
 	private int rotationDirectionFactor;
 	protected Move move1;
@@ -142,6 +144,14 @@ public abstract class UncredibleFighter {
 				confusionSpeedFactor = 1;
 			}
 		}
+		
+		if (stunDuration > Constants.EPSILON) {
+			stunDuration -= delta;
+			
+			if (stunDuration <= 0) {
+				stunDuration = 0;
+			}
+		}
 	}
 	
 	private void move(float delta, UncredibleFighter enemy) {
@@ -213,7 +223,7 @@ public abstract class UncredibleFighter {
 	}
 
 	public void setPosition(float x, float y) {
-		sprite.setPosition(x + sprite.getWidth()/2, y);
+		sprite.setPosition(x - sprite.getWidth()/2, y);
 	}
 
 	public String getName() {
@@ -328,6 +338,15 @@ public abstract class UncredibleFighter {
 	}
 
 	public void invertControllsTemporarily(float duration) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void bore(float boredomSpeedFactor) {
+		this.setSpeed(speed * boredomSpeedFactor);
+	}
+
+	public void stun(float duration) {
 		// TODO Auto-generated method stub
 		
 	}

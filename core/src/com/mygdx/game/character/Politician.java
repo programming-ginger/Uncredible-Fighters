@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
+import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.MaidPuddle;
@@ -24,33 +25,38 @@ public class Politician extends UncredibleFighter {
 	private static final float PEN_SIZE = 0.005f;
 	
 	private Array<Pen> penList;
+	
+	private boolean passiveAbilityWasApplied;
 
 	public Politician()
 	{
+		super();
 		setName("Politiker");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Politician/PoliticianFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		penList = new Array<>();
 		move1 = new PoliticianPen();
-		move2 = new PoliticianConfusionSpeech();
+		//move2 = new PoliticianConfusionSpeech();
+		
+		passiveAbilityWasApplied = false;
 	}
 
 	public void addPen()
 	{
 		if (getPenCount() < DEF_MAX_PEN_COUNT) {
 			
-			float x = rectangle.getX();
+			float x = sprite.getX();
 			int directionFactor = -1;;
 			
-			if (!lookingLeft) {
-				x += rectangle.getWidth();
+			if (!looksLeft()) {
+				x += sprite.getWidth();
 				directionFactor = 1;
 			}
 			
-			float y = rectangle.getY() + rectangle.getHeight() * PEN_THROWING_Y;
+			float y = sprite.getY() + sprite.getHeight() * PEN_THROWING_Y;
 			
 			penList.add(new Pen(x, y, PEN_SIZE * Options.getWindowHeight(), directionFactor));
 		}
@@ -72,8 +78,8 @@ public class Politician extends UncredibleFighter {
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	for (Pen pen : penList) {
     		pen.draw(batch);
@@ -104,5 +110,16 @@ public class Politician extends UncredibleFighter {
 	public Texture getPortrait() {
 		return TextureLibrary.getPoliticianPortrait();
 	}
+	
+    @Override
+    public void reduceHP(int damage) {
+    	if(this.getCurrentHP() <= damage && !passiveAbilityWasApplied) {
+    		passiveAbilityWasApplied = true;
+    		setCurrentHP(10);
+    	}
+    	else super.reduceHP(damage);
+
+
+    }
 
 }

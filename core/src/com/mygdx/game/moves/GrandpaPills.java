@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.Child;
+import com.mygdx.game.character.Grandpa;
 import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.sound.SoundPlayer;
@@ -34,7 +35,7 @@ public class GrandpaPills extends Move{
 
     @Override
     public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-        ((Child) self).addStone();
+        self.changeSpeedTemporarily(1, 7);
     }
 
     @Override

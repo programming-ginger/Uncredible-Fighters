@@ -12,67 +12,86 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mygdx.game.UncredibleFighters;
+import com.mygdx.game.data.Constants;
+import com.mygdx.game.data.Options;
 import com.mygdx.game.moves.Move;
+import com.mygdx.game.screen.FightingScreen;
 
 public abstract class UncredibleFighter {
 	private String name;
 	private int maxHP;
 	private int currentHP;
 	private float speed;
+	private float speedBonus;
+	private float speedBonusDuration;
+	
+	private float confusionSpeedFactor;
+	private float confusionDuration;
+	
+	private float stunDuration;
+	
 	private float angle = 0;
 	private int rotationDirectionFactor;
 	protected Move move1;
 	protected Move move2;
 
 	protected Move activeMove;
-	protected Texture texture;
-	protected Sprite sprite; //todo: Texture durch Sprite ersetzen, damit kann man vieles einfacher machen, wie drehen und Spiegeln
-	protected Rectangle rectangle;
-	protected boolean lookingLeft = false;
+	protected Sprite sprite;
 	public boolean jumping = false;
 	public boolean falling = false;
 	public float moveX = 0;
 	public float moveY = 0;
 	public final float jumpSpeed = 22;
 	public Action action;
-	
-	private final static float FALL_SPEED_AFTER_KO = 100f;
 
 	public void lookLeft() {
-		lookingLeft = true;
+		if (!looksLeft()) {
+			sprite.flip(true, false);
+		}
 	}
 
 	public void lookRight() {
-		lookingLeft = false;
+		if (looksLeft()) {
+			sprite.flip(true, false);
+		}
+	}
+	
+	public UncredibleFighter() {
+		this.sprite = new Sprite();
+		
+		confusionSpeedFactor = 1;
+		confusionDuration = 0;
+		
+		speedBonus = 0;
+		speedBonusDuration = 0;
 	}
 
 	public void draw(SpriteBatch batch) {
-		Texture sprite;
 
 		if (activeMove != null) {
-			sprite = activeMove.getCurrentSprite();
+			Texture sprite = activeMove.getCurrentSprite();
+			draw(batch, sprite);
 		}
 
-		else
-			sprite = texture;
-
-		draw(batch, sprite);
+		else {
+			sprite.draw(batch);		
+		}
 	}
 
 	public void draw(SpriteBatch batch, Texture currentSprite) {
-		float heightRatio = currentSprite.getHeight()/(texture.getHeight() + 0f);
-		float widthRatio = currentSprite.getWidth()/(texture.getWidth() + 0f);
+		float heightRatio = currentSprite.getHeight()/(sprite.getTexture().getHeight() + 0f);
+		float widthRatio = currentSprite.getWidth()/(sprite.getTexture().getWidth() + 0f);
 		
-		float x = rectangle.getX();
-		float y = rectangle.getY();
+		float x = sprite.getX();
+		float y = sprite.getY();
 		
-		if (lookingLeft) {
-			x = x - rectangle.getWidth() * (widthRatio - 1);
+		if (looksLeft()) {
+			x = x - sprite.getWidth() * (widthRatio - 1);
 		}
 		
 		if (angle == 0) {
-		batch.draw(currentSprite, x, y, rectangle.getWidth() * widthRatio, rectangle.getHeight() * heightRatio, 0, 0,
-				currentSprite.getWidth(), currentSprite.getHeight(), lookingLeft, false);
+		batch.draw(currentSprite, x, y, sprite.getWidth() * widthRatio, sprite.getHeight() * heightRatio, 0, 0,
+				currentSprite.getWidth(), currentSprite.getHeight(), looksLeft(), false);
 		}
 		else {
 			sprite.draw(batch);
@@ -99,16 +118,112 @@ public abstract class UncredibleFighter {
 //    }
 
 	public void update(float delta, UncredibleFighter enemy) {
+		
+		move(delta, enemy);
+		
 		if (activeMove != null) {
 			if (!activeMove.updateMove(delta, this, enemy)) {
 				activeMove = null;
 			}
 		}
+		
+		if (speedBonus < Constants.EPSILON) {
+			speedBonusDuration -= delta;
+			
+			if (speedBonusDuration <= 0) {
+				speedBonusDuration = 0;
+				speedBonus = 0;
+			}
+		}
+		
+		if (confusionSpeedFactor > Constants.EPSILON) {
+			confusionDuration -= delta;
+			
+			if (confusionDuration <= 0) {
+				confusionDuration = 0;
+				confusionSpeedFactor = 1;
+			}
+		}
+		
+		if (stunDuration > Constants.EPSILON) {
+			stunDuration -= delta;
+			
+			if (stunDuration <= 0) {
+				stunDuration = 0;
+			}
+		}
+	}
+	
+	private void move(float delta, UncredibleFighter enemy) {
+		
+		Rectangle rectA = sprite.getBoundingRectangle();
+		Rectangle rectB = enemy.getRectangle();
+		if (this.jumping) {
+			this.moveY -= Constants.GRAVITY * delta;
+			if (this.moveY <= 0) {
+				this.moveY = 0;
+				this.falling = true;
+				this.jumping = false;
+			}
+		} else if (this.falling) {
+			this.moveY -= Constants.GRAVITY * delta;
+			if (rectA.y + this.moveY < FightingScreen.paddingBottom) {
+				this.falling = false;
+			}
+		} else {
+			this.moveY = 0;
+		}
+
+		float tmp = rectA.x;
+		rectA.x += this.moveX * delta * Options.getWindowWidth() * Constants.SPEED_FACTOR;
+		if (rectA.overlaps(rectB))
+			rectA.x = tmp;
+
+		tmp = rectA.y;
+		rectA.y = Math.max(rectA.y + this.moveY * delta * Options.getWindowHeight() * Constants.SPEED_FACTOR,
+				FightingScreen.paddingBottom);
+		if (rectA.overlaps(rectB)) {
+			rectA.y = tmp;
+			
+			if (rectB.getX() > rectA.getX()) {
+				rectA.x -= Constants.SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * Constants.SPEED_FACTOR;
+			}
+			else {
+				rectA.x += Constants.SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * Constants.SPEED_FACTOR;
+			}
+		}
+		sprite.setPosition(rectA.x, rectA.y);
+	}
+	
+	public void jump() {
+		if (this.moveY == 0 && !this.jumping && !this.falling) {
+			this.jumping = true;
+			this.moveY = this.jumpSpeed;
+		}
+	}
+	public void moveLeft() {
+		lookLeft();
+		if ((sprite.getX() - this.moveX) >= FightingScreen.paddingLeft) {
+			this.moveX = -1 * this.getSpeed();
+		}
+	}
+	public void moveDown() {
+		if (this.jumping) {
+			this.jumping = false;
+			this.falling = true;
+		}
+		if (this.falling)
+			this.moveY -= 0.5;
+	}
+	public void moveRight() {
+		lookRight();
+		if ((sprite.getX() + this.moveX) < Options.getWindowWidth() - FightingScreen.paddingRight * 2) {
+			this.moveX = 1 * this.getSpeed();
+		}
 	}
 
 	public void setPosition(float x, float y) {
-		rectangle.x = x - rectangle.getWidth() / 2;
-		rectangle.y = y;
+		sprite.setPosition(x - sprite.getWidth()/2, y);
 	}
 
 	public String getName() {
@@ -137,7 +252,7 @@ public abstract class UncredibleFighter {
 	}
 
 	public float getSpeed() {
-		return speed;
+		return (speed + speedBonus) * confusionSpeedFactor;
 	}
 
 	public void setSpeed(float speed) {
@@ -145,20 +260,22 @@ public abstract class UncredibleFighter {
 	}
 
 	public Texture getTexture() {
-		return texture;
+		if (activeMove != null) {
+			return activeMove.getCurrentSprite();
+		}
+		return sprite.getTexture();
 	}
 
 	public void setTexture(Texture texture) {
-		this.texture = texture;
-		this.sprite = new Sprite(texture);
+		sprite.setRegion(texture);
 	}
 
 	public Rectangle getRectangle() {
-		return rectangle;
+		return sprite.getBoundingRectangle();
 	}
 
 	public void setRectangle(Rectangle rectangle) {
-		this.rectangle = rectangle;
+		this.sprite.setBounds(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	}
 
 	public void setMove1(Move move) {
@@ -176,7 +293,7 @@ public abstract class UncredibleFighter {
 	}
 
 	public boolean looksLeft() {
-		return this.lookingLeft;
+		return sprite.isFlipX();
 	}
 
 	public abstract Texture getSpecificBackground();
@@ -187,11 +304,10 @@ public abstract class UncredibleFighter {
 	public boolean fallToTheGround(float delta) {
 		if (angle == 0) {
 			sprite = new Sprite(getKOTexture());
-			sprite.setBounds(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-			sprite.flip(lookingLeft, false);
+			sprite.flip(looksLeft(), false);
 			
 			
-			if (lookingLeft) {
+			if (looksLeft()) {
 				rotationDirectionFactor = -1;
 				sprite.setOrigin(sprite.getWidth(), 0);
 			}
@@ -201,7 +317,7 @@ public abstract class UncredibleFighter {
 			}
 		}
 		
-		angle += delta * FALL_SPEED_AFTER_KO * rotationDirectionFactor;
+		angle += delta * Constants.FALL_SPEED_AFTER_KO * rotationDirectionFactor;
 		
 		if (Math.abs(angle) >= 90) {
 			angle = 90 * rotationDirectionFactor;
@@ -215,4 +331,23 @@ public abstract class UncredibleFighter {
 	protected abstract Texture getKOTexture();
 
 	public abstract Texture getPortrait();
+
+	public void changeSpeedTemporarily(float bonus, float duration) {
+		this.speedBonus = bonus;
+		this.speedBonusDuration = duration;
+	}
+
+	public void invertControllsTemporarily(float duration) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void bore(float boredomSpeedFactor) {
+		this.setSpeed(speed * boredomSpeedFactor);
+	}
+
+	public void stun(float duration) {
+		// TODO Auto-generated method stub
+		
+	}
 }

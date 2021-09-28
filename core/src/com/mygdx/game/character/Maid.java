@@ -23,15 +23,16 @@ public class Maid extends UncredibleFighter
 	private static final float PUDDLE_SIZE = 0.1f;
 	
 	public Maid(){
+		super();
 		setName("Putzfrau");
-		setMaxHP(100);
+		setMaxHP(120);
 		setSpeed(5);
 		setTexture(new Texture("Maid/MaidFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		//add puddle size (?)
 		move1 = new MaidPuddle();
-		move2 = new MaidDirtyMop();
+		//move2 = new MaidDirtyMop();
 	}
 
 	public Rectangle getPuddle(){
@@ -39,12 +40,12 @@ public class Maid extends UncredibleFighter
 	}
 
 	public void makePuddle(){
-		float x = rectangle.getX();
+		float x = sprite.getX();
 		
-		if (!lookingLeft) {
-			x += rectangle.getWidth();
+		if (!looksLeft()) {
+			x += sprite.getWidth();
 		}
-		puddle = new Puddle(x, rectangle.getY(), PUDDLE_SIZE * Options.getWindowHeight(), lookingLeft);
+		puddle = new Puddle(x, sprite.getY(), PUDDLE_SIZE * Options.getWindowHeight(), looksLeft());
 	}
 	
 	@Override
@@ -72,8 +73,8 @@ public class Maid extends UncredibleFighter
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	if (puddle != null) {
     		puddle.draw(batch);

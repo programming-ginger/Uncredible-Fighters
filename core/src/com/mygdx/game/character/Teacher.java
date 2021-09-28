@@ -20,17 +20,23 @@ public class Teacher extends UncredibleFighter {
 	private static final float RULER_SIZE = 0.02f;
 	private Array<Ruler> rulerStickList;
 	
+	private boolean passiveAbilityWasApplied;
+	private static final float BOREDOM_SPEED_FACTOR = 0.7f;
+	
 	public Teacher()
 	{
+		super();
 		setName("Lehrer");
 		setMaxHP(100);
 		setSpeed(5);
 		setTexture(new Texture("Teacher/TeacherFightingSprite.png"));
-		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(texture, 0, 0, Options.getWindowHeight() * SIZE);
+		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		rulerStickList = new Array<>();
 		move1 = new TeacherRuler();
-		move2 = new TeacherChalkCloud();
+		//move2 = new TeacherChalkCloud();
+		
+		passiveAbilityWasApplied = false;
 	}
 	
 	
@@ -38,15 +44,15 @@ public class Teacher extends UncredibleFighter {
 	{
 		if (getRulerCount() < DEF_MAX_PEN_COUNT) {
 			
-			float x = rectangle.getX();
+			float x = sprite.getX();
 			int directionFactor = -1;;
 			
-			if (!lookingLeft) {
-				x += rectangle.getWidth();
+			if (!looksLeft()) {
+				x += sprite.getWidth();
 				directionFactor = 1;
 			}
 			
-			float y = rectangle.getY() + rectangle.getHeight() * RULER_THROWING_Y;
+			float y = sprite.getY() + sprite.getHeight() * RULER_THROWING_Y;
 			
 			rulerStickList.add(new Ruler(x, y, RULER_SIZE * Options.getWindowHeight(), directionFactor));
 		}
@@ -67,6 +73,11 @@ public class Teacher extends UncredibleFighter {
 	public void update(float delta, UncredibleFighter enemy) {
 		super.update(delta, enemy);
 		
+		if (!passiveAbilityWasApplied) {
+			boreEnemy(enemy);
+			passiveAbilityWasApplied = true;
+		}
+		
 		ArrayIterator<Ruler> it = rulerStickList.iterator();
 		
 		while (it.hasNext()) {
@@ -79,8 +90,8 @@ public class Teacher extends UncredibleFighter {
 	}
 	
     @Override
-	public void draw(SpriteBatch batch, Texture currentSprite) {
-    	super.draw(batch, currentSprite);
+	public void draw(SpriteBatch batch) {
+    	super.draw(batch);
     	
     	for (Ruler ruler : rulerStickList) {
     		ruler.draw(batch);
@@ -110,6 +121,10 @@ public class Teacher extends UncredibleFighter {
 	@Override
 	public Texture getPortrait() {
 		return TextureLibrary.getTeacherPortrait();
+	}
+	
+	private void boreEnemy(UncredibleFighter enemy) {
+		enemy.bore(BOREDOM_SPEED_FACTOR);
 	}
 
 }

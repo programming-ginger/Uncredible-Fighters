@@ -13,7 +13,7 @@ public class MaidDirtyMop extends Move{
 
     private final static int MOVE_DAMAGE = 5;
     private final static float ATTACK_RANGE = 0.5f;
-    private final static float ATTACK_HEIGHT = 0.75f;
+    private final static float ATTACK_HEIGHT = 0.65f;
 
     public MaidDirtyMop(){
         Array<Texture> texturesBeforeEffect = new Array<>();
@@ -34,12 +34,28 @@ public class MaidDirtyMop extends Move{
 
     @Override
     public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-        ((Child) self).addStone();
+    	enemy.reduceHP(MOVE_DAMAGE);
+    	SoundPlayer.playHitSound();
     }
 
     @Override
     protected boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy) {
-        return true;
+    	float hitPointX;
+		float hitPointY;
+
+		Rectangle ownPosition = attacker.getRectangle();
+		Rectangle enemyHitbox = enemy.getRectangle();
+
+		if (attacker.looksLeft()) {
+			hitPointX = ownPosition.getX() - ownPosition.getWidth() * ATTACK_RANGE;
+		}
+		else {
+			hitPointX = ownPosition.getX() + ownPosition.getWidth() + ownPosition.getWidth() * ATTACK_RANGE;
+		}
+
+		hitPointY = ownPosition.getY() + ownPosition.getHeight() * ATTACK_HEIGHT;
+
+		return enemyHitbox.contains(hitPointX, hitPointY);
     }
 
 

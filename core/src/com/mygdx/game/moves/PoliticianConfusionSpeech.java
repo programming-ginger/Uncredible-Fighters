@@ -34,7 +34,7 @@ public class PoliticianConfusionSpeech extends Move{
 
     @Override
     public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-        ((Child) self).addStone();
+        enemy.invertControllsTemporarily(5);
     }
 
     @Override

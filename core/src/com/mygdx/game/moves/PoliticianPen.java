@@ -17,7 +17,7 @@ public class PoliticianPen extends Move{
     public PoliticianPen(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Politician/PoliticianFightingSprite.png"));
-        texturesBeforeEffect.add(new Texture("Politician/PoliticianShootingSprite1 - 1.png"));
+        texturesBeforeEffect.add(new Texture("Politician/PoliticianShootingSprite1.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Politician/PoliticianShootingSprite2.png"));

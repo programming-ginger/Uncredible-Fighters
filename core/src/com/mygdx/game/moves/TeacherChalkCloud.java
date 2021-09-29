@@ -22,8 +22,6 @@ public class TeacherChalkCloud extends Move{
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Teacher/TeacherCloudSprite.png"));
-        texturesAfterEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
-
 
         setTexturesBeforeEffect(texturesBeforeEffect);
         setTexturesAfterEffect(texturesAfterEffect);

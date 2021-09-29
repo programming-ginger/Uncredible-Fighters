@@ -8,8 +8,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
+import com.mygdx.game.moves.ChildCrying;
 import com.mygdx.game.moves.ChildHeadNut;
 import com.mygdx.game.moves.ChildSlingshot;
+import com.mygdx.game.moves.Move;
 import com.mygdx.game.projectiles.Stone;
 import com.mygdx.game.sound.SoundPlayer;
 import com.mygdx.game.textures.TextureLibrary;
@@ -21,12 +23,10 @@ public class Child extends UncredibleFighter{
 	
 	private static final float STONE_Y = 0.8f;
 	private static final float STONE_SIZE = 0.03f;
-	
-	private static final float CRYING_TIME = 2f;
 
 	private Array<Stone> stoneList;
 	
-	private float cryingTimeLeft;
+	private Move cry;
 	
 	Pixmap mask = new Pixmap(128, 128, Pixmap.Format.Alpha);
 	
@@ -43,6 +43,7 @@ public class Child extends UncredibleFighter{
 		//setRectangle(rectangle);
 		move1 = new ChildSlingshot();
 		move2 = new ChildHeadNut();
+		cry = new ChildCrying();
 		stoneList = new Array<>();
 	}
 
@@ -120,7 +121,8 @@ public class Child extends UncredibleFighter{
     @Override
     public void reduceHP(int damage) {
     	super.reduceHP(damage);
-    	cryingTimeLeft = CRYING_TIME;
+    	super.activeMove = null;
+    	this.useMove(cry);
     }
 
 }

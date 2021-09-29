@@ -106,7 +106,7 @@ public abstract class UncredibleFighter {
 		useMove(move2);
 	}
 	
-	private void useMove(Move move) {
+	protected void useMove(Move move) {
 		if (activeMove == null) {
 			activeMove = move;
 	        activeMove.use();
@@ -119,7 +119,9 @@ public abstract class UncredibleFighter {
 
 	public void update(float delta, UncredibleFighter enemy) {
 		
-		move(delta, enemy);
+		if (canMove()) {
+			move(delta, enemy);
+		}
 		
 		if (activeMove != null) {
 			if (!activeMove.updateMove(delta, this, enemy)) {
@@ -221,6 +223,10 @@ public abstract class UncredibleFighter {
 			this.moveX = 1 * this.getSpeed();
 		}
 	}
+	
+	public boolean canMove() {
+		return activeMove == null;
+	}
 
 	public void setPosition(float x, float y) {
 		sprite.setPosition(x - sprite.getWidth()/2, y);
@@ -303,7 +309,7 @@ public abstract class UncredibleFighter {
 	 */
 	public boolean fallToTheGround(float delta) {
 		if (angle == 0) {
-			sprite = new Sprite(getKOTexture());
+			sprite.setTexture(getKOTexture());
 			sprite.flip(looksLeft(), false);
 			
 			

@@ -23,12 +23,12 @@ public class TeacherRuler extends Move{
     public TeacherRuler(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
-        texturesBeforeEffect.add(new Texture("Teacher/TeacherAttackSprite.png"));
+        
 
         Array<Texture> texturesAfterEffect = new Array<>();
         //texturesAfterEffect.add(new Texture("Teacher/Teacher-Move1 - 2.png"));
         //texturesAfterEffect.add(new Texture("Teacher/Teacher-Move1 - 3.png"));
-        texturesAfterEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
+        texturesAfterEffect.add(new Texture("Teacher/TeacherAttackSprite.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);
         setTexturesAfterEffect(texturesAfterEffect);

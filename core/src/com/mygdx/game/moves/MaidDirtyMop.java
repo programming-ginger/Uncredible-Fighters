@@ -22,7 +22,6 @@ public class MaidDirtyMop extends Move{
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Maid/MaidAttackSprite1.png"));
-        texturesAfterEffect.add(new Texture("Maid/MaidFightingSprite.png"));
 
 
         setTexturesBeforeEffect(texturesBeforeEffect);

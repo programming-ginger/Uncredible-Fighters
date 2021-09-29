@@ -9,7 +9,9 @@ import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.MaidPuddle;
+import com.mygdx.game.moves.Move;
 import com.mygdx.game.moves.PoliticianConfusionSpeech;
+import com.mygdx.game.moves.PoliticianFakeNews;
 import com.mygdx.game.moves.PoliticianPen;
 import com.mygdx.game.projectiles.Pen;
 import com.mygdx.game.textures.TextureLibrary;
@@ -26,7 +28,7 @@ public class Politician extends UncredibleFighter {
 	
 	private Array<Pen> penList;
 	
-	private boolean passiveAbilityWasApplied;
+	private Move fakeNews;
 
 	public Politician()
 	{
@@ -40,8 +42,7 @@ public class Politician extends UncredibleFighter {
 		penList = new Array<>();
 		move1 = new PoliticianPen();
 		//move2 = new PoliticianConfusionSpeech();
-		
-		passiveAbilityWasApplied = false;
+		fakeNews = new PoliticianFakeNews();
 	}
 
 	public void addPen()
@@ -113,9 +114,9 @@ public class Politician extends UncredibleFighter {
 	
     @Override
     public void reduceHP(int damage) {
-    	if(this.getCurrentHP() <= damage && !passiveAbilityWasApplied) {
-    		passiveAbilityWasApplied = true;
-    		setCurrentHP(10);
+    	if(this.getCurrentHP() <= damage && fakeNews!=null) {
+    		useMove(fakeNews);
+    		fakeNews = null;
     	}
     	else super.reduceHP(damage);
 

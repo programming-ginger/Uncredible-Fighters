@@ -20,7 +20,7 @@ public class Grandpa extends UncredibleFighter {
 	private static final float WALKINGSTICK_THROWING_Y = 0.7f;
 	private static final float WALKINGSTICK_SIZE = 0.01f;
 	
-	private static final float DAMAGE_REDUCTION = 8f;
+	private static final float DAMAGE_REDUCTION = 0.8f;
 
 	private Array<WalkingStick> walkingStickList;
 	

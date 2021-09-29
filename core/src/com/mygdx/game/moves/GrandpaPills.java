@@ -23,7 +23,6 @@ public class GrandpaPills extends Move{
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Grandpa/GrandpaBuffSprite.png"));
-        texturesAfterEffect.add(new Texture("Grandpa/GrandpaFightingSprite.png"));
 
 
         setTexturesBeforeEffect(texturesBeforeEffect);

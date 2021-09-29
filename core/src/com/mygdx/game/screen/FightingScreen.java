@@ -166,6 +166,11 @@ public class FightingScreen implements Screen {
 	}
 
 	private void listenUserAInput() {
+		
+		if (!charA.canMove()) {
+			return;
+		}
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			charA.jump();
 		}
@@ -188,6 +193,11 @@ public class FightingScreen implements Screen {
 	}
 
 	private void listenUserBInput() {
+		
+		if (!charB.canMove()) {
+			return;
+		}
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			charB.jump();
 		}

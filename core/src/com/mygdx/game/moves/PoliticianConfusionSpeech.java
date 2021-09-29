@@ -22,7 +22,6 @@ public class PoliticianConfusionSpeech extends Move{
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Politician/PoliticianConfuseSprite.png"));
-        texturesAfterEffect.add(new Texture("Politician/PoliticianFightingSprite.png"));
 
 
         setTexturesBeforeEffect(texturesBeforeEffect);

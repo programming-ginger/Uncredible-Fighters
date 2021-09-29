@@ -22,7 +22,6 @@ public class ChildHeadNut extends Move{
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Child/ChildAttackSprite.png"));
-        texturesAfterEffect.add(new Texture("Child/ChildFightingSprite.png"));
 
 
         setTexturesBeforeEffect(texturesBeforeEffect);

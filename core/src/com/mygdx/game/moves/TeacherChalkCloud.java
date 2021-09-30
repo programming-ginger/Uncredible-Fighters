@@ -12,16 +12,16 @@ import com.mygdx.game.sound.SoundPlayer;
 public class TeacherChalkCloud extends Move{
 
     private final static float DURATION = 2f;
-    private final static float ATTACK_RANGE = 0.5f;
+    private final static float ATTACK_RANGE = 1.5f;
     private final static float ATTACK_HEIGHT = 0.65f;
 
     public TeacherChalkCloud(){
         Array<Texture> texturesBeforeEffect = new Array<>();
 
-        texturesBeforeEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
+        texturesBeforeEffect.add(new Texture("Teacher/TeacherCloudSprite.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        texturesAfterEffect.add(new Texture("Teacher/TeacherCloudSprite.png"));
+        texturesAfterEffect.add(new Texture("Teacher/TeacherCloudSprite2.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);
         setTexturesAfterEffect(texturesAfterEffect);

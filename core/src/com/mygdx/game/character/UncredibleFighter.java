@@ -25,7 +25,7 @@ public abstract class UncredibleFighter {
 	private float speedBonus;
 	private float speedBonusDuration;
 	
-	private float confusionSpeedFactor;
+	private boolean isConfused;
 	private float confusionDuration;
 	
 	private float stunDuration;
@@ -59,7 +59,7 @@ public abstract class UncredibleFighter {
 	public UncredibleFighter() {
 		this.sprite = new Sprite();
 		
-		confusionSpeedFactor = 1;
+		isConfused = false;
 		confusionDuration = 0;
 		
 		speedBonus = 0;
@@ -129,7 +129,7 @@ public abstract class UncredibleFighter {
 			}
 		}
 		
-		if (speedBonus < Constants.EPSILON) {
+		if (speedBonus > Constants.EPSILON) {
 			speedBonusDuration -= delta;
 			
 			if (speedBonusDuration <= 0) {
@@ -138,12 +138,12 @@ public abstract class UncredibleFighter {
 			}
 		}
 		
-		if (confusionSpeedFactor > Constants.EPSILON) {
+		if (isConfused) {
 			confusionDuration -= delta;
 			
 			if (confusionDuration <= 0) {
 				confusionDuration = 0;
-				confusionSpeedFactor = 1;
+				isConfused = false;;
 			}
 		}
 		
@@ -198,18 +198,51 @@ public abstract class UncredibleFighter {
 	}
 	
 	public void jump() {
+		if (!isConfused) {
+			actuallyJump();			
+		}
+		else {
+			actuallyMoveDown();
+		}
+	}
+	public void moveLeft() {
+		if (!isConfused) {
+			actuallyMoveLeft();			
+		}
+		else {
+			actuallyMoveRight();
+		}
+	}
+	public void moveDown() {
+		if (!isConfused) {
+			actuallyMoveDown();			
+		}
+		else {
+			actuallyJump();
+		}
+	}
+	public void moveRight() {
+		if (!isConfused) {
+			actuallyMoveRight();		
+		}
+		else {
+			actuallyMoveLeft();	
+		}
+	}
+	
+	public void actuallyJump() {
 		if (this.moveY == 0 && !this.jumping && !this.falling) {
 			this.jumping = true;
 			this.moveY = this.jumpSpeed;
 		}
 	}
-	public void moveLeft() {
+	public void actuallyMoveLeft() {
 		lookLeft();
 		if ((sprite.getX() - this.moveX) >= FightingScreen.paddingLeft) {
 			this.moveX = -1 * this.getSpeed();
 		}
 	}
-	public void moveDown() {
+	public void actuallyMoveDown() {
 		if (this.jumping) {
 			this.jumping = false;
 			this.falling = true;
@@ -217,7 +250,7 @@ public abstract class UncredibleFighter {
 		if (this.falling)
 			this.moveY -= 0.5;
 	}
-	public void moveRight() {
+	public void actuallyMoveRight() {
 		lookRight();
 		if ((sprite.getX() + this.moveX) < Options.getWindowWidth() - FightingScreen.paddingRight * 2) {
 			this.moveX = 1 * this.getSpeed();
@@ -225,7 +258,7 @@ public abstract class UncredibleFighter {
 	}
 	
 	public boolean canMove() {
-		return activeMove == null;
+		return activeMove == null && this.stunDuration < Constants.EPSILON;
 	}
 
 	public void setPosition(float x, float y) {
@@ -258,7 +291,7 @@ public abstract class UncredibleFighter {
 	}
 
 	public float getSpeed() {
-		return (speed + speedBonus) * confusionSpeedFactor;
+		return (speed + speedBonus);
 	}
 
 	public void setSpeed(float speed) {
@@ -343,9 +376,9 @@ public abstract class UncredibleFighter {
 		this.speedBonusDuration = duration;
 	}
 
-	public void invertControllsTemporarily(float duration) {
-		// TODO Auto-generated method stub
-		
+	public void confuse(float duration) {
+		confusionDuration = duration;
+		isConfused = true;
 	}
 
 	protected void bore(float boredomSpeedFactor) {
@@ -353,7 +386,7 @@ public abstract class UncredibleFighter {
 	}
 
 	public void stun(float duration) {
-		// TODO Auto-generated method stub
+		this.stunDuration = duration;
 		
 	}
 }

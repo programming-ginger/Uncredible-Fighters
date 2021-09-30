@@ -34,7 +34,7 @@ public class Teacher extends UncredibleFighter {
 		setRectangle(rect);
 		rulerStickList = new Array<>();
 		move1 = new TeacherRuler();
-		//move2 = new TeacherChalkCloud();
+		move2 = new TeacherChalkCloud();
 		
 		passiveAbilityWasApplied = false;
 	}

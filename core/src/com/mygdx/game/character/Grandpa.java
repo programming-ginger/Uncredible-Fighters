@@ -35,7 +35,7 @@ public class Grandpa extends UncredibleFighter {
 		setRectangle(rect);
 		walkingStickList = new Array<WalkingStick>();
 		move1 = new GrandpaWalkingStickBlow();
-		//move2 = new GrandpaPills();
+		move2 = new GrandpaPills();
 		//setRectangle(rectangle);
 	}
 	

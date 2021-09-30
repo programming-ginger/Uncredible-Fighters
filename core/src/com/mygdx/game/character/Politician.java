@@ -41,7 +41,7 @@ public class Politician extends UncredibleFighter {
 		setRectangle(rect);
 		penList = new Array<>();
 		move1 = new PoliticianPen();
-		//move2 = new PoliticianConfusionSpeech();
+		move2 = new PoliticianConfusionSpeech();
 		fakeNews = new PoliticianFakeNews();
 	}
 

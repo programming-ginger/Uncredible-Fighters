@@ -150,9 +150,9 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-//		Options.setWindowHeight(height);
-//		Options.setWindowWidth(width);
-//		//viewport.update(width, height);
+		Options.setWindowHeight(height);
+		Options.setWindowWidth(width);
+		//viewport.update(width, height);
 
 	}
 

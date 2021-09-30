@@ -17,6 +17,9 @@ public class Options implements Serializable{
 
 	private int windowHeight;
 	private int windowWidth;
+	
+	private static int tempWindowHeight;
+	private static int tempWindowWidth;
 
 	private int fightTime;
 	
@@ -68,12 +71,14 @@ public class Options implements Serializable{
 				throw new Error("Could not load Options");
 			}
 		}
+
 		return instance;
 		
 		 
 	}
 	
 	public static void save() {
+		applyNewWindowSize();
 		try {
             ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(SAVEFILE_NAME));
             stream.writeObject(instance);
@@ -120,7 +125,7 @@ public class Options implements Serializable{
 	}
 
 	public static  void setWindowHeight(int windowHeight) {
-		getInstance().windowHeight = windowHeight;
+		tempWindowHeight = windowHeight;
 	}
 
 	public static  int getWindowWidth() {
@@ -128,7 +133,14 @@ public class Options implements Serializable{
 	}
 
 	public static  void setWindowWidth(int windowLength) {
-		getInstance().windowWidth = windowLength;
+		tempWindowWidth = windowLength;
+	}
+	
+	public static  void applyNewWindowSize() {
+		if(tempWindowHeight!=0 && tempWindowWidth!=0) {
+			getInstance().windowHeight = tempWindowHeight;
+			getInstance().windowWidth = tempWindowWidth;
+		}
 	}
 
 	private static  boolean isValidVolume(int volume) {

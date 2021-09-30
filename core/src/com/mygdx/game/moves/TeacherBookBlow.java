@@ -11,16 +11,16 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.projectiles.Projectile;
 import com.mygdx.game.sound.SoundPlayer;
 
-public class TeacherRuler extends Move{
+public class TeacherBookBlow extends Move{
 
     private final static int MOVE_DAMAGE = 5;
-    private final static float ATTACK_RANGE = 0.5f;
-    private final static float ATTACK_HEIGHT = 0.75f;
+    private final static float ATTACK_RANGE = 0.75f;
+    private final static float ATTACK_HEIGHT = 0.6f;
     private final static float RULER_THROWING_Y = 0.7f;
     private final static float RULER_SIZE = 0.7f;
     
     
-    public TeacherRuler(){
+    public TeacherBookBlow(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
         
@@ -39,37 +39,36 @@ public class TeacherRuler extends Move{
 
 	@Override
 	public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-		((Teacher) self).addRuler();
-//		enemy.reduceHP(MOVE_DAMAGE);
-//		SoundPlayer.playHitSound();
+		//((Teacher) self).addRuler();
+		enemy.reduceHP(MOVE_DAMAGE);
+		SoundPlayer.playHitSound();
 		
 	}
     
-	@Override
-	protected boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy) {
-		return true;
-	}
+//	@Override
+//	protected boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy) {
+//		return true;
+//	}
 	
 	
-//    @Override
-//    protected boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy) {
-//        float hitPointX;
-//        float hitPointY;
-//
-//        Rectangle ownPosition = attacker.getRectangle();
-//        Rectangle enemyHitbox = enemy.getRectangle();
-//        
-//
-//        if (!attacker.looksLeft()) {
-//            hitPointX = ownPosition.getX() - ownPosition.getWidth() * ATTACK_RANGE;
-//        }else {
-//            hitPointX = ownPosition.getX() + ownPosition.getWidth() + ownPosition.getWidth() * ATTACK_RANGE;
-//        }
-//
-//        hitPointY = ownPosition.getY() + ownPosition.getHeight() * ATTACK_HEIGHT;
-//
-//        return enemyHitbox.contains(hitPointX, hitPointY);
-//    }
+    @Override
+    protected boolean moveHits(UncredibleFighter attacker, UncredibleFighter enemy) {
+        float hitPointX;
+        float hitPointY;
 
+        Rectangle ownPosition = attacker.getRectangle();
+        Rectangle enemyHitbox = enemy.getRectangle();
+        
+
+        if (attacker.looksLeft()) {
+            hitPointX = ownPosition.getX() - ownPosition.getWidth() * ATTACK_RANGE;
+        }else {
+            hitPointX = ownPosition.getX() + ownPosition.getWidth() + ownPosition.getWidth() * ATTACK_RANGE;
+        }
+
+        hitPointY = ownPosition.getY() + ownPosition.getHeight() * ATTACK_HEIGHT;
+
+        return enemyHitbox.contains(hitPointX, hitPointY);
+    }
 
 }

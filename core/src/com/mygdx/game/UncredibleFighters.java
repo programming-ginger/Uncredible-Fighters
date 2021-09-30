@@ -38,6 +38,7 @@ public class UncredibleFighters extends Game {
 	}
 
 	public static void showSettings() {
+		Options.applyNewWindowSize();
 		instance.setScreen(MenuFactory.createOptionsMenu());
 	}
 
@@ -71,16 +72,19 @@ public class UncredibleFighters extends Game {
 	}
 
 	public static void showMainMenuScreen() {
+		Options.applyNewWindowSize();
 		Screen menu = MenuFactory.createMainMenu();
 		getInstance().setScreen(menu);
 		MusicPlayer.playMenuMusic();
 	}
 
 	public static void showCharacterChoice() {
+		Options.applyNewWindowSize();
 		instance.setScreen(MenuFactory.createCharacterChoiceScreen());
 	}
 
 	public static void startFight(UncredibleFighter player1, UncredibleFighter player2) {
+		Options.applyNewWindowSize();
 		FightingGame game = new FightingGame(player1, player2);
 
 		activeFight = new FightingScreen(game);
@@ -120,6 +124,7 @@ public class UncredibleFighters extends Game {
 
 	
 	private static void showWinnerScreen(Texture background, UncredibleFighter player1, UncredibleFighter player2) {
+		Options.applyNewWindowSize();
 		instance.setScreen(new WinnerScreen(background, player1, player2));
 	}
 }

@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.character.UncredibleFighter;
 import com.mygdx.game.data.Constants;
 import com.mygdx.game.data.Options;
@@ -115,8 +116,8 @@ public class FightingScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-//		Options.setWindowWidth(width);
-//		Options.setWindowHeight(height);
+		Options.setWindowWidth(width);
+		Options.setWindowHeight(height);
 //		viewport.update(Options.getWindowWidth(), Options.getWindowHeight());
 	}
 
@@ -155,6 +156,10 @@ public class FightingScreen implements Screen {
 		if (timeSeconds > 1f) {
 			timeSeconds -= 1f;
 			game.decFightTime();
+			
+			if(game.getFightTime() == 0) {
+				UncredibleFighters.showWinnerScreen();
+			}
 		}
 	}
 

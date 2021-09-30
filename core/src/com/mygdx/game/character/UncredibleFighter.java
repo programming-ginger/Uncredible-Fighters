@@ -122,6 +122,11 @@ public abstract class UncredibleFighter {
 		if (canMove()) {
 			move(delta, enemy);
 		}
+		else {
+			Rectangle ownPosition = getRectangle();
+			moveY(ownPosition, enemy.getRectangle(), delta);
+			sprite.setPosition(ownPosition.x, ownPosition.y);
+		}
 		
 		if (activeMove != null) {
 			if (!activeMove.updateMove(delta, this, enemy)) {
@@ -160,6 +165,18 @@ public abstract class UncredibleFighter {
 		
 		Rectangle rectA = sprite.getBoundingRectangle();
 		Rectangle rectB = enemy.getRectangle();
+
+		moveY(rectA, rectB, delta);
+
+		float tmp = rectA.x;
+		rectA.x += this.moveX * delta * Options.getWindowWidth() * Constants.SPEED_FACTOR;
+		if (rectA.overlaps(rectB))
+			rectA.x = tmp;
+
+		sprite.setPosition(rectA.x, rectA.y);
+	}
+	
+	private void moveY(Rectangle rectA, Rectangle rectB, float delta) {
 		if (this.jumping) {
 			this.moveY -= Constants.GRAVITY * delta;
 			if (this.moveY <= 0) {
@@ -175,13 +192,8 @@ public abstract class UncredibleFighter {
 		} else {
 			this.moveY = 0;
 		}
-
-		float tmp = rectA.x;
-		rectA.x += this.moveX * delta * Options.getWindowWidth() * Constants.SPEED_FACTOR;
-		if (rectA.overlaps(rectB))
-			rectA.x = tmp;
-
-		tmp = rectA.y;
+		
+		float tmp = rectA.y;
 		rectA.y = Math.max(rectA.y + this.moveY * delta * Options.getWindowHeight() * Constants.SPEED_FACTOR,
 				FightingScreen.paddingBottom);
 		if (rectA.overlaps(rectB)) {
@@ -194,7 +206,6 @@ public abstract class UncredibleFighter {
 				rectA.x += Constants.SIDE_PUSH_SPEED_FOR_STACKED_FIGHTERS * delta * Options.getWindowWidth() * Constants.SPEED_FACTOR;
 			}
 		}
-		sprite.setPosition(rectA.x, rectA.y);
 	}
 	
 	public void jump() {

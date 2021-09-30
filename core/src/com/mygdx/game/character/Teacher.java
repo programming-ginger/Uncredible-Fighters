@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.game.data.Options;
 import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.moves.TeacherChalkCloud;
-import com.mygdx.game.moves.TeacherRuler;
+import com.mygdx.game.moves.TeacherBookBlow;
 import com.mygdx.game.projectiles.Ruler;
 import com.mygdx.game.textures.TextureLibrary;
 
@@ -33,7 +33,7 @@ public class Teacher extends UncredibleFighter {
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		rulerStickList = new Array<>();
-		move1 = new TeacherRuler();
+		move1 = new TeacherBookBlow();
 		move2 = new TeacherChalkCloud();
 		
 		passiveAbilityWasApplied = false;

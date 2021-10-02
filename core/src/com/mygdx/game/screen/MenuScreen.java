@@ -28,6 +28,7 @@ public class MenuScreen implements Screen {
 	protected SpriteBatch batch;
 
 	protected Texture background;
+	protected Texture bottomBar;
 
 	protected Array<MenuItem> items;
 	protected Array<PassiveTexture> passiveTextures;

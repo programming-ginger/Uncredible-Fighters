@@ -202,6 +202,7 @@ public abstract class UncredibleFighter {
 		} else if (this.falling) {
 			this.moveY -= Constants.GRAVITY * delta;
 			if (rectA.y + this.moveY < FightingScreen.paddingBottom) {
+				rectA.y = FightingScreen.paddingBottom;
 				this.falling = false;
 			}
 		} else {
@@ -392,7 +393,7 @@ public abstract class UncredibleFighter {
 	 * returns if Character is still standing up
 	 */
 	public boolean standUp(float delta) {
-		angle -= delta * Constants.FALL_SPEED_AFTER_KO * rotationDirectionFactor;
+		angle -= delta * Constants.STAND_UP_SPEED_AFTER_FALLING * rotationDirectionFactor;
 		
 		if (angle * rotationDirectionFactor <= 0) {
 			angle = 0;

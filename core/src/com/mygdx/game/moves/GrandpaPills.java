@@ -34,7 +34,7 @@ public class GrandpaPills extends Move{
 
     @Override
     public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-        self.changeSpeedTemporarily(1, 7);
+        self.changeSpeedTemporarily(2, 7);
     }
 
     @Override

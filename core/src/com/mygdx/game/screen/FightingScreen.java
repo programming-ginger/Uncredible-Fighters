@@ -44,6 +44,7 @@ public class FightingScreen implements Screen {
 	private MenuScreen menuOverlay;
 	
 	private Texture background;
+	private Texture bottom;
 
 	float tmp;
 
@@ -63,6 +64,7 @@ public class FightingScreen implements Screen {
 		charB = game.getCharacterB();
 		charB.setPosition(Options.getWindowWidth() - paddingRight, paddingBottom);
 		hud.updateName(charA.getName(), charB.getName());
+		bottom = new Texture("Arenas/BottomOverlay2.png");
 		
 		this.menuOverlay = new MenuScreen();
 		
@@ -102,6 +104,7 @@ public class FightingScreen implements Screen {
 
 		game.batch.begin();
 		game.batch.draw(background, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
+		game.batch.draw(bottom, 0, 0, Options.getWindowWidth(), Options.getWindowHeight());
 		charA.draw(game.batch);
 		charB.draw(game.batch);
 		game.batch.end();

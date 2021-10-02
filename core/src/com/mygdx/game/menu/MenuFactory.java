@@ -19,8 +19,8 @@ public class MenuFactory {
 	private final static float LOGO_Y = 0.8f;
 	
 	private final static float BACKBUTTON_SIZE = 0.07f;
-	private final static float BACKBUTTON_X = 0.8f;
-	private final static float BACKBUTTON_Y = 0.1f;
+	private final static float BACKBUTTON_X = 0.5f;
+	private final static float BACKBUTTON_Y = 0.15f;
 	
 	final static float MAIN_MENU_BUTTON_SIZE = 0.07f;
 	final static float MAIN_MENU_SPIELEN_Y = 0.5f;
@@ -307,7 +307,7 @@ public class MenuFactory {
 		texture = new Texture("Buttons/ButtonZurueck.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
-		x = Options.getWindowWidth() * BACKBUTTON_X;;
+		x = Options.getWindowWidth() * 0.75f;
 		y = Options.getWindowHeight() * BACKBUTTON_Y;
 
 		ButtonAction buttonAction = new ButtonAction() {

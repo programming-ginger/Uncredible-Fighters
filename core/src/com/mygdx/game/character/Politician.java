@@ -36,7 +36,7 @@ public class Politician extends UncredibleFighter {
 		setName("Politiker");
 		setMaxHP(100);
 		setSpeed(5);
-		setTexture(new Texture("Politician/PoliticianFightingSprite.png"));
+		setTextureInitial(new Texture("Politician/PoliticianFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		penList = new Array<>();

@@ -51,5 +51,6 @@ public class Puddle {
 
 	public void applyEffect(UncredibleFighter enemy) {
 		enemy.reduceHP(DAMAGE);
+		enemy.slip();
 	}
 }

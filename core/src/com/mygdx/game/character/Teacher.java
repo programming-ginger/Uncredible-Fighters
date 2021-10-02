@@ -29,7 +29,7 @@ public class Teacher extends UncredibleFighter {
 		setName("Lehrer");
 		setMaxHP(100);
 		setSpeed(5);
-		setTexture(new Texture("Teacher/TeacherFightingSprite.png"));
+		setTextureInitial(new Texture("Teacher/TeacherFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		rulerStickList = new Array<>();

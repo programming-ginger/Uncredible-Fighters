@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mygdx.game.UncredibleFighters;
 import com.mygdx.game.data.Constants;
 import com.mygdx.game.data.Options;
+import com.mygdx.game.moves.ChildCrying;
 import com.mygdx.game.moves.Move;
 import com.mygdx.game.screen.FightingScreen;
 
@@ -29,6 +30,9 @@ public abstract class UncredibleFighter {
 	private float confusionDuration;
 	
 	private float stunDuration;
+	
+	private boolean isSlipping;
+	private boolean isStandingUp;
 	
 	private float angle = 0;
 	private int rotationDirectionFactor;
@@ -64,11 +68,13 @@ public abstract class UncredibleFighter {
 		
 		speedBonus = 0;
 		speedBonusDuration = 0;
+		
+		isSlipping = false;
 	}
 
 	public void draw(SpriteBatch batch) {
 
-		if (activeMove != null) {
+		if (activeMove != null && !(activeMove instanceof ChildCrying)) {
 			Texture sprite = activeMove.getCurrentSprite();
 			draw(batch, sprite);
 		}
@@ -121,6 +127,15 @@ public abstract class UncredibleFighter {
 		
 		if (canMove()) {
 			move(delta, enemy);
+		}
+		else if (isSlipping) {
+			if (!fallToTheGround(delta)) {
+				isSlipping = false;
+				isStandingUp = true;
+			}
+		}
+		else if (isStandingUp) {
+			isStandingUp = standUp(delta);
 		}
 		else {
 			Rectangle ownPosition = getRectangle();
@@ -269,7 +284,7 @@ public abstract class UncredibleFighter {
 	}
 	
 	public boolean canMove() {
-		return activeMove == null && this.stunDuration < Constants.EPSILON;
+		return activeMove == null && this.stunDuration < Constants.EPSILON && !isSlipping && !isStandingUp;
 	}
 
 	public void setPosition(float x, float y) {
@@ -316,8 +331,12 @@ public abstract class UncredibleFighter {
 		return sprite.getTexture();
 	}
 
-	public void setTexture(Texture texture) {
+	public void setTextureInitial(Texture texture) {
 		sprite.setRegion(texture);
+	}
+	
+	public void setTexture(Texture texture) {
+		sprite.setTexture(texture);
 	}
 
 	public Rectangle getRectangle() {
@@ -337,6 +356,12 @@ public abstract class UncredibleFighter {
 		
 		if (currentHP <= 0) {
 			currentHP = 0;
+			
+			sprite.setTexture(getKOTexture());
+			sprite.flip(looksLeft(), false);
+						
+			prepareFalling();
+			
 			UncredibleFighters.showWinnerScreen();
 		}
 		
@@ -352,25 +377,25 @@ public abstract class UncredibleFighter {
 	 * returns if Character is still falling
 	 */
 	public boolean fallToTheGround(float delta) {
-		if (angle == 0) {
-			sprite.setTexture(getKOTexture());
-			sprite.flip(looksLeft(), false);
-			
-			
-			if (looksLeft()) {
-				rotationDirectionFactor = -1;
-				sprite.setOrigin(sprite.getWidth(), 0);
-			}
-			else {
-				rotationDirectionFactor = 1;
-				sprite.setOrigin(0, 0);
-			}
-		}
-		
 		angle += delta * Constants.FALL_SPEED_AFTER_KO * rotationDirectionFactor;
 		
 		if (Math.abs(angle) >= 90) {
 			angle = 90 * rotationDirectionFactor;
+			sprite.setRotation(angle);
+			return false;
+		}
+		sprite.setRotation(angle);
+		return true;		
+	}
+	
+	/*
+	 * returns if Character is still standing up
+	 */
+	public boolean standUp(float delta) {
+		angle -= delta * Constants.FALL_SPEED_AFTER_KO * rotationDirectionFactor;
+		
+		if (angle * rotationDirectionFactor <= 0) {
+			angle = 0;
 			sprite.setRotation(angle);
 			return false;
 		}
@@ -397,7 +422,26 @@ public abstract class UncredibleFighter {
 	}
 
 	public void stun(float duration) {
-		this.stunDuration = duration;
-		
+		this.stunDuration = duration;	
+	}
+	
+	public void slip() {
+		this.isSlipping = true;
+		prepareFalling();
+	}
+	
+	private void prepareFalling() {
+		if (looksLeft()) {
+			rotationDirectionFactor = -1;
+			sprite.setOrigin(sprite.getWidth(), 0);
+		}
+		else {
+			rotationDirectionFactor = 1;
+			sprite.setOrigin(0, 0);
+		}
+	}
+
+	public Sprite getSprite() {
+		return this.sprite;		
 	}
 }

@@ -30,7 +30,7 @@ public class Grandpa extends UncredibleFighter {
 		setName("Grossvater");
 		setMaxHP(100);
 		setSpeed(4);
-		setTexture(new Texture("Grandpa/GrandpaFightingSprite.png"));
+		setTextureInitial(new Texture("Grandpa/GrandpaFightingSprite.png"));
 		Rectangle rect = MenuFactory.makeScaledRectangleForTexture(sprite.getTexture(), 0, 0, Options.getWindowHeight() * SIZE);
 		setRectangle(rect);
 		walkingStickList = new Array<WalkingStick>();

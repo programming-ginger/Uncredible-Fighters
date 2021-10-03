@@ -7,4 +7,6 @@ public class Constants {
 	public final static float FALL_SPEED_AFTER_KO = 250f;
 	public final static float STAND_UP_SPEED_AFTER_FALLING = 100f;
 	public final static float EPSILON = 0.000001f;
+	
+	public final static float HITMARKER_SIZE = 0.002f;
 }

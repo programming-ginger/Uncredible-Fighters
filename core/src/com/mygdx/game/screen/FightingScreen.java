@@ -64,7 +64,7 @@ public class FightingScreen implements Screen {
 		charB = game.getCharacterB();
 		charB.setPosition(Options.getWindowWidth() - paddingRight, paddingBottom);
 		hud.updateName(charA.getName(), charB.getName());
-		bottom = new Texture("Arenas/BottomOverlay2.png");
+		bottom = new Texture("Arenas/BottomOverlay.png");
 		
 		this.menuOverlay = new MenuScreen();
 		

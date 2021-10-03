@@ -35,6 +35,8 @@ public abstract class UncredibleFighter {
 	private boolean isSlipping;
 	private boolean isStandingUp;
 	
+	private boolean isSlowed = false;
+	
 	private float angle = 0;
 	private int rotationDirectionFactor;
 	protected Move move1;
@@ -42,12 +44,17 @@ public abstract class UncredibleFighter {
 
 	protected Move activeMove;
 	protected Sprite sprite;
+	
+	
 	public boolean jumping = false;
 	public boolean falling = false;
 	public float moveX = 0;
 	public float moveY = 0;
 	public final float jumpSpeed = 22;
 	public Action action;
+	
+	private static final float STATUS_Y = 0.05f;
+	private static final float STATUS_SIZE = 0.1f;
 
 	public void lookLeft() {
 		if (!looksLeft()) {
@@ -83,6 +90,24 @@ public abstract class UncredibleFighter {
 		else {
 			sprite.draw(batch);		
 		}
+		
+		if (this.confusionDuration > Constants.EPSILON) {
+			drawStatusSymbol(batch, new Texture("ConfuseSymbol.png"), 0);
+		}
+		else if (this.stunDuration > Constants.EPSILON) {
+			drawStatusSymbol(batch, new Texture("StunSymbol.png"), 0);
+		}
+		if (this.speedBonus > Constants.EPSILON) {
+			drawStatusSymbol(batch, new Texture("BuffSymbol.png"), -1);
+		}
+		if (this.isSlowed) {
+			drawStatusSymbol(batch, new Texture("DebuffSymbol.png"), 1);
+		}
+		
+	}
+	
+	private void drawStatusSymbol(SpriteBatch batch, Texture texture, int slot) {
+		batch.draw(texture, sprite.getX() + sprite.getWidth()/2 - (1 - slot) * sprite.getHeight() * STATUS_SIZE, sprite.getY() + sprite.getHeight() * (1f + STATUS_Y), sprite.getHeight()*STATUS_SIZE, sprite.getHeight()*STATUS_SIZE);
 	}
 
 	public void draw(SpriteBatch batch, Texture currentSprite) {
@@ -422,6 +447,7 @@ public abstract class UncredibleFighter {
 
 	protected void bore(float boredomSpeedFactor) {
 		this.setSpeed(speed * boredomSpeedFactor);
+		isSlowed = true;
 	}
 
 	public void stun(float duration) {

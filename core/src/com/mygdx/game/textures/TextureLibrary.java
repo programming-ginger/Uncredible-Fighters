@@ -147,35 +147,35 @@ public class TextureLibrary {
 	
 	public static Texture getChildPortrait() {
 		if (childPortrait == null) {
-			childPortrait = new Texture("Child/child-portrait.jpg");
+			childPortrait = new Texture("Child/ChildPortrait.png");
 		}
 		return childPortrait;		
 	}
 	
 	public static Texture getGrandpaPortrait() {
 		if (grandpaPortrait == null) {
-			grandpaPortrait = new Texture("Grandpa/grandpa-portrait.jpg");
+			grandpaPortrait = new Texture("Grandpa/GrandpaPortrait.png");
 		}
 		return grandpaPortrait;		
 	}
 	
 	public static Texture getTeacherPortrait() {
 		if (teacherPortrait == null) {
-			teacherPortrait = new Texture("Teacher/teacher-portrait.jpg");
+			teacherPortrait = new Texture("Teacher/TeacherPortrait.png");
 		}
 		return teacherPortrait;		
 	}
 	
 	public static Texture getMaidPortrait() {
 		if (maidPortrait == null) {
-			maidPortrait = new Texture("Maid/maid-portrait.jpg");
+			maidPortrait = new Texture("Maid/MaidPortrait.png");
 		}
 		return maidPortrait;		
 	}
 	
 	public static Texture getPoliticianPortrait() {
 		if (politicianPortrait == null) {
-			politicianPortrait = new Texture("Politician/politician-portrait.jpg");
+			politicianPortrait = new Texture("Politician/PoliticianPortrait.png");
 		}
 		return politicianPortrait;		
 	}

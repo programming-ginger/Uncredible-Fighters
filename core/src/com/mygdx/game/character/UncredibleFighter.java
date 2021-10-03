@@ -452,11 +452,13 @@ public abstract class UncredibleFighter {
 
 	public void stun(float duration) {
 		this.stunDuration = duration;	
+		this.activeMove = null;
 	}
 	
 	public void slip() {
 		this.isSlipping = true;
 		prepareFalling();
+		this.activeMove = null;
 	}
 	
 	private void prepareFalling() {

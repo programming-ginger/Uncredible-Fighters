@@ -392,7 +392,7 @@ public class MenuFactory {
 		texture = new Texture("Buttons/ButtonZurueck.PNG");
 
 		height = Options.getWindowWidth() * BACKBUTTON_SIZE;
-		x = Options.getWindowWidth() * BACKBUTTON_X;;
+		x = Options.getWindowWidth() * 0.75f;
 		y = Options.getWindowHeight() * BACKBUTTON_Y;
 
 		ButtonAction buttonAction = new ButtonAction() {

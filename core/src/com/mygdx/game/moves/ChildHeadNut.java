@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.character.Child;
 import com.mygdx.game.character.UncredibleFighter;
+import com.mygdx.game.data.Constants;
 import com.mygdx.game.data.Options;
+import com.mygdx.game.menu.MenuFactory;
 import com.mygdx.game.sound.SoundPlayer;
 
 public class ChildHeadNut extends Move{

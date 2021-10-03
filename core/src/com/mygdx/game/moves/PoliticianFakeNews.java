@@ -9,7 +9,7 @@ public class PoliticianFakeNews extends Move {
 	public PoliticianFakeNews() {
         Array<Texture> texturesAfterEffect = new Array<>();
 
-        texturesAfterEffect.add(new Texture("Politician/PoliticianFakeNews.png"));
+        texturesAfterEffect.add(new Texture("Politician/PoliticianFightingSprite.png"));
 
         setTexturesAfterEffect(texturesAfterEffect);
 

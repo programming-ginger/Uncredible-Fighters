@@ -18,9 +18,7 @@ public class WalkingStick extends Projectile{
 
 	@Override
 	public void applyEffect(UncredibleFighter enemy) {
-		enemy.reduceHP(DAMAGE);
-		SoundPlayer.playHitSound();
-		
+		enemy.reduceHP(DAMAGE);		
 	}
 
 }

@@ -21,7 +21,6 @@ public class Ruler extends Projectile{
 	@Override
 	public void applyEffect(UncredibleFighter enemy) {
 			enemy.reduceHP(DAMAGE);
-			SoundPlayer.playHitSound();
 	}
 
 }

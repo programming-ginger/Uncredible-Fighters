@@ -11,7 +11,7 @@ import com.mygdx.game.sound.SoundPlayer;
 
 public class ChildHeadNut extends Move{
 
-    private final static int MOVE_DAMAGE = 5;
+    private final static int MOVE_DAMAGE = 8;
     private final static float ATTACK_RANGE = 0.6f;
     private final static float ATTACK_HEIGHT = 1f;
 
@@ -34,7 +34,6 @@ public class ChildHeadNut extends Move{
     @Override
     public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
     	enemy.reduceHP(MOVE_DAMAGE);
-    	SoundPlayer.playHitSound();
     }
 
 	@Override

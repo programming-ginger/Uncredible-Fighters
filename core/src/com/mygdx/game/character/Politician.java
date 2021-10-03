@@ -25,10 +25,12 @@ public class Politician extends UncredibleFighter {
 	
 	private static final float PEN_THROWING_Y = 0.7f;
 	private static final float PEN_SIZE = 0.005f;
+	private static final float FAKENEWS_SIZE = 0.25f;
 	
 	private Array<Pen> penList;
 	
 	private Move fakeNews;
+	private Texture fakeNewsSpeechBubble;
 
 	public Politician()
 	{
@@ -43,6 +45,7 @@ public class Politician extends UncredibleFighter {
 		move1 = new PoliticianPen();
 		move2 = new PoliticianConfusionSpeech();
 		fakeNews = new PoliticianFakeNews();
+		fakeNewsSpeechBubble = new Texture("Politician/FakeNews.png");
 	}
 
 	public void addPen()
@@ -82,6 +85,10 @@ public class Politician extends UncredibleFighter {
 	public void draw(SpriteBatch batch) {
     	super.draw(batch);
     	
+    	if (this.activeMove instanceof PoliticianFakeNews) {
+    		batch.draw(fakeNewsSpeechBubble, sprite.getX() + sprite.getWidth(), sprite.getY() + sprite.getHeight() * 0.25f, Options.getWindowHeight() *  FAKENEWS_SIZE * fakeNewsSpeechBubble.getHeight() / fakeNewsSpeechBubble.getWidth(), Options.getWindowHeight() *  FAKENEWS_SIZE);
+    	}
+    	
     	for (Pen pen : penList) {
     		pen.draw(batch);
     	}
@@ -119,8 +126,6 @@ public class Politician extends UncredibleFighter {
     		fakeNews = null;
     	}
     	else super.reduceHP(damage);
-
-
     }
 
 }

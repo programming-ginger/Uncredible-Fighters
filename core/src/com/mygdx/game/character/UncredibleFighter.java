@@ -17,6 +17,7 @@ import com.mygdx.game.data.Options;
 import com.mygdx.game.moves.ChildCrying;
 import com.mygdx.game.moves.Move;
 import com.mygdx.game.screen.FightingScreen;
+import com.mygdx.game.sound.SoundPlayer;
 
 public abstract class UncredibleFighter {
 	private String name;
@@ -354,12 +355,13 @@ public abstract class UncredibleFighter {
 
 	public void reduceHP(int damage) {
 		currentHP -= damage;
+		SoundPlayer.playHitSound();
 		
 		if (currentHP <= 0) {
 			currentHP = 0;
 			
 			sprite.setTexture(getKOTexture());
-			sprite.flip(looksLeft(), false);
+			//sprite.flip(looksLeft(), false);
 						
 			prepareFalling();
 			

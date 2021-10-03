@@ -13,11 +13,9 @@ import com.mygdx.game.sound.SoundPlayer;
 
 public class TeacherBookBlow extends Move{
 
-    private final static int MOVE_DAMAGE = 5;
+    private final static int MOVE_DAMAGE = 8;
     private final static float ATTACK_RANGE = 0.75f;
     private final static float ATTACK_HEIGHT = 0.6f;
-    private final static float RULER_THROWING_Y = 0.7f;
-    private final static float RULER_SIZE = 0.7f;
     
     
     public TeacherBookBlow(){
@@ -26,8 +24,6 @@ public class TeacherBookBlow extends Move{
         
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        //texturesAfterEffect.add(new Texture("Teacher/Teacher-Move1 - 2.png"));
-        //texturesAfterEffect.add(new Texture("Teacher/Teacher-Move1 - 3.png"));
         texturesAfterEffect.add(new Texture("Teacher/TeacherAttackSprite.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);
@@ -39,9 +35,7 @@ public class TeacherBookBlow extends Move{
 
 	@Override
 	public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-		//((Teacher) self).addRuler();
 		enemy.reduceHP(MOVE_DAMAGE);
-		SoundPlayer.playHitSound();
 		
 	}
     

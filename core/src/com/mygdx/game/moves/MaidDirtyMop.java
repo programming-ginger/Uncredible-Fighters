@@ -34,7 +34,6 @@ public class MaidDirtyMop extends Move{
     @Override
     public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
     	enemy.reduceHP(MOVE_DAMAGE);
-    	SoundPlayer.playHitSound();
     }
 
     @Override

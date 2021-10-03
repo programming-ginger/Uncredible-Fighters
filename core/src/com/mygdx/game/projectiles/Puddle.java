@@ -13,7 +13,7 @@ import com.mygdx.game.textures.TextureLibrary;
 public class Puddle {
 
 	private Sprite sprite;
-	private static final int DAMAGE = 10;
+	private static final int DAMAGE = 5;
 	
 	public Puddle(float x, float y, float height, boolean charIsLookingLeft) {
 		

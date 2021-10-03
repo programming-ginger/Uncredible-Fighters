@@ -29,7 +29,7 @@ public class ChildCrying extends Move {
 
 	@Override
 	public void applyEffect(UncredibleFighter self, UncredibleFighter enemy) {
-		self.setTexture(new Texture("Child/ChildCrying.png"));
+		self.setTexture(new Texture("Child/ChildCryingSprite.png"));
 	}
 
 }

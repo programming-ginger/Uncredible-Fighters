@@ -18,7 +18,7 @@ public class MaidPuddle extends Move{
     public MaidPuddle(){
         Array<Texture> texturesBeforeEffect = new Array<>();
         texturesBeforeEffect.add(new Texture("Maid/MaidFightingSprite.png"));
-        texturesBeforeEffect.add(new Texture("Maid/MaidAttackSprite2.png"));
+        texturesBeforeEffect.add(new Texture("Maid/MaidPuddleSprite.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
         texturesAfterEffect.add(new Texture("Maid/MaidFightingSprite.png"));

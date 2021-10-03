@@ -17,10 +17,10 @@ public class GrandpaWalkingStickBlow extends Move{
 
     public GrandpaWalkingStickBlow(){
         Array<Texture> texturesBeforeEffect = new Array<>();
-        texturesBeforeEffect.add(new Texture("Grandpa/GrandpaFightingSprite.png"));
+        texturesBeforeEffect.add(new Texture("Grandpa/GrandpaAttackSprite1.png"));
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        texturesAfterEffect.add(new Texture("Grandpa/GrandpaAttackSprite.png"));
+        texturesAfterEffect.add(new Texture("Grandpa/GrandpaAttackSprite2.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);
         setTexturesAfterEffect(texturesAfterEffect);

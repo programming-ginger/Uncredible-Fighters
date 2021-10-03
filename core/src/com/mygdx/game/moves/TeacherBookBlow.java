@@ -20,11 +20,11 @@ public class TeacherBookBlow extends Move{
     
     public TeacherBookBlow(){
         Array<Texture> texturesBeforeEffect = new Array<>();
-        texturesBeforeEffect.add(new Texture("Teacher/TeacherFightingSprite.png"));
+        texturesBeforeEffect.add(new Texture("Teacher/TeacherAttackSprite1.png"));
         
 
         Array<Texture> texturesAfterEffect = new Array<>();
-        texturesAfterEffect.add(new Texture("Teacher/TeacherAttackSprite.png"));
+        texturesAfterEffect.add(new Texture("Teacher/TeacherAttackSprite2.png"));
 
         setTexturesBeforeEffect(texturesBeforeEffect);
         setTexturesAfterEffect(texturesAfterEffect);
